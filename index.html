@@ -4025,7 +4025,15 @@ labeled, "DID Subject".
 In the case of group control, the [=DID controllers=] are expected to act
 together in some fashion, such as when using a cryptographic algorithm that
 requires multiple digital signatures ("multi-sig") or a threshold number of
-digital signatures ("m-of-n"). From a functional standpoint, this option is
+digital signatures ("m-of-n"). The expression of these additional thresholds for
+verifying a proof can be expressed in a [=verification method=] as described in
+Section [[[#verification-methods]]] or can be an intrinsic part of the
+[=verification method=] where the number of [=DID controllers=] that
+participated in the generation of a particular digital signature are hidden for
+privacy reasons.
+        </p>
+        <p>
+From a functional standpoint, this option is
 similar to a single [=DID controller=] because, although each of the
 [=DID controllers=] in the [=DID controller=] group has its own graph
 node, the actual control collapses into a single logical graph node
