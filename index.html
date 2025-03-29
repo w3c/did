@@ -1311,63 +1311,23 @@ an absolute [=DID URL=] value of
     <h1>Data Model</h1>
     <p>
 This specification defines a data model that can be used to express [=DID
-documents=] and DID document data structures, which can then be serialized
-into multiple concrete [=representations=]. This section provides a
-high-level description of the data model, descriptions of the ways different
-types of properties are expressed in the data model, and instructions for
-extending the data model.
+documents=] and their internal data structures, which can then be serialized
+into a concrete expression. This section provides a high-level description of
+the data model, descriptions of the ways different types of properties are
+expressed in the data model, and instructions for extending the data model.
     </p>
     <p>
 A [=DID document=] consists of a <a data-cite="INFRA#maps">map</a> of <a
 data-cite="INFRA#map-entry">entries</a>, where each entry consists of a
-key/value pair. The [=DID document=] data model contains at least two
-different classes of entries. The first class of entries is called properties,
-and is specified in section [[[#core-properties]]]. The second class
-is made up of [=representation-specific entries=], and is specified in
-section [[[#representations]]].
+key/value pair. The [=DID document=] data model contains properties that are
+specified in section [[[#core-properties]]].
     </p>
-
-    <figure id="did-document-entries">
-      <img style="margin: auto; display: block;"
-        src="diagrams/diagram-did-document-entries.svg" alt="
-Diagram illustrating the entries in the DID document, including properties
-and representation-specific entries; some entries are defined by this
-specification; others are defined by registered or unregistered extensions.">
-      <figcaption>
-The entries in a DID document.
-See also: <a class="longdesc-link"
-href="#did-document-entries-longdesc">narrative description</a>.
-      </figcaption>
-    </figure>
-
-    <div class="longdesc" id="did-document-entries-longdesc">
-The diagram is titled, "Entries in the DID Document map". A dotted grey line
-runs horizontally through the center of the diagram. The space above the line
-is labeled "Properties", and the space below it, "Representation-specific
-entries". Six labeled rectangles appear in the diagram, three lying above the
-dotted grey line and three below it. A large green rectangle, labeled "DID
-Extensions", encloses the four leftmost rectangles (upper left,
-upper center, lower left, and lower center). The two leftmost rectangles
-(upper left and lower left) are outlined in blue and labeled in blue, as
-follows. The upper left rectangle is labeled "Core Properties", and contains
-text "id, alsoKnownAs, controller, authentication, verificationMethod, service,
-serviceEndpoint, ...". The lower left rectangle is labeled "Core
-Representation-specific Entries", and contains text "@context". The four
-rightmost rectangles (upper center, upper right, lower center, and lower right)
-are outlined in grey and labeled in black, as follows. The upper center
-rectangle is labeled, "Property Extensions", and contains text
-"ethereumAddress". The lower center rectangle is labeled,
-"Representation-specific Entry Extensions", and contains no other text. The
-upper right rectangle is labeled, "Unregistered Property Extensions", and
-contains text "foo". The lower right rectangle is labeled "Unregistered
-Representation-specific Entry Extensions", and contains text "%YAML, xmlns".
-    </div>
 
     <p>
 All entry keys in the [=DID document=] data model are <a
 data-cite="INFRA#strings">strings</a>. All entry values are expressed using one
-of the abstract data types in the table below, and each [=representation=]
-specifies the concrete serialization format of each data type.
+of the data types in the table below, and each [=representation=] specifies the
+concrete serialization format of each data type.
     </p>
 
     <table class="simple" id="data-types">
@@ -1389,8 +1349,8 @@ Considerations
           </td>
           <td>
 A finite ordered sequence of key/value pairs, with no key appearing twice as
-specified in [[INFRA]]. A map is sometimes referred to as an
-<a data-cite="INFRA#maps">ordered map</a> in [[INFRA]].
+specified in the [[[INFRA]]]. A map is sometimes referred to as an
+<a data-cite="INFRA#maps">ordered map</a> in the [[[INFRA]]].
           </td>
         </tr>
         <tr>
@@ -1398,7 +1358,7 @@ specified in [[INFRA]]. A map is sometimes referred to as an
 <a data-cite="INFRA#list">list</a>
           </td>
           <td>
-A finite ordered sequence of items as specified in [[INFRA]].
+A finite ordered sequence of items as specified in the [[[INFRA]]].
           </td>
         </tr>
         <tr>
@@ -1407,8 +1367,8 @@ A finite ordered sequence of items as specified in [[INFRA]].
           </td>
           <td>
 A finite ordered sequence of items that does not contain the same item twice
-as specified in [[INFRA]]. A set is sometimes referred to as an
-<a data-cite="INFRA#ordered-set">ordered set</a> in [[INFRA]].
+as specified in the [[[INFRA]]]. A set is sometimes referred to as an
+<a data-cite="INFRA#ordered-set">ordered set</a> in the [[[INFRA]]].
           </td>
         </tr>
         <tr>
@@ -1417,8 +1377,8 @@ as specified in [[INFRA]]. A set is sometimes referred to as an
           </td>
           <td>
 A date and time value that is capable of losslessly expressing all values
-expressible by a `dateTime` as specified in
-[<a data-cite="XMLSCHEMA11-2#dateTime">XMLSCHEMA11-2</a>].
+expressible by a <a data-cite="XMLSCHEMA11-2#dateTime">dateTime</a> as
+specified in [[XMLSCHEMA11-2]].
           </td>
         </tr>
         <tr>
@@ -1427,7 +1387,7 @@ expressible by a `dateTime` as specified in
           </td>
           <td>
 A sequence of code units often used to represent human readable language
-as specified in [[INFRA]].
+as specified in the [[[INFRA]]].
           </td>
         </tr>
         <tr>
@@ -1435,10 +1395,10 @@ as specified in [[INFRA]].
 <dfn>integer</dfn>
           </td>
           <td>
-A real number without a fractional component as specified in
-[<a data-cite="XMLSCHEMA11-2#decimal">XMLSCHEMA11-2</a>]. To maximize
-interoperability, implementers are urged to heed the advice regarding
-integers in <a data-cite="rfc8259#section-6">RFC8259, Section 6: Numbers</a>.
+A <a data-cite="XMLSCHEMA11-2#decimal">real number without a fractional
+component</a> as specified in [[XMLSCHEMA11-2]]. To maximize interoperability,
+implementers are urged to heed the advice regarding integers in
+<a data-cite="rfc8259#section-6">RFC8259, Section 6: Numbers</a>.
           </td>
         </tr>
         <tr>
@@ -1446,10 +1406,11 @@ integers in <a data-cite="rfc8259#section-6">RFC8259, Section 6: Numbers</a>.
 <dfn>double</dfn>
           </td>
           <td>
-A value that is often used to approximate arbitrary real numbers as specified
-in [<a data-cite="XMLSCHEMA11-2#double">XMLSCHEMA11-2</a>]. To maximize
-interoperability, implementers are urged to heed the advice regarding
-doubles in <a data-cite="rfc8259#section-6">RFC8259, Section 6: Numbers</a>.
+A <a data-cite="XMLSCHEMA11-2#double">real number with a fractional
+component</a> that is often used to approximate arbitrary real numbers as
+specified in [[XMLSCHEMA11-2]]. To maximize interoperability, implementers are
+urged to heed the advice regarding doubles in
+<a data-cite="rfc8259#section-6">RFC8259, Section 6: Numbers</a>.
           </td>
         </tr>
         <tr>
@@ -1457,7 +1418,7 @@ doubles in <a data-cite="rfc8259#section-6">RFC8259, Section 6: Numbers</a>.
 <a data-cite="INFRA#boolean">boolean</a>
           </td>
           <td>
-A value that is either true or false as defined in [[INFRA]].
+A value that is either true or false as defined in the [[[INFRA]]].
           </td>
         </tr>
         <tr>
@@ -1465,7 +1426,7 @@ A value that is either true or false as defined in [[INFRA]].
 <a data-cite="INFRA#nulls">null</a>
           </td>
           <td>
-A value that is used to indicate the lack of a value as defined in [[INFRA]].
+A value that is used to indicate the lack of a value as defined in the [[[INFRA]]].
           </td>
         </tr>
       </tbody>
@@ -1473,11 +1434,11 @@ A value that is used to indicate the lack of a value as defined in [[INFRA]].
 
     <p class="advisement" title="Ordering of values">
 As a result of the <a href="#data-model">data model</a> being defined using
-terminology from [[INFRA]], property values which can contain more than one
-item, such as <a data-cite="INFRA#list">lists</a>, <a
+terminology from the [[[INFRA]]], property values which can contain more than
+one item, such as <a data-cite="INFRA#list">lists</a>, <a
 data-cite="INFRA#ordered-map">maps</a> and <a
 data-cite="INFRA#ordered-set">sets</a>, are explicitly ordered. All list-like
-value structures in [[INFRA]] are ordered, whether or not that order is
+value structures in the [[[INFRA]]] are ordered, whether or not that order is
 significant. For the purposes of this specification, unless otherwise stated, <a
 data-cite="INFRA#ordered-map">map</a> and <a
 data-cite="INFRA#ordered-set">set</a> ordering is not important and
@@ -1493,26 +1454,24 @@ The data model supports two types of extensibility.
       <ol>
         <li>
 For maximum interoperability, it is RECOMMENDED that extensions use the
-repository of DID Extensions [[?DID-EXTENSIONS]]. The use of
-this mechanism for new properties or other extensions is the only specified
-mechanism that ensures that two different [=representations=] will be able to
-work together.
+repository of [[[?DID-EXTENSIONS]]]. The use of this mechanism for new
+properties or other extensions is the only specified mechanism that ensures that
+two different [=representations=] will be able to work together.
         </li>
       <li>
 [=Representations=] MAY define other extensibility mechanisms, including ones
-that do not require the use of the DID Extensions. Such extension
-mechanisms SHOULD support lossless conversion into any other conformant
-[=representation=]. Extension mechanisms for a [=representation=] SHOULD
-define a mapping of all properties and [=representation=] syntax into the <a
-href="#data-model">data model</a> and its type system.
+that do not require the use of the [[[?DID-EXTENSIONS]]] repository. Such
+extension mechanisms SHOULD support lossless conversion into any other
+conformant [=representation=]. Extension mechanisms for a [=representation=]
+SHOULD define a mapping of all properties and [=representation=] syntax into the
+<a href="#data-model">data model</a> and its type system.
       </li>
       </ol>
       <p class="note" title="Unregistered extensions are less reliable">
 It is always possible for two specific implementations to agree out-of-band to
-use a mutually understood extension or [=representation=] that is not
-recorded in the repository of DID Extensions [[?DID-EXTENSIONS]];
-interoperability between such implementations and the larger ecosystem will be
-less reliable.
+use a mutually understood extension or [=representation=] that is not recorded
+in the repository of [[[?DID-EXTENSIONS]]]; interoperability between such
+implementations and the larger ecosystem will be less reliable.
       </p>
     </section>
   </section>
