@@ -2442,17 +2442,17 @@ report an error.
       </section>
 
       <section>
-        <h2>JSON-LD Processing</h2>
+        <h2>Generalized JSON-LD Processors</h2>
 
         <p>
 [[JSON-LD11|JSON-LD]] is a JSON-based format used to serialize
 <a href="http://www.w3.org/TR/ld-glossary/#linked-data">Linked Data</a>. Some
-implementations are expected to process [=DID documents=] using JSON-LD
-Processing algorithms and so implementers are strongly advised to ensure JSON-LD
-Processing is not prevented in order to maximize interoperability. The semantics
-of a [=DID document=] are the same whether JSON-LD Processing is performed or
-not. Any difference in semantics is an implementation or DID Method
-specification error.
+implementations are expected to process [=DID documents=] using generalized
+JSON-LD Processing algorithms and so implementers are strongly advised to ensure
+general JSON-LD Processing is not prevented in order to maximize
+interoperability. The semantics of a [=DID document=] are the same whether
+general JSON-LD Processing is performed or not. Any difference in semantics is
+an implementation or DID Method specification error.
         </p>
 
         <p>
@@ -2516,7 +2516,7 @@ rules.
         <p class="advisement" title="JSON-LD serialization rules">
 All implementers creating [=conforming producers=] that produce or consume
 [=representations=] meant to be processed as JSON-LD are advised to ensure that
-their algorithms valid [[JSON-LD11|JSON-LD]] documents. Invalid JSON-LD
+their algorithms are valid [[JSON-LD11|JSON-LD]] documents. Invalid JSON-LD
 documents will cause JSON-LD processors to halt and report errors.
         </p>
 
