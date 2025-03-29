@@ -1917,18 +1917,19 @@ specification for a description of [=services=].
     <h1>Representations</h1>
 
     <p>
-A concrete serialization of a [=DID document=] in this specification is
-called a [=representation=]. A [=representation=] is created by
-serializing the <a href="#data-model">data model</a> through a process called
+A concrete serialization of a [=DID document=] in this specification is called a
+[=representation=]. A [=representation=] is created by serializing the <a
+href="#data-model">data model</a> through a process called
 <dfn>production</dfn>. A [=representation=] is transformed into the <a
 href="#data-model">data model</a> through a process called
 <dfn>consumption</dfn>. The <em>production</em> and <em>consumption</em>
 processes enable the conversion of information from one [=representation=] to
-another. This specification defines [=representations=] for JSON and JSON-LD,
-and developers can use any other [=representation=], such as XML or
-YAML, that is capable of expressing the <a href="#data-model">data model</a>.
-The following sections define the general rules for [=production=] and
-[=consumption=], as well as the JSON and JSON-LD [=representations=].
+another. This specification defines a [=representation=] for JSON, which is
+compatible with processors that also perform JSON-LD processing. Developers can
+use any other [=representation=], such as CBOR or YAML, that is capable of
+expressing the <a href="#data-model">data model</a>. The following sections
+define the general rules for [=production=] and [=consumption=], as well as the
+JSON [=representation=].
     </p>
 
     <section>
@@ -2102,7 +2103,7 @@ one blue arrow pointing from the grey-outlined rectangle to the respective
 black-outlined rectangle, labeled "produce", and one red arrow pointing in the
 reverse direction, labeled "consume". The black-outlined rectangle in the upper
 right is labeled "application/did+cbor", and contains hexadecimal data. The
-rectangle in the lower right is labeled "application/did+json", and contains
+rectangle in the lower right is labeled "application/did", and contains
 the following JSON data:
         </p>
         <pre>
@@ -2120,7 +2121,7 @@ the following JSON data:
 }
         </pre>
         <p>
-The rectangle in the lower left is labeled "application/did+ld+json", and
+The rectangle in the lower left is labeled "application/did", and
 contains the following JSON-LD data:
         </p>
         <pre>
@@ -2282,13 +2283,14 @@ All entries of a [=DID document=] MUST be included in the root <a
 data-cite="RFC8259#section-4">JSON Object</a>. Entries MAY contain additional
 data substructures subject to the value representation rules in the list above.
 When serializing a [=DID document=], a [=conforming producer=] MUST
-specify a media type of `application/did+json` to downstream
+specify a media type of `application/did` to downstream
 applications.
         </p>
 
       <pre class="example nohighlight"
         title="Example DID document in JSON representation">
 {
+  "@context": "https://www.w3.org/ns/did/v1.1",
   "id": "did:example:123456789abcdefghi",
   "authentication": [{
     "id": "did:example:123456789abcdefghi#keys-1",
@@ -2428,7 +2430,7 @@ JSON [[RFC8259]] specification.
 
         <p>
 If media type information is available to a [=conforming consumer=] and the
-media type value is `application/did+json`, then the data structure
+media type value is `application/did`, then the data structure
 being consumed is a [=DID document=], and the root element MUST be a <a
 data-cite="RFC8259#section-4">JSON Object</a> where all members of the object
 are entries of the [=DID document=]. A [=conforming consumer=] for a JSON
@@ -2438,26 +2440,29 @@ report an error.
         </p>
 
       </section>
-    </section>
 
-    <section>
-      <h2>JSON-LD</h2>
+      <section>
+        <h2>JSON-LD Processing</h2>
 
-      <p>
-JSON-LD [[JSON-LD11]] is a JSON-based format used to serialize <a
-href="http://www.w3.org/TR/ld-glossary/#linked-data">Linked Data</a>. This
-section defines the [=production=] and [=consumption=] rules for the
-JSON-LD [=representation=].
-      </p>
+        <p>
+[[JSON-LD11|JSON-LD]] is a JSON-based format used to serialize
+<a href="http://www.w3.org/TR/ld-glossary/#linked-data">Linked Data</a>. Some
+implementations are expected to process [=DID documents=] using JSON-LD
+Processing algorithms and so implementers are strongly advised to ensure JSON-LD
+Processing is not prevented in order to maximize interoperability. The semantics
+of a [=DID document=] are the same whether JSON-LD Processing is performed or
+not. Any difference in semantics is an implementation or DID Method
+specification error.
+        </p>
 
-      <p>
-The JSON-LD [=representation=] defines the following
-[=representation-specific entries=]:
-      </p>
+        <p>
+For JSON-LD processing to occur, a `@context` property MUST be specified
+according to the rules specified in the [[[JSON-LD11]]] specification.
+        </p>
 
-      <dl>
-        <dt><dfn>@context</dfn></dt>
-        <dd>
+        <dl>
+          <dt><dfn>@context</dfn></dt>
+          <dd>
 The <a href="https://www.w3.org/TR/json-ld11/#the-context">JSON-LD Context</a>
 is either a <a data-cite="INFRA#string">string</a> or a <a
 data-cite="INFRA#list">list</a> containing any combination of <a
@@ -2509,16 +2514,16 @@ rules.
         </pre>
 
         <p class="advisement" title="JSON-LD serialization rules">
-All implementers creating [=conforming producers=] that produce JSON-LD
-[=representations=] are advised to ensure that their algorithms
-produce valid JSON-LD [[JSON-LD11]] documents. Invalid JSON-LD documents will
-cause JSON-LD processors to halt and report errors.
+All implementers creating [=conforming producers=] that produce or consume
+[=representations=] meant to be processed as JSON-LD are advised to ensure that
+their algorithms valid [[JSON-LD11|JSON-LD]] documents. Invalid JSON-LD
+documents will cause JSON-LD processors to halt and report errors.
         </p>
 
         <p>
 In order to achieve interoperability across different [=representations=],
 all JSON-LD Contexts and their terms SHOULD be registered in the repository of
-DID Extensions [[?DID-EXTENSIONS]].
+[[[?DID-EXTENSIONS]]].
         </p>
 
         <p>
@@ -2527,27 +2532,10 @@ SHOULD NOT produce a [=DID document=] that contains terms not defined via the
 `@context` as [=conforming consumers=] are expected to remove
 unknown terms. When serializing a JSON-LD [=representation=] of a [=DID
 document=], a [=conforming producer=] MUST specify a media type of
-`application/did+ld+json` to downstream applications.
+`application/did` to downstream applications.
         </p>
 
       </section>
-
-      <section>
-        <h3>Consumption</h3>
-
-        <p>
-The [=DID document=] and any DID document data structures expressed by a
-JSON-LD [=representation=] MUST be deserialized into the <a
-href="#data-model">data model</a> according to the JSON [=representation=]
-[=consumption=] rules as defined in [[[#json]]].
-        </p>
-
-        <p class="advisement" title="JSON-LD serialization rules">
-All implementers creating [=conforming consumers=] that consume JSON-LD
-[=representations=] are advised to ensure that their algorithms only accept
-valid JSON-LD [[JSON-LD11]] documents. Invalid JSON-LD documents will cause
-JSON-LD processors to halt and report errors.
-        </p>
 
         <p>
 [=Conforming consumers=] that process a JSON-LD [=representation=] SHOULD
@@ -4444,7 +4432,7 @@ Recommendation</a> include:
       <li>
 Addition of at risk markers to most of the DID Parameters, the data model
 datatypes that are expected to not be implemented, and the
-application/did+ld+json media type. This change resulted in the DID WG's
+application/did media type. This change resulted in the DID WG's
 decision to perform a second Candidate Recommendation phase. All other
 changes were either editorial or predicted in "at risk" issue markers.
       </li>
