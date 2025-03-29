@@ -1586,6 +1586,27 @@ DIDs as defined in Section [[[#did-syntax]]]. The process of authorizing a
 
       </section>
 
+      <section>
+        <h3>Identifier Restrictions</h3>
+        <p>
+Identifiers used in a [=DID document=] to identify a [=DID subject=] or a [=DID
+Controller=] do not allow the use of query parameters or fragment identifiers.
+Implementers are urged to pay particular attention to the list of allowable
+characters in Section [[[#did-syntax]]] which makes this requirement clear; the
+syntax does not include the `?` character nor the `#` character. This is in
+contrast to identifiers used in a [=DID document=] to identify a [=verification
+method=] or a [=service=], which follow the syntax rules in Section
+[[[#did-url-syntax]]], which does allow the use of query parameters and fragment
+identifiers. Even so, the use of query parameters in long-lived canonical
+identifiers used in [=DID=] ecosystems is discouraged as it can increase the
+complexity of [=DID resolution=] software and potentially lead to a larger
+security attack surface. Fragment identifiers are also expected to be unique
+within a particular [=DID document=] and are discouraged from being re-used
+across time to refer to different [=resources=], such as two different
+[=verification methods=] within the same [=DID document=].
+        </p>
+      </section>
+
     </section>
 
     <section>
