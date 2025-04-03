@@ -1436,12 +1436,12 @@ A value that is used to indicate the lack of a value as defined in the [[[INFRA]
 As a result of the <a href="#data-model">data model</a> being defined using
 terminology from the [[[INFRA]]], property values which can contain more than
 one item, such as <a data-cite="INFRA#list">lists</a>, <a
-data-cite="INFRA#ordered-map">maps</a> and <a
+data-cite="INFRA#ordered-map">maps</a>, and <a
 data-cite="INFRA#ordered-set">sets</a>, are explicitly ordered. All list-like
 value structures in the [[[INFRA]]] are ordered, whether or not that order is
-significant. For the purposes of this specification, unless otherwise stated, <a
-data-cite="INFRA#ordered-map">map</a> and <a
-data-cite="INFRA#ordered-set">set</a> ordering is not important and
+significant. For the purposes of this specification, unless otherwise stated,
+ordering of a <a data-cite="INFRA#ordered-map">map</a> or <a
+data-cite="INFRA#ordered-set">set</a> is not important and
 implementations are not expected to produce or consume deterministically ordered
 values.
     </p>
@@ -1464,7 +1464,7 @@ that do not require the use of the [[[?DID-EXTENSIONS]]] repository. Such
 extension mechanisms SHOULD support lossless conversion into any other
 conformant [=representation=]. Extension mechanisms for a [=representation=]
 SHOULD define a mapping of all properties and [=representation=] syntax into the
-<a href="#data-model">data model</a> and its type system.
+[=DID document=] <a href="#data-model">data model</a> and its type system.
       </li>
       </ol>
       <p class="note" title="Unregistered extensions are less reliable">
@@ -1925,7 +1925,7 @@ href="#data-model">data model</a> through a process called
 <dfn>consumption</dfn>. The <em>production</em> and <em>consumption</em>
 processes enable the conversion of information from one [=representation=] to
 another. This specification defines a [=representation=] for JSON, which is
-compatible with processors that also perform JSON-LD processing. Developers can
+also compatible with processors that perform JSON-LD processing. Developers can
 use any other [=representation=], such as CBOR or YAML, that is capable of
 expressing the <a href="#data-model">data model</a>. The following sections
 define the general rules for [=production=] and [=consumption=], as well as the
@@ -2448,11 +2448,11 @@ report an error.
 [[JSON-LD11|JSON-LD]] is a JSON-based format used to serialize
 <a href="http://www.w3.org/TR/ld-glossary/#linked-data">Linked Data</a>. Some
 implementations are expected to process [=DID documents=] using generalized
-JSON-LD Processing algorithms and so implementers are strongly advised to ensure
-general JSON-LD Processing is not prevented in order to maximize
-interoperability. The semantics of a [=DID document=] are the same whether
-general JSON-LD Processing is performed or not. Any difference in semantics is
-an implementation or DID Method specification error.
+JSON-LD Processing algorithms, so, to maximize interoperability, implementers are
+strongly advised to ensure that general JSON-LD Processing is not prevented. The
+semantics of a [=DID document=] are the same whether general JSON-LD Processing
+is performed or not. Any difference in semantics is an error in either 
+implementation or DID Method specification.
         </p>
 
         <p>
@@ -2514,14 +2514,14 @@ rules.
         </pre>
 
         <p class="advisement" title="JSON-LD serialization rules">
-All implementers creating [=conforming producers=] that produce or consume
+All implementers creating [=conforming processors=] that produce or consume
 [=representations=] meant to be processed as JSON-LD are advised to ensure that
-their algorithms are valid [[JSON-LD11|JSON-LD]] documents. Invalid JSON-LD
+their algorithms produce valid [[JSON-LD11|JSON-LD]] documents. Invalid JSON-LD
 documents will cause JSON-LD processors to halt and report errors.
         </p>
 
         <p>
-In order to achieve interoperability across different [=representations=],
+To achieve interoperability across different [=representations=],
 all JSON-LD Contexts and their terms SHOULD be registered in the repository of
 [[[?DID-EXTENSIONS]]].
         </p>
