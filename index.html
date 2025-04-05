@@ -9,17 +9,9 @@
     them out in the same tree and use relative links so that they'll work
     offline.
   -->
-
-  <script class="remove"
-    src="https://unpkg.com/browse/jquery/dist/jquery.min.js"></script>
   <script class="remove"
     src="https://www.w3.org/Tools/respec/respec-w3c"></script>
-  <script class="removeOnSave"
-    src="https://unpkg.com/reqlist/lib/reqlist.js"></script>
-  <link class="removeOnSave" rel="stylesheet" type="text/css"
-    href="https://unpkg.com/reqlist/lib/reqlist.css" />
 
-  <script class='remove' src="./common.js"></script>
   <script class="remove" type="text/javascript">
   var respecConfig = {
     // the W3C WG and public mailing list
@@ -57,8 +49,64 @@
     pluralize: true,
 
     // extend the bibliography entries
-    localBiblio: ccg.localBiblio,
-    xref: ["web-platform", "vc-data-integrity", "cid"],
+    localBiblio: {
+      "REST": {
+        title: "Architectural Styles and the Design of Network-based Software Architectures",
+        date: "2000",
+        href: "http://www.ics.uci.edu/~fielding/pubs/dissertation/",
+        authors: [
+          "Fielding, Roy Thomas"
+        ],
+        publisher: "University of California, Irvine."
+      },
+      "MACAROONS": {
+        title: 'Macaroons',
+        // TODO: create spec
+        href: 'http://macaroons.io/',
+        authors: ['Arnar Birgisson', 'Joe Gibbs Politz', 'Úlfar Erlingsson',
+          'Ankur Taly', 'Michael Vrable', 'Mark Lentczner'],
+        status: 'unofficial',
+        publisher: 'Credentials Community Group'
+      },
+      'OPEN-BADGES': {
+        title: 'Open Badges',
+        href: 'https://github.com/openbadges/openbadges-specification',
+        authors: ['Brian Brennan', 'Mike Larsson', 'Chris McAvoy',
+          'Nate Otto', 'Kerri Lemoie'],
+        status:   'BA-DRAFT',
+        publisher:  'Badge Alliance Standard Working Group'
+      },
+      "MATRIX-URIS": {
+        title: "Matrix URIs - Ideas about Web Architecture",
+        date: "December 1996",
+        href: "https://www.w3.org/DesignIssues/MatrixURIs.html",
+        authors: [
+          "Tim Berners-Lee"
+        ],
+        status: "Personal View"
+      },
+      "DNS-DID": {
+        title: "The Decentralized Identifier (DID) in the DNS",
+        date: "February 2019",
+        href: "https://datatracker.ietf.org/doc/draft-mayrhofer-did-dns/",
+        authors: [
+          "Alexander Mayrhofer",
+          "Dimitrij Klesev",
+          "Markus Sabadello"
+        ],
+        status: "Internet-Draft"
+      },
+      "PRIVACY-BY-DESIGN": {
+        title: "Privacy by Design",
+        href: "https://iapp.org/media/pdf/resource_center/pbd_implement_7found_principles.pdf",
+        authors: [
+          "Ann Cavoukian"
+        ],
+        date: "2011",
+        publisher: "Information and Privacy Commissioner"
+      }
+    },
+    xref: ["web-platform", "cid"],
     lint: {
       "informative-dfn": false
     },
@@ -373,7 +421,7 @@ A simple example of a decentralized identifier (DID)
       <p>
 The example [=DID=] above resolves to a [=DID document=]. A [=DID
 document=] contains information associated with the [=DID=], such as ways
-to cryptographically [=authenticate=] a [=DID controller=].
+to cryptographically [=authentication|authenticate=] a [=DID controller=].
       </p>
 
       <pre class="example nohighlight" title="A simple DID document">
@@ -714,9 +762,9 @@ that section.
      </p>
 
       <p>
-A <dfn>conforming DID document</dfn> is any concrete expression of the data
-model described in this specification which complies with the relevant normative
-statements in [[[#data-model]]] and [[[#core-properties]]]. A
+A <dfn class="external">conforming DID document</dfn> is any concrete expression
+of the data model described in this specification which complies with the
+relevant normative statements in [[[#data-model]]] and [[[#core-properties]]]. A
 serialization format for the conforming document is deterministic,
 bi-directional, and lossless, as described in [[[#representations]]].
       </p>
@@ -734,7 +782,7 @@ and complies with the relevant normative statements in [[[#representations]]].
       </p>
 
       <p>
-A <dfn class="lint-ignore">conforming DID method</dfn> is any specification that
+A <dfn class="external">conforming DID method</dfn> is any specification that
 complies with the relevant normative statements in [[[#methods]]].
       </p>
 
@@ -755,8 +803,259 @@ complies with the relevant normative statements in [[[#methods]]].
   <section class="informative">
     <h2>Terminology</h2>
 
-    <div data-include="terms.html">
-    </div>
+    <p>
+This section defines the terms used in this specification and throughout
+[=decentralized identifier=] infrastructure. A link to these terms is
+included whenever they appear in this specification.
+    </p>
+
+    <dl class="termlist">
+
+      <dt><dfn data-lt="amplification">amplification attack</dfn></dt>
+      <dd>
+A class of attack where the attacker attempts to exhaust a target system's
+CPU, storage, network, or other resources by providing small, valid inputs into
+the system that result in damaging effects that can be exponentially more costly
+to process than the inputs themselves.
+      </dd>
+
+      <dt><dfn class="external" data-lt="decentralized identifiers|DID|DIDs">decentralized identifier</dfn> (DID)</dt>
+
+      <dd>
+A globally unique persistent identifier that does not require a centralized
+registration authority and is often generated and/or registered
+cryptographically. The generic format of a DID is defined in <a
+href="#did-syntax"></a>. A specific [=DID scheme=] is defined in a <a>DID
+method</a> specification. Many—but not all—DID methods make use of
+[=distributed ledger technology=] (DLT) or some other form of decentralized
+network.
+      </dd>
+
+      <dt><dfn class="external" data-lt="did controllers|did controller(s)">DID controller</dfn></dt>
+
+      <dd>
+An entity that has the capability to make changes to a [=DID document=]. A
+[=DID=] might have more than one DID controller. The DID controller(s)
+can be denoted by the optional `controller` property at the top level of the
+[=DID document=]. Note that a DID controller might be the <a>DID
+subject</a>.
+      </dd>
+
+      <dt><dfn>DID delegate</dfn></dt>
+
+      <dd>
+An entity to whom a [=DID controller=] has granted permission to use a
+[=verification method=] associated with a [=DID=] via a <a>DID document</a>. For
+example, a parent who controls a child's [=DID document=] might permit the child
+to use their personal device in order to [=authentication|authenticate=]. In
+this case, the child is the [=DID delegate=]. The child's personal device would
+contain the private cryptographic material enabling the child to
+[=authentication|authenticate=] using the [=DID=]. However, the child might not
+be permitted to add other personal devices without the parent's permission.
+      </dd>
+
+      <dt><dfn class="external" data-lt="DID documents">DID document</dfn></dt>
+
+      <dd>
+A set of data describing the [=DID subject=], including mechanisms, such as
+cryptographic public keys, that the [=DID subject=] or a [=DID delegate=] can
+use to [=authentication|authenticate=] itself and prove its association with the
+[=DID=]. A DID document might have one or more different [=representations=] as
+defined in <a href="#representations"></a> or in the W3C [[[DID-EXTENSIONS]]].
+      </dd>
+
+      <dt><dfn data-lt="DID fragments">DID fragment</dfn></dt>
+
+      <dd>
+The portion of a [=DID URL=] that follows the first hash sign character
+(<code>#</code>). DID fragment syntax is identical to URI fragment syntax.
+      </dd>
+
+      <dt><dfn data-lt="DID methods">DID method</dfn></dt>
+
+      <dd>
+A definition of how a specific [=DID method scheme=] is implemented. A DID method is
+defined by a DID method specification, which specifies the precise operations by
+which [=DIDs=] and [=DID documents=] are created, resolved, updated,
+and deactivated. See <a href="#methods"></a>.
+      </dd>
+
+      <dt><dfn data-lt="DID paths">DID path</dfn></dt>
+
+      <dd>
+The portion of a [=DID URL=] that begins with and includes the first forward
+slash (<code>/</code>) character and ends with either a question mark
+(<code>?</code>) character, a fragment hash sign (<code>#</code>) character,
+or the end of the [=DID URL=]. DID path syntax is identical to URI path syntax.
+See <a href="#path"></a>.
+      </dd>
+
+      <dt><dfn data-lt="DID queries">DID query</dfn></dt>
+
+      <dd>
+The portion of a [=DID URL=] that follows and includes the first question
+mark character (<code>?</code>). DID query syntax is identical to URI query
+syntax. See <a href="#query"></a>.
+      </dd>
+
+      <dt><dfn>DID resolution</dfn></dt>
+
+      <dd>
+The process that takes as its input a [=DID=] and a set of resolution
+options and returns a [=DID document=] in a conforming [=representation=]
+plus additional metadata. This process relies on the "Read" operation of the
+applicable [=DID method=]. The inputs and outputs of this process are
+defined in [[?DID-RESOLUTION]].
+      </dd>
+
+      <dt><dfn data-lt="DID resolvers">DID resolver</dfn></dt>
+
+      <dd>
+A [=DID resolver=] is a software and/or hardware component that performs the
+[=DID resolution=] function by taking a [=DID=] as input and producing a
+conforming [=DID document=] as output.
+      </dd>
+
+      <dt><dfn data-lt="DID schemes|DID method scheme">DID scheme</dfn></dt>
+
+      <dd>
+The formal syntax of a [=decentralized identifier=]. The generic DID scheme
+begins with the prefix <code>did:</code> as defined in <a
+href="#did-syntax"></a>. Each [=DID method=] specification defines a specific
+DID method scheme that works with that specific [=DID method=]. In a specific DID
+method scheme, the DID method name follows the first colon and terminates with
+the second colon, e.g., <code>did:example:</code>
+      </dd>
+
+      <dt><dfn data-lt="DID subjects">DID subject</dfn></dt>
+
+      <dd>
+The entity identified by a [=DID=] and described by a [=DID document=].
+Anything can be a DID subject: person, group, organization, physical thing,
+digital thing, logical thing, etc.
+      </dd>
+
+      <dt><dfn data-lt="DID URLs">DID URL</dfn></dt>
+
+      <dd>
+A [=DID=] plus any additional syntactic component that conforms to the
+definition in <a href="#did-url-syntax"></a>. This includes an optional <a>DID
+path</a> (with its leading <code>/</code> character), optional [=DID query=]
+(with its leading <code>?</code> character), and optional [=DID fragment=]
+(with its leading <code>#</code> character).
+      </dd>
+
+      <dt><dfn>DID URL dereferencing</dfn></dt>
+
+      <dd>
+The process that takes as its input a [=DID URL=] and a set of input
+metadata, and returns a [=resource=]. This resource might be a <a>DID
+document</a> plus additional metadata, a secondary resource
+contained within the [=DID document=], or a resource entirely
+external to the [=DID document=]. The process uses [=DID resolution=] to
+fetch a [=DID document=] indicated by the [=DID=] contained within the
+[=DID URL=]. The dereferencing process can then perform additional processing
+on the [=DID document=] to return the dereferenced resource indicated by the
+[=DID URL=]. The inputs and outputs of this process are defined in
+[[?DID-RESOLUTION]].
+      </dd>
+
+      <dt><dfn data-lt="DID URL dereferencers">DID URL dereferencer</dfn></dt>
+
+      <dd>
+A software and/or hardware system that performs the [=DID URL dereferencing=]
+function for a given [=DID URL=] or [=DID document=].
+      </dd>
+
+      <dt><dfn data-lt="distributed ledger technology|DLT">distributed ledger</dfn> (DLT)</dt>
+
+      <dd>
+A non-centralized system for recording events. These systems establish
+sufficient confidence for participants to rely upon the data recorded by others
+to make operational decisions. They typically use distributed databases where
+different nodes use a consensus protocol to confirm the ordering of
+cryptographically signed transactions. The linking of digitally signed
+transactions over time often makes the history of the ledger effectively
+immutable.
+      </dd>
+
+      <dt><dfn data-lt="resources">resource</dfn></dt>
+
+      <dd>
+As defined by [[RFC3986]]: "...the term 'resource' is used in a general sense
+for whatever might be identified by a URI." Similarly, any resource might serve
+as a [=DID subject=] identified by a [=DID=].
+      </dd>
+
+        <dt><dfn data-lt="representations">representation</dfn></dt>
+
+      <dd>
+As defined for HTTP by [[RFC7231]]: "information that is intended to reflect a
+past, current, or desired state of a given resource, in a format that can be
+readily communicated via the protocol, and that consists of a set of
+representation metadata and a potentially unbounded stream of representation
+data." A [=DID document=] is a representation of information describing a
+[=DID subject=]. See <a href="#representations"></a>.
+      </dd>
+
+        <dt><dfn data-lt="representation-specific entry|non-representation-specific
+    entry">representation-specific entries</dfn></dt>
+
+      <dd>
+Entries in a [=DID document=] whose meaning is particular to a specific
+[=representation=]. Defined in <a href="#data-model"></a> and
+<a href="#representations"></a>. For example, <a><code>@context</code></a> in
+the <a href="#json-ld">JSON-LD representation</a> is a
+<em>representation-specific entry</em>.
+      </dd>
+
+      <dt><dfn data-lt="service">services</dfn></dt>
+      <dd>
+Means of communicating or interacting with the [=DID subject=] or
+associated entities via one or more [=service endpoints=].
+Examples include discovery services, agent services, social networking
+services, file storage services, and verifiable credential repository services.
+      </dd>
+
+      <dt><dfn data-lt="service endpoints">service endpoint</dfn></dt>
+
+      <dd>
+A network address, such as an HTTP URL, at which [=services=] operate on
+behalf of a [=DID subject=].
+      </dd>
+
+      <dt><dfn data-lt="URI|URIs">Uniform Resource Identifier</dfn> (URI)</dt>
+
+      <dd>
+The standard identifier format for all resources on the World Wide Web as
+defined by [[RFC3986]]. A [=DID=] is a type of URI scheme.
+      </dd>
+
+      <dt>
+        <dfn data-lt="verifiable data registry|verifiable data registries">
+        verifiable data registry</dfn>
+      </dt>
+
+      <dd>
+A system that facilitates the creation, verification, updating, and/or
+deactivation of [=decentralized identifiers=] and [=DID documents=]. A
+verifiable data registry might also be used for other
+cryptographically-verifiable data structures such as <a>verifiable
+credentials</a>. For more information, see the W3C Verifiable Credentials
+specification [[VC-DATA-MODEL]].
+      </dd>
+
+      <dt><dfn>verifiable timestamp</dfn></dt>
+
+      <dd>
+A verifiable timestamp enables a third-party to verify that a data object
+existed at a specific moment in time and that it has not been modified or
+corrupted since that moment in time. If the data integrity could reasonably have
+been modified or corrupted since that moment in time, the timestamp is not
+verifiable.
+      </dd>
+
+    </dl>
 
     <p>
 In addition to the terminology above, this specification also uses terminology
@@ -2222,7 +2521,7 @@ be serialized to the JSON-LD [=representation=] according to the JSON
 In addition to using the JSON [=representation=] [=production=] rules,
 JSON-LD production MUST include the
 <a data-lt="representation-specific entry">representation-specific</a>
-<a>`@context`</a> entry. The serialized value of
+`@context` entry. The serialized value of
 `@context` MUST be the <a data-cite="RFC8259#section-7">JSON
 String</a> `https://www.w3.org/ns/did/v1.1`, or a <a
 data-cite="RFC8259#section-5">JSON Array</a> where the first item is the <a
@@ -2396,10 +2695,10 @@ Unsupported Media Type`</a>.
     <h1>Methods</h1>
 
     <p>
-A [=DID method=] defines how implementers can realize the features
+A [=conforming DID method=] defines how implementers can realize the features
 described by this specification. [=DID methods=] are often associated with a
-particular [=verifiable data registry=]. New [=DID methods=] are defined
-in their own specifications to enable interoperability between different
+particular [=verifiable data registry=]. New [=DID methods=] are defined in
+their own specifications to enable interoperability between different
 implementations of the same [=DID method=].
     </p>
 
@@ -4124,7 +4423,7 @@ On the other hand, if the change is implemented by changing the value of the
       </p>
       <p>
 If it is important to verify a change of [=DID controller=], implementers are
-advised to [=authenticate=] the new [=DID controller=] against the
+advised to [=authentication|authenticate=] the new [=DID controller=] against the
 [=verification methods=] in the revised [=DID document=].
       </p>
     </section>
@@ -4166,7 +4465,7 @@ Working Group efforts.
 Add links to use cases document.
       </li>
       <li>
-Add warning related to [[?MULTIBASE]] and `publicKeyMultibase`.
+Add warning related to Multibase and `publicKeyMultibase` [[?CID]].
       </li>
       <li>
 Remove at risk issue markers for features that gained enough implementation
