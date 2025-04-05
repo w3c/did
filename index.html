@@ -982,20 +982,19 @@ immutable.
       <dt><dfn data-lt="resources">resource</dfn></dt>
 
       <dd>
-As defined by [[RFC3986]]: "...the term 'resource' is used in a general sense
-for whatever might be identified by a URI." Similarly, any resource might serve
-as a [=DID subject=] identified by a [=DID=].
+A thing that is identified by a [=URI=], as defined in [[RFC3986]]. Similarly,
+any resource might serve as a [=DID subject=] identified by a [=DID=].
       </dd>
 
         <dt><dfn data-lt="representations">representation</dfn></dt>
 
       <dd>
-As defined for HTTP by [[RFC7231]]: "information that is intended to reflect a
-past, current, or desired state of a given resource, in a format that can be
-readily communicated via the protocol, and that consists of a set of
-representation metadata and a potentially unbounded stream of representation
-data." A [=DID document=] is a representation of information describing a
-[=DID subject=]. See <a href="#representations"></a>.
+A concrete expression of a [=resource=], as defined by [[RFC7231]]: "information
+that is intended to reflect a past, current, or desired state of a given
+resource, in a format that can be readily communicated via the protocol, and
+that consists of a set of representation metadata and a potentially unbounded
+stream of representation data." A [=DID document=] is a representation of
+information describing a [=DID subject=]. See <a href="#representations"></a>.
       </dd>
 
         <dt><dfn data-lt="representation-specific entry|non-representation-specific
@@ -1009,9 +1008,9 @@ the <a href="#json-ld">JSON-LD representation</a> is a
 <em>representation-specific entry</em>.
       </dd>
 
-      <dt><dfn data-lt="service">services</dfn></dt>
+      <dt><dfn>service</dfn></dt>
       <dd>
-Means of communicating or interacting with the [=DID subject=] or
+A means of communicating or interacting with the [=DID subject=] or
 associated entities via one or more [=service endpoints=].
 Examples include discovery services, agent services, social networking
 services, file storage services, and verifiable credential repository services.
