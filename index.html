@@ -2437,17 +2437,18 @@ report an error.
       </section>
 
       <section>
-        <h2>Generalized JSON-LD Processors</h2>
+        <h2>JSON-LD Processors</h2>
 
         <p>
 [[JSON-LD11|JSON-LD]] is a JSON-based format used to serialize
 <a href="http://www.w3.org/TR/ld-glossary/#linked-data">Linked Data</a>. Some
-implementations are expected to process [=DID documents=] using generalized
-JSON-LD Processing algorithms, so, to maximize interoperability, implementers are
-strongly advised to ensure that general JSON-LD Processing is not prevented. The
-semantics of a [=DID document=] are the same whether general JSON-LD Processing
-is performed or not. Any difference in semantics is an error in either
-implementation or DID Method specification.
+implementations are expected to process [=DID documents=] using the standard
+JSON-LD Processing algorithms, so, to maximize interoperability, implementers
+are strongly advised to ensure that JSON-LD Processing using standards-compliant
+libraries is not prevented. The semantics of a [=DID document=] are the same
+whether JSON-LD Processing using standards-compliant libraries is performed or
+not. Any difference in semantics is an error in either implementation or DID
+Method specification.
         </p>
 
         <p>
@@ -2466,28 +2467,23 @@ maps</a>.
         </dd>
       </dl>
 
-      <section>
-        <h3>Production</h3>
-
-        <p>
+      <p>
 The [=DID document=], DID document data structures, and
 [=representation-specific entries=] <a data-cite="INFRA#maps">map</a> MUST
-be serialized to the JSON-LD [=representation=] according to the JSON
+be serialized to the JSON [=representation=] according to the JSON
 [=representation=] [=production=] rules as defined in [[[#json]]].
         </p>
 
         <p>
 In addition to using the JSON [=representation=] [=production=] rules,
-JSON-LD production MUST include the
-<a data-lt="representation-specific entry">representation-specific</a>
+production MUST include the
 `@context` entry. The serialized value of
 `@context` MUST be the <a data-cite="RFC8259#section-7">JSON
 String</a> `https://www.w3.org/ns/did/v1.1`, or a <a
 data-cite="RFC8259#section-5">JSON Array</a> where the first item is the <a
 data-cite="RFC8259#section-7">JSON String</a>
 `https://www.w3.org/ns/did/v1.1` and the subsequent items are
-serialized according to the JSON [=representation=] [=production=]
-rules.
+serialized according to the JSON [=production=] rules.
         </p>
 
         <pre class="example"
@@ -2529,8 +2525,6 @@ unknown terms. When serializing a JSON-LD [=representation=] of a [=DID
 document=], a [=conforming producer=] MUST specify a media type of
 `application/did` to downstream applications.
         </p>
-
-      </section>
 
         <p>
 [=Conforming consumers=] that process a JSON-LD [=representation=] SHOULD
