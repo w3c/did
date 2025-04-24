@@ -1003,9 +1003,7 @@ information describing a [=DID subject=]. See <a href="#representations"></a>.
       <dd>
 Entries in a [=DID document=] whose meaning is particular to a specific
 [=representation=]. Defined in <a href="#data-model"></a> and
-<a href="#representations"></a>. For example, <a><code>@context</code></a> in
-the <a href="#json-ld">JSON-LD representation</a> is a
-<em>representation-specific entry</em>.
+<a href="#representations"></a>.
       </dd>
 
       <dt><dfn>service</dfn></dt>
@@ -2419,10 +2417,9 @@ A <a data-cite="INFRA#nulls">null</a> value.
         </table>
 
         <p class="advisement">
-All implementers creating [=conforming consumers=] that produce JSON
-[=representations=] are advised to ensure that their algorithms are aligned
-with the <a
-data-cite="INFRA#parse-json-bytes-to-an-infra-value">JSON
+All implementers creating [=conforming producers=] or [=conforming consumers=]
+are advised to ensure that their algorithms are aligned with the
+<a data-cite="INFRA#parse-json-bytes-to-an-infra-value">JSON
 conversion rules</a> in the [[INFRA]] specification and the <a
 data-cite="RFC8259#section-6">precision advisements regarding Numbers</a> in the
 JSON [[RFC8259]] specification.
@@ -2451,7 +2448,7 @@ implementations are expected to process [=DID documents=] using generalized
 JSON-LD Processing algorithms, so, to maximize interoperability, implementers are
 strongly advised to ensure that general JSON-LD Processing is not prevented. The
 semantics of a [=DID document=] are the same whether general JSON-LD Processing
-is performed or not. Any difference in semantics is an error in either 
+is performed or not. Any difference in semantics is an error in either
 implementation or DID Method specification.
         </p>
 
@@ -2514,7 +2511,7 @@ rules.
         </pre>
 
         <p class="advisement" title="JSON-LD serialization rules">
-All implementers creating [=conforming processors=] that produce or consume
+All implementers creating [=conforming consumers=] that produce or consume
 [=representations=] meant to be processed as JSON-LD are advised to ensure that
 their algorithms produce valid [[JSON-LD11|JSON-LD]] documents. Invalid JSON-LD
 documents will cause JSON-LD processors to halt and report errors.
