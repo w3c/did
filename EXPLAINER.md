@@ -1,6 +1,6 @@
-#Decentralized Identifiers (DIDs) 1.1 – Explainer
+# Decentralized Identifiers (DIDs) 1.1 – Explainer
 
-##Discussion Venues
+## Discussion Venues
 
 The Decentralized Identifiers (DIDs) 1.1 specification is developed openly by
 the W3C Decentralized Identifier Working Group. Anyone interested can join the
@@ -11,7 +11,7 @@ archives available online. As the spec itself notes, feedback is welcomed via
 the GitHub issue tracker or the mailing list. (For more details on use cases and
 requirements, see the W3C DID Use Cases and Requirements document.)
 
-##User-Facing Problem
+## User-Facing Problem
 
 Today’s digital identity is often controlled by large centralized authorities.
 For example, email addresses, social media accounts, and even government IDs
@@ -32,7 +32,7 @@ than necessary. The DID specification is motivated by solving exactly these
 problems – giving end users control, continuity, and privacy for their
 identifiers without a central gatekeeper.
 
-##Proposed Approach
+## Proposed Approach
 
 A Decentralized Identifier (DID) is essentially a new kind of identifier that a
 user or entity fully controls.
@@ -98,7 +98,7 @@ method) and trust anything signed by that key. In practice, a DID Document can
 be richer – it might include multiple keys (for key rotation or different
 purposes) and service endpoints – but this shows the core idea.
 
-##Practical Use Cases
+## Practical Use Cases
 
 DIDs have many practical uses for everyday people, devices, and services. For
 instance, a person could use a DID to log into websites or apps. Instead of
@@ -130,7 +130,7 @@ systems: for example, you could take your identity DID from one social media
 platform to another, or control your device’s DID even if you replace your home
 router.
 
-##Alternatives Considered
+## Alternatives Considered
 
 Before DIDs, there were other identity solutions, each with trade-offs.
 Federated login systems (OAuth 2.0/OpenID Connect) let you sign in using a
@@ -159,7 +159,7 @@ portable and “system- and network-independent”. In summary, unlike single-ve
 or single-technology schemes, DIDs offer a unified, extensible framework where
 many different underlying systems can interoperate securely.
 
-##Accessibility, Security, and Privacy Considerations
+## Accessibility, Security, and Privacy Considerations
 
 The DID specification has been developed with attention to inclusivity,
 security, and privacy. Because DIDs and DID Documents are simply text-based
