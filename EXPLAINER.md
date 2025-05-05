@@ -200,3 +200,9 @@ outside of the DID system.
 
 Further Reading: See the official W3C DID Core spec (v1.1) for full details, and
 the W3C Use Cases and Requirements document for more examples and motivations.
+
+This document was generated using ChatGPT's "Research Mode" to read the W3C TAG's Explainer authoring guidelines, read the W3C DID v1.1 specification,
+and then write an explainer that conforms to the TAG's guidelines. The entire
+content was then lightly edited by an Editor of the DID v1.1 specification.
+This is an experiment to see if we can replace hours of Editor labor with
+a few minutes of LLM time.
