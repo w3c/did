@@ -1,0 +1,201 @@
+vocab:
+  id: dd
+  value: https://www.w3.org/ns/did#
+  context: https://www.w3.org/ns/did/v1.1
+
+prefix:
+  - id: sec
+    value: https://w3id.org/security#
+  - id: act
+    value: https://www.w3.org/ns/activitystreams#
+  
+ontology:
+  - property: dc:title
+    value: DID Vocabulary
+
+  - property: dc:description
+    value: |
+      vocabulary used to ensure the authenticity and integrity of W3C DID Documents, a profile of W3C Controlled Identifier Document.
+
+  - property: rdfs:seeAlso
+    value: https://www.w3.org/TR/did-1.1/
+
+class:
+  # - id: DecentralizedIdentifierDocument
+  #   label: Decentralized Identifier Document
+  #   defined_by: https://www.w3.org/TR/did-1.1/#data-model
+  #   upper_value: sec:ControlledIdentifierDocument
+  #   context: none
+
+  - id: Service
+    label: Service
+    comment: A service is a set of properties that describe a service endpoint, and should be defined through subclasses to this class. In order to maximize interoperability, the service type and its associated properties should be registered in the [[[did-spec-registries]]] [[did-spec-registries]].
+    defined_by: https://www.w3.org/TR/did-1.1/#services
+    context: none
+
+  # - id: sec:ControlledIdentifierDocument
+  #   label: Controlled Identifier Document
+  #   defined_by: https://www.w3.org/TR/cid-1.0/#controlled-identifier-documents
+  #   context: none
+
+  - id: sec:VerificationMethod
+    label: Verification method
+    comment: Instances of this class must be <a href="https://www.w3.org/TR/rdf11-concepts/#resources-and-statements">denoted by URLs</a>, i.e., they cannot be blank nodes.
+    defined_by: https://www.w3.org/TR/cid-1.0/#verification-methods
+    context: none
+
+  - id: sec:VerificationRelationship
+    comment: Instances of this class are verification relationships like, for example, <a href="https://www.w3.org/TR/did-1.1/#authentication">authentication</a> or <a href="https://www.w3.org/TR/did-1.1/#assertion">assertionMethod</a>.
+    defined_by: https://www.w3.org/TR/cid-1.0/#verification-relationships
+    upper_value: rdf:Property
+    context: none
+
+  - id: sec:Multikey
+    label: Multikey Verification Method
+    upper_value: sec:VerificationMethod
+    defined_by: https://www.w3.org/TR/cid-1.0/#multikey
+    context: https://w3id.org/security/multikey/v1
+
+  - id: sec:JsonWebKey
+    label: JSON Web Key Verification Method
+    upper_value: sec:VerificationMethod
+    defined_by: https://www.w3.org/TR/cid-1.0/#jsonwebkey
+    context: https://w3id.org/security/jwk/v1
+
+
+property:
+  - id: sec:controller
+    label: Controller
+    range: IRI
+    defined_by: [https://www.w3.org/TR/cid-1.0/#defn-controller]
+    see_also:
+      - label: DID 1.1 specification
+        url: https://www.w3.org/TR/did-1.1/#did-controller
+    context: [vocab, https://w3id.org/security/data-integrity/v2, https://www.w3.org/ns/cid/v1]
+
+  - id: act:alsoKnownAs
+    label: Also known as
+    range: xsd:string
+    defined_by: [https://www.w3.org/ns/activitystreams#]
+    see_also:
+      - label: DID 1.1 specification
+        url: https://www.w3.org/TR/did-1.1/#core-properties
+    context: vocab
+
+  - id: sec:verificationMethod
+    label: Verification method  
+    range: sec:VerificationMethod
+    defined_by: [https://www.w3.org/TR/cid-1.0/#dfn-verificationmethod]
+    see_also:
+      - label: DID 1.1 specification
+        url: https://www.w3.org/TR/did-1.1/#core-properties
+    context: [vocab, https://w3id.org/security/data-integrity/v2]
+
+  - id: sec:authentication
+    label: Authentication method
+    range: sec:VerificationMethod
+    type: sec:VerificationRelationship
+    defined_by: [hhttps://www.w3.org/TR/cid-1.0/#authentication]
+    see_also:
+      - label: DID 1.1 specification
+        url: https://www.w3.org/TR/did-1.1/#core-properties
+    context: [vocab, https://w3id.org/security/data-integrity/v2, https://www.w3.org/ns/cid/v1]
+
+  - id: sec:assertionMethod
+    label: Assertion method
+    range: sec:VerificationMethod
+    type: sec:VerificationRelationship
+    defined_by: [https://www.w3.org/TR/cid-1.0/#assertion]
+    see_also:
+      - label: DID 1.1 specification
+        url: https://www.w3.org/TR/did-1.1/#core-properties
+    context: [vocab, https://w3id.org/security/data-integrity/v2, https://www.w3.org/ns/cid/v1]
+
+  - id: sec:capabilityDelegationMethod
+    label: Capability delegation method
+    range: sec:VerificationMethod
+    type: sec:VerificationRelationship
+    comment: Historically, this property has often been expressed using `capabilityDelegation` as a shortened term in JSON-LD. Since this shortened term and its mapping to this property are in significant use in the ecosystem, the inconsistency between the short term name (`capabilityDelegation`) and the property identifier (`...#capabilityDelegationMethod`) is expected and should not trigger an error.
+    defined_by: [https://www.w3.org/TR/cid-1.0/#capability-delegationd]
+    see_also:
+      - label: DID 1.1 specification
+        url: https://www.w3.org/TR/did-1.1/#core-properties
+    context: [vocab, https://w3id.org/security/data-integrity/v2, https://www.w3.org/ns/cid/v1]
+    known_as: capabilityDelegation
+
+  - id: sec:capabilityInvocationMethod
+    label: Capability invocation method
+    range: sec:VerificationMethod
+    type: sec:VerificationRelationship
+    comment: Historically, this property has often been expressed using `capabilityInvocation` as a shortened term in JSON-LD. Since this shortened term and its mapping to this property are in significant use in the ecosystem, the inconsistency between the short term name (`capabilityInvocation`) and the property identifier (`...#capabilityInvocationMethod`) is expected and should not trigger an error.
+    defined_by: [https://www.w3.org/TR/cid-1.0/#capability-invocation]
+    see_also:
+      - label: DID 1.1 specification
+        url: https://www.w3.org/TR/did-1.1/#core-properties
+    context: [vocab, https://w3id.org/security/data-integrity/v2, https://www.w3.org/ns/cid/v1]
+    known_as: capabilityInvocation
+
+  - id: sec:keyAgreementMethod
+    label: Key agreement protocols
+    type: sec:VerificationRelationship
+    range: sec:VerificationMethod
+    comment: Historically, this property has often been expressed using `keyAgreement` as a shortened term in JSON-LD. Since this shortened term and its mapping to this property are in significant use in the ecosystem, the inconsistency between the short term name (`keyAgreement`) and the property identifier (`...#keyAgreementMethod`) is expected and should not trigger an error.
+    defined_by: [https://www.w3.org/TR/cid-1.0/#key-agreementd]
+    see_also:
+      - label: DID 1.1 specification
+        url: https://www.w3.org/TR/did-1.1/#core-properties
+    context: [vocab, https://w3id.org/security/data-integrity/v2, https://www.w3.org/ns/cid/v1]
+    known_as: keyAgreement
+
+  - id: sec:publicKeyMultibase
+    label: Public key multibase
+    domain: sec:Multikey
+    range: sec:multibase
+    defined_by: https://www.w3.org/TR/cid-1.0/#dfn-publickeymultibase
+    context: [vocab, https://w3id.org/security/multikey/v1]
+
+  - id: sec:secretKeyMultibase
+    label: Secret key multibase
+    domain: sec:Multikey
+    range: sec:multibase
+    defined_by: https://www.w3.org/TR/cid-1.0/#dfn-secretkeymultibase
+    context: [vocab, https://w3id.org/security/multikey/v1]
+
+  - id: sec:publicKeyJwk
+    label: Public key JWK
+    range: rdf:JSON
+    domain: sec:JsonWebKey
+    defined_by: https://www.w3.org/TR/cid-1.0/#dfn-publickeyjwk
+    context: [vocab, https://w3id.org/security/jwk/v1]
+
+  - id: sec:secretKeyJwk
+    label: Secret key JWK
+    range: rdf:JSON
+    domain: sec:JsonWebKey
+    defined_by: https://www.w3.org/TR/cid-1.0/#dfn-secretkeyjwk
+    context: [vocab, https://w3id.org/security/jwk/v1]
+
+  - id: service
+    label: Service
+    # domain: dd:DecentralizedIdentifierDocument
+    range: dd:Service
+    comment: The associated value must be a set of services, where each service is described by a map. 
+    defined_by: https://www.w3.org/TR/did-1.1/#services
+    context: vocab
+  
+  - id: serviceEndpoint
+    label: Service endpoint
+    comment: Refers to the service endpoint, which is a URL that can be used to access the service.
+    domain: dd:Service
+    range: IRI
+    defined_by: https://www.w3.org/TR/did-1.1/#services
+    context: vocab
+
+datatype:
+  - id: sec:multibase
+    label: Datatype for multibase values
+    upper_value: xsd:string
+    defined_by: https://www.w3.org/TR/cid-1.0/#multibase
+    context: https://w3id.org/security/multikey/v1
+
+

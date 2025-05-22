@@ -1,0 +1,219 @@
+<html lang="en">
+  <head>
+    <meta charset='utf-8'/>
+    <title></title>
+    <script class="remove" src="https://www.w3.org/Tools/respec/respec-w3c"></script>
+    <script>
+      function remove_status_remark() {
+          const sotd = document.getElementById("sotd");
+          const p = sotd.getElementsByTagName('p')[0];
+          sotd.removeChild(p);
+      }
+      // Note: The vocabulary URL must be adapted for the given environment!!!!
+      function massageSVGLinks(utils, content, url) {
+        const retval = content
+          .replace('<svg', '<svg aria-details="#vocabulary-diagram-alt" ')
+          .replace(/xlink:href/g, 'href')
+          .replace(/href="https:\/\/w3id.org\/security#/g, 'href="#');
+        return retval;
+      }
+    </script>
+    <script class="remove">
+      var respecConfig = {
+        localBiblio: {
+        },
+        specStatus:  "base",
+        shortName:   "ns/did",
+        thisVersion: "https://w3c.github.io/did/vocab/vocabulary.html",
+        latestVersion: "https://www.w3.org/TR/did-1.1/",
+        doJsonLd:    true,
+        editors: [{
+          name:       "Ivan Herman",
+          url:        "https://www.w3.org/People/Ivan/",
+          company:    "W3C",
+          w3cid:      7382,
+          orcid:      "0000-0003-0782-2704",
+          companyURL: "https://www.w3.org",
+        },{
+          name:       "Manu Sporny",
+          url:        "http://manu.sporny.org/",
+          company:    "Digital Bazaar",
+          companyURL: "http://digitalbazaar.com/",
+          w3cid:      41758,
+        }],
+        alternateFormats: [
+          {uri: "vocabulary.ttl", label: "Turtle"},
+          {uri: "vocabulary.jsonld", label: "JSON-LD"}
+        ],
+        inlineCSS: true,
+        doRDFa: false,
+        noIDLIn: true,
+        noLegacyStyle: false
+      };
+    </script>
+    <style type="text/css">
+      dl.terms dt {
+        float: left;
+        clear: left;
+        width: 10vw;
+      }
+
+      dl.terms dd {
+        margin-left: 15vw;
+      }
+
+      dl.terms dd:after {
+          content: '';
+          display: block;
+          clear: both;
+          margin-bottom: 5px;
+      }
+      table.rdfs-definition td {
+        vertical-align: top;
+        margin-right: 2em;
+      }
+      .bold {
+        font-weight: bold;
+      }
+      /* code {
+        color: red;
+      } */
+
+      .term_definitions section {
+        border-bottom-style: solid ;
+        border-bottom-width: 1px;
+        border-bottom-color: darkgrey;
+      }
+
+      .annoy {
+        background: hsla(40,100%,50%,0.95);
+		    color: black;
+		    padding: .75em 1em;
+		    border: red;
+		    border-style: solid none;
+		    box-shadow: 0 2px 8px black;
+		    text-align: center;
+      }
+
+      summary {
+        font-weight: normal !important;
+      }
+
+    </style>
+  </head>
+  <body  typeof="owl:Ontology">
+    <section id="abstract">
+      <p>This document describes the <span property="dc:title" id="title"></span>, i.e.,
+         the <span property="dc:description" id="description">.</span>
+      </p>
+      <p>Alternate versions of the vocabulary definition exist in
+        <a rel="alternate" href="vocabulary.ttl">Turtle</a> and
+        <a rel="alternate" href="vocabulary.jsonld">JSON-LD</a>.
+      </p>
+      <dl>
+        <dt>Published:</dt><dd><time property="dc:date" id="time"></time></dd>
+        <dt>Version Info:</dt>
+        <dd>1.1</dd>
+        <dt id="see_also">See Also: </dt>
+       </dl>
+    </section>
+    <section id="sotd">
+      <p>
+        Comments regarding this document are welcome. Please file issues
+        directly on <a href="https://github.com/w3c/did/issues/">GitHub</a>, or send them to
+        <a href="mailto:public-did-wg@w3.org">mailto:public-did-wg@w3.org</a>
+        (<a href="mailto:public-did-wg@w3.org?subject=subscribe">subscribe</a>,
+        <a href="https://lists.w3.org/Archives/Public/public-did-wg">archives</a>).
+      </p>
+    </section>
+
+    <section>
+      <h2>Namespaces</h2>
+      <p>This specification makes use a number of external vocabulary namespaces.</p>
+      <details>
+        <summary>Click here for details.</summary>
+        <dl class="terms" id="namespaces">
+        </dl>        
+      </details>
+    </section>
+
+    <section>
+      <h2><code>@context</code> files</h2>
+      <p>Several <code>@context</code> files make use of the terms defined in this specification.</p>
+      <details>
+        <summary>Click here for details.</summary>
+        <ul id="contexts">
+        </ul>
+      </details>
+    </section>
+
+    <section id="term_definitions">
+      <h1>Regular terms</h1>
+
+      <section id="property_definitions" class="term_definitions">
+        <h2>Property definitions</h2>
+      </section>
+
+      <section id="class_definitions" class="term_definitions">
+        <h2>Class definitions</h2>
+      </section>
+  
+      <section id="datatype_definitions" class="term_definitions">
+        <h2>Datatype definitions</h2>
+      </section>
+  
+      <section id="individual_definitions" class="term_definitions">
+        <h2>Definitions for individuals</h2>
+      </section>
+    </section>   
+
+    <section id="reserved_term_definitions">
+      <h1>Reserved terms</h1>
+    
+      <p>All terms in this section are <em><strong>reserved</strong></em>.
+        Implementers may use these properties, but should expect them and/or their meanings to change during the process to
+        normatively specify them.
+      </p>
+    
+      <section id="reserved_property_definitions" class="term_definitions">
+        <h2>Reserved properties</h2>
+      </section>
+
+      <section id="reserved_class_definitions" class="term_definitions">
+        <h2>Reserved classes</h2>
+      </section>
+    
+      <section id="reserved_datatype_definitions" class="term_definitions">
+        <h2>Reserved datatype definitions</h2>
+      </section>
+    
+      <section id="reserved_individual_definitions" class="term_definitions">
+        <h2>Reserved individuals</h2>
+      </section>
+    </section>
+
+    <section id="deprecated_term_definitions">
+      <h1>Deprecated terms</h1>
+
+      <p class="annoy">All terms in this section are <em><strong>deprecated</strong></em>, and are only kept in this vocabulary for backward compatibility. 
+        <br><br>New applications should not use them.
+      </p>
+
+      <section id="deprecated_property_definitions" class="term_definitions">
+        <h2>Deprecated properties</h2>
+      </section>
+
+      <section id="deprecated_class_definitions" class="term_definitions">
+        <h2>Deprecated classes</h2>
+      </section>
+
+      <section id="deprecated_datatype_definitions" class="term_definitions">
+        <h2>Deprecated datatype definitions</h2>
+      </section>
+    
+      <section id="deprecated_individual_definitions" class="term_definitions">
+        <h2>Deprecated individuals</h2>
+      </section>
+    </section>  
+  </body>
+</html>
