@@ -4,7 +4,7 @@
 # See https://github.com/w3c/yml2vocab for more details
 #
 # Note that for this script to work, the repository setting for GitHub pages must be changed!
-name: Generate the vocabulary files and publish to Github Pages
+name: Publish to Github Pages
 on:
   push:
     branches: [main]

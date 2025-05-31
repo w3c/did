@@ -1,5 +1,5 @@
 # .github/workflows/pr-push.yml
-name: CI
+name: Publish to W3C
 on:
   pull_request: {}
   push:
