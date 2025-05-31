@@ -1195,6 +1195,16 @@ data-cite="RFC3986#section-3.4">RFC&nbsp;3986, section 3.4</a>.
         <pre class="example nohighlight">
 did:example:123456?versionId=1
         </pre>
+
+        <p class="note" title="Avoid comparison of DID URLs containing
+          multiple query parameters">
+Implementers are urged to avoid using [=DID URLs=] that contain more than a
+single query parameter when comparing [=DID URLs=] for equivalence. There are
+no normalization rules defined for query parameters in this specification and
+any query parameter normalization rules defined at the DID Method specification
+or application layer are not universally recognized rules.
+        </p>
+
       </section>
 
       <section class="notoc">
