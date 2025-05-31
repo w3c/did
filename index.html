@@ -1810,11 +1810,13 @@ the [[[CID]]] specification and extended by this specification to include
         </pre>
 
         <p class="note" title="Intermediate representations">
-[=DID method=] specifications can create intermediate representations of a
-[=DID document=] that do not contain the `id` property,
-such as when a [=DID resolver=] is performing [=DID resolution=].
-However, the fully resolved [=DID document=] always contains a valid
-`id` property.
+[=DID method=] specifications can create intermediate representations of a [=DID
+document=], such as when a [=decentralized identifier=] is being registered in a
+[=verifiable data registry=] or when a [=DID resolver=] is performing [=DID
+resolution=]. These intermediate representations might not contain `id` values,
+or might contain interim values for certain `id` properties. Once the [=DID
+document=]-related operation is complete, the final `id` value will be
+determined and put in place.
         </p>
 
       </section>
