@@ -1198,11 +1198,12 @@ did:example:123456?versionId=1
 
         <p class="note" title="Avoid comparison of DID URLs containing
           multiple query parameters">
-Implementers are urged to avoid using [=DID URLs=] that contain more than a
-single query parameter when comparing [=DID URLs=] for equivalence. There are
-no normalization rules defined for query parameters in this specification and
-any query parameter normalization rules defined at the DID Method specification
-or application layer are not universally recognized rules.
+Implementers are urged to avoid comparing [=DID URLs=] for equivalence when
+they have more than one query parameter without a specification specifically
+designed for that purpose. This specification defines no normalization rules
+for query parameters, and any query parameter normalization rules defined at
+the DID Method specification or application layer are not universally
+recognized rules.
         </p>
 
       </section>
