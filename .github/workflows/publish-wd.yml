@@ -1,5 +1,5 @@
 # .github/workflows/pr-push.yml
-name: Publish to W3C
+name: Publish Working Draft
 on:
   pull_request: {}
   push:

@@ -4,11 +4,11 @@
 # See https://github.com/w3c/yml2vocab for more details
 #
 # Note that for this script to work, the repository setting for GitHub pages must be changed!
-name: Publish to Github Pages
+name: Publish Editor's Draft
 on:
   push:
     branches: [main]
-    paths: ['vocab/**']
+    paths: ['index.html', 'context/**', 'vocab/**']
   # Allows workflow to be triggered manually from the Actions tab
   workflow_dispatch:
 
@@ -45,7 +45,7 @@ jobs:
           (cd vocab; deno run -A jsr:@iherman/yml2vocab/cli -t template.html -v vocabulary.yml -c)
           mkdir contexts
           mv vocab/vocabulary.html vocab/index.html
-          mv vocab/vocabulary.context.jsonld contexts/v1.1rc1
+        #  mv vocab/vocabulary.context.jsonld contexts/v1.1rc1
       - name: Setup Github Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
