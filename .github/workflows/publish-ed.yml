@@ -8,7 +8,6 @@ name: Publish Editor's Draft
 on:
   push:
     branches: [main]
-    paths: ['index.html', 'context/**', 'vocab/**', 'transitions/**']
   # Allows workflow to be triggered manually from the Actions tab
   workflow_dispatch:
 
