@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>W3C DID Timeline</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-timeline/7.7.3/vis-timeline-graph2d.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/vis-timeline/7.7.3/vis-timeline-graph2d.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+        .header p {
+            margin: 0;
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        #timeline {
+            height: 600px;
+            border: none;
+        }
+        .legend {
+            padding: 20px 30px;
+            background: #f8f9fa;
+            border-top: 1px solid #e0e0e0;
+        }
+        .legend h3 {
+            margin: 0 0 15px 0;
+            color: #333;
+            font-size: 1.2em;
+        }
+        .legend-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+        .vis-item {
+            border-radius: 4px;
+            border-width: 2px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        .vis-item.vis-box {
+            border-radius: 6px;
+        }
+        .vis-item.milestone {
+            background-color: #ff6b6b;
+            border-color: #c92a2a;
+            color: white;
+        }
+        .vis-item.w3c {
+            background-color: #4dabf7;
+            border-color: #1971c2;
+            color: white;
+        }
+        .vis-item.dhs {
+            background-color: #51cf66;
+            border-color: #2f9e44;
+            color: white;
+        }
+        .vis-item.bluesky {
+            background-color: #748ffc;
+            border-color: #5c7cfa;
+            color: white;
+        }
+        .vis-item.cadmv {
+            background-color: #ffd43b;
+            border-color: #fab005;
+            color: #333;
+        }
+        .vis-item.truage {
+            background-color: #ff8787;
+            border-color: #fa5252;
+            color: white;
+        }
+        .vis-item.methods {
+            background-color: #20c997;
+            border-color: #12b886;
+            color: white;
+        }
+        .info {
+            padding: 20px 30px;
+            color: #666;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+        .info a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        .info a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>W3C Decentralized Identifiers Timeline</h1>
+            <p>The Evolution of DIDs from Concept to Global Standard (2014-2025)</p>
+        </div>
+
+        <div id="timeline"></div>
+
+        <div class="legend">
+            <h3>Event Categories</h3>
+            <div class="legend-items">
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #ff6b6b;"></div>
+                    <span>Major Milestones</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #4dabf7;"></div>
+                    <span>W3C Standards</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #51cf66;"></div>
+                    <span>DHS Contracts</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #748ffc;"></div>
+                    <span>Bluesky/AT Protocol</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #ffd43b;"></div>
+                    <span>CA DMV Wallet</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #ff8787;"></div>
+                    <span>TruAge</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #20c997;"></div>
+                    <span>DID Methods Registry</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="info">
+            <p><strong>About this timeline:</strong> This visualization shows the major milestones in the development of W3C Decentralized Identifiers (DIDs), from early blockchain identity discussions in 2015 to widespread adoption in 2025. Navigate by dragging, zooming (scroll), and clicking on events for details.</p>
+            <p><strong>Note:</strong> The DID Methods Registry reached 103 methods by July 2022. Bluesky DIDs represent user accounts on the AT Protocol using the did:plc method.</p>
+        </div>
+    </div>
+
+    <script>
+        // Timeline data
+        const items = [
+            // 2014
+            { id: 0, content: 'A Decentralized Hashtable for the Web is published', start: '2014-04-03', className: 'milestone' },
+            // 2015
+            { id: 1, content: 'First blockchain identity discussions (IIW)', start: '2015-03-01', className: 'milestone' },
+            { id: 2, content: 'Decision to begin blockchain ID projects', start: '2015-09-01', className: 'milestone' },
+            { id: 3, content: 'W3C VCTF: Decentralized Hash Table for Web proposed', start: '2015-11-01', className: 'w3c' },
+
+            // 2016
+            { id: 4, content: 'DID Spec work fully underway', start: '2016-03-01', className: 'w3c' },
+            { id: 5, content: 'DHS awards first blockchain Identity R&D contracts', start: '2016-07-01', className: 'dhs' },
+            { id: 6, content: 'First DID Spec nearly complete', start: '2016-09-01', className: 'w3c' },
+
+            // 2017
+            { id: 7, content: 'W3C CCG: DID Spec contributed', start: '2017-04-01', className: 'w3c' },
+            { id: 8, content: 'DHS: DID Spec published & contract complete', start: '2017-07-01', className: 'dhs' },
+            { id: 9, content: 'DHS: DKMS contract awarded; work begins', start: '2017-10-01', className: 'dhs' },
+
+            // 2018
+            { id: 10, content: 'W3C CCG: Second draft of DID Spec', start: '2018-06-01', className: 'w3c' },
+            { id: 11, content: 'DHS: DKMS Design & Architecture V3 published', start: '2018-09-01', className: 'dhs' },
+
+            // 2019
+            { id: 12, content: 'W3C CCG: Work on DID WG Charter begins', start: '2019-03-01', className: 'w3c' },
+            { id: 13, content: 'W3C DID Working Group Charter approved', start: '2019-05-31', className: 'w3c' },
+            { id: 14, content: 'DHS: DKMS Design & Architecture V4 published', start: '2019-08-01', className: 'dhs' },
+            { id: 15, content: 'W3C CCG: Community Final Draft of DID Spec', start: '2019-11-01', className: 'w3c' },
+
+            // 2020
+            { id: 16, content: 'First Public Working Draft of DID Core 1.0', start: '2020-01-03', className: 'milestone' },
+
+            // 2021
+            { id: 17, content: 'DID Core 1.0 reaches Candidate Recommendation', start: '2021-03-20', className: 'milestone' },
+            { id: 18, content: 'TruAge digital age verification launches', start: '2021-05-11', className: 'truage' },
+            { id: 19, content: 'DID Core 1.0 published as Proposed Recommendation', start: '2021-07-29', className: 'milestone' },
+
+            // 2022
+            { id: 20, content: 'W3C Director overrules DID v1.0 formal objections', start: '2022-06-30', className: 'milestone' },
+            { id: 21, content: 'DID 1.0 becomes W3C Recommendation (Official Standard)', start: '2022-07-19', className: 'milestone' },
+            { id: 22, content: 'DID Methods Registry: 103+ methods listed', start: '2022-07-19', className: 'methods' },
+
+            // 2023
+            { id: 23, content: 'Bluesky launches (invite-only beta)', start: '2023-02-17', className: 'bluesky' },
+            { id: 24, content: 'CA DMV Wallet/mDL pilot program launches', start: '2023-08-01', className: 'cadmv' },
+            { id: 25, content: 'Bluesky reaches 1M users (~1M DIDs)', start: '2023-09-01', className: 'bluesky' },
+
+            // 2024
+            { id: 26, content: 'Bluesky opens to public (3M+ DIDs)', start: '2024-02-06', className: 'bluesky' },
+            { id: 27, content: 'Bluesky surpasses 5M DIDs', start: '2024-08-01', className: 'bluesky' },
+            { id: 28, content: 'CA DMV Wallet: 500K+ DIDs', start: '2024-08-23', className: 'cadmv' },
+            { id: 29, content: 'Bluesky reaches 10M DIDs', start: '2024-09-15', className: 'bluesky' },
+            { id: 30, content: 'Bluesky surpasses 12M DIDs', start: '2024-11-13', className: 'bluesky' },
+            { id: 31, content: 'Bluesky reaches 20M DIDs', start: '2024-11-19', className: 'bluesky' },
+
+            // 2025
+            { id: 32, content: 'Bluesky reaches 30M+ users/DIDs', start: '2025-01-01', className: 'bluesky' },
+            { id: 33, content: 'Verifiable Credentials 2.0 becomes W3C Recommendation', start: '2025-05-01', className: 'w3c' },
+            { id: 34, content: 'CA DMV Wallet: (2.7M+ DIDs)', start: '2025-05-01', className: 'cadmv' },
+            { id: 35, content: 'DID Methods Registry: 218+ methods listed', start: '2025-10-19', className: 'methods' }
+        ];
+
+        // Timeline configuration
+        const options = {
+            width: '100%',
+            height: '100%',
+            margin: {
+                item: {
+                    horizontal: 5,
+                    vertical: 10
+                }
+            },
+            orientation: 'top',
+            showCurrentTime: false,
+            zoomMin: 1000 * 60 * 60 * 24 * 30 * 6, // 6 months
+            zoomMax: 1000 * 60 * 60 * 24 * 365 * 12, // 12 years
+            start: '2014-06-01',
+            end: '2025-12-31',
+            stack: true,
+            tooltip: {
+                followMouse: true,
+                overflowMethod: 'cap'
+            },
+            format: {
+                minorLabels: {
+                    month: 'MMM',
+                    year: 'YYYY'
+                },
+                majorLabels: {
+                    month: 'YYYY',
+                    year: ''
+                }
+            }
+        };
+
+        // Create timeline
+        const container = document.getElementById('timeline');
+        const timeline = new vis.Timeline(container, items, options);
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            timeline.redraw();
+        });
+    </script>
+</body>
+</html>
