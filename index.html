@@ -9,17 +9,9 @@
     them out in the same tree and use relative links so that they'll work
     offline.
   -->
-
-  <script class="remove"
-    src="https://unpkg.com/browse/jquery/dist/jquery.min.js"></script>
   <script class="remove"
     src="https://www.w3.org/Tools/respec/respec-w3c"></script>
-  <script class="removeOnSave"
-    src="https://unpkg.com/reqlist/lib/reqlist.js"></script>
-  <link class="removeOnSave" rel="stylesheet" type="text/css"
-    href="https://unpkg.com/reqlist/lib/reqlist.css" />
 
-  <script class='remove' src="./common.js"></script>
   <script class="remove" type="text/javascript">
   var respecConfig = {
     // the W3C WG and public mailing list
@@ -30,14 +22,14 @@
     shortName: "did-1.1",
 
     // specification status (e.g., WD, LCWD, NOTE, etc.). If in doubt use ED.
-    specStatus: "FPWD",
+    specStatus: "CR",
 
     // W3C Proposed Recommendation information
     //prEnd: "2021-08-31",
 
     // W3C Candidate Recommendation information
-    //crEnd: "2021-07-13",
-    //implementationReportURI: "https://w3c.github.io/did-test-suite/",
+    crEnd: "2026-01-30",
+    implementationReportURI: "https://w3c.github.io/did-test-suite/",
 
     // Editor's Draft URL
     edDraftURI: "https://w3c.github.io/did/",
@@ -46,7 +38,7 @@
     subtitle: "Core architecture, data model, and representations",
 
     // if you wish the publication date to be other than today, set this
-    publishDate:  "2025-01-23",
+    publishDate:  "2025-11-25",
 
     // previously published draft, uncomment this and set its
     // YYYY-MM-DD date and its maturity status
@@ -57,8 +49,64 @@
     pluralize: true,
 
     // extend the bibliography entries
-    localBiblio: ccg.localBiblio,
-    xref: ["web-platform", "vc-data-integrity", "cid"],
+    localBiblio: {
+      "REST": {
+        title: "Architectural Styles and the Design of Network-based Software Architectures",
+        date: "2000",
+        href: "http://www.ics.uci.edu/~fielding/pubs/dissertation/",
+        authors: [
+          "Fielding, Roy Thomas"
+        ],
+        publisher: "University of California, Irvine."
+      },
+      "MACAROONS": {
+        title: 'Macaroons',
+        // TODO: create spec
+        href: 'http://macaroons.io/',
+        authors: ['Arnar Birgisson', 'Joe Gibbs Politz', 'Úlfar Erlingsson',
+          'Ankur Taly', 'Michael Vrable', 'Mark Lentczner'],
+        status: 'unofficial',
+        publisher: 'Credentials Community Group'
+      },
+      'OPEN-BADGES': {
+        title: 'Open Badges',
+        href: 'https://github.com/openbadges/openbadges-specification',
+        authors: ['Brian Brennan', 'Mike Larsson', 'Chris McAvoy',
+          'Nate Otto', 'Kerri Lemoie'],
+        status:   'BA-DRAFT',
+        publisher:  'Badge Alliance Standard Working Group'
+      },
+      "MATRIX-URIS": {
+        title: "Matrix URIs - Ideas about Web Architecture",
+        date: "December 1996",
+        href: "https://www.w3.org/DesignIssues/MatrixURIs.html",
+        authors: [
+          "Tim Berners-Lee"
+        ],
+        status: "Personal View"
+      },
+      "DNS-DID": {
+        title: "The Decentralized Identifier (DID) in the DNS",
+        date: "February 2019",
+        href: "https://datatracker.ietf.org/doc/draft-mayrhofer-did-dns/",
+        authors: [
+          "Alexander Mayrhofer",
+          "Dimitrij Klesev",
+          "Markus Sabadello"
+        ],
+        status: "Internet-Draft"
+      },
+      "PRIVACY-BY-DESIGN": {
+        title: "Privacy by Design",
+        href: "https://iapp.org/media/pdf/resource_center/pbd_implement_7found_principles.pdf",
+        authors: [
+          "Ann Cavoukian"
+        ],
+        date: "2011",
+        publisher: "Information and Privacy Commissioner"
+      }
+    },
+    xref: ["web-platform", "cid"],
     lint: {
       "informative-dfn": false
     },
@@ -161,7 +209,7 @@
         href: "https://w3c.github.io/did-test-suite/"
       }]
     }],
-    //errata: "https://w3c.github.io/did-core/errata.html"
+    //errata: "https://w3c.github.io/did/errata.html"
     };
   </script>
   <style>
@@ -373,7 +421,7 @@ A simple example of a decentralized identifier (DID)
       <p>
 The example [=DID=] above resolves to a [=DID document=]. A [=DID
 document=] contains information associated with the [=DID=], such as ways
-to cryptographically [=authenticate=] a [=DID controller=].
+to cryptographically [=authentication|authenticate=] a [=DID controller=].
       </p>
 
       <pre class="example nohighlight" title="A simple DID document">
@@ -714,9 +762,9 @@ that section.
      </p>
 
       <p>
-A <dfn>conforming DID document</dfn> is any concrete expression of the data
-model described in this specification which complies with the relevant normative
-statements in [[[#data-model]]] and [[[#core-properties]]]. A
+A <dfn class="export">conforming DID document</dfn> is any concrete expression
+of the data model described in this specification which complies with the
+relevant normative statements in [[[#data-model]]] and [[[#core-properties]]]. A
 serialization format for the conforming document is deterministic,
 bi-directional, and lossless, as described in [[[#representations]]].
       </p>
@@ -734,7 +782,7 @@ and complies with the relevant normative statements in [[[#representations]]].
       </p>
 
       <p>
-A <dfn class="lint-ignore">conforming DID method</dfn> is any specification that
+A <dfn class="export">conforming DID method</dfn> is any specification that
 complies with the relevant normative statements in [[[#methods]]].
       </p>
 
@@ -755,8 +803,256 @@ complies with the relevant normative statements in [[[#methods]]].
   <section class="informative">
     <h2>Terminology</h2>
 
-    <div data-include="terms.html">
-    </div>
+    <p>
+This section defines the terms used in this specification and throughout
+[=decentralized identifier=] infrastructure. A link to these terms is
+included whenever they appear in this specification.
+    </p>
+
+    <dl class="termlist">
+
+      <dt><dfn data-lt="amplification">amplification attack</dfn></dt>
+      <dd>
+A class of attack where the attacker attempts to exhaust a target system's
+CPU, storage, network, or other resources by providing small, valid inputs into
+the system that result in damaging effects that can be exponentially more costly
+to process than the inputs themselves.
+      </dd>
+
+      <dt><dfn class="export" data-lt="decentralized identifiers|DID|DIDs">decentralized identifier</dfn> (DID)</dt>
+
+      <dd>
+A globally unique persistent identifier that does not require a centralized
+registration authority and is often generated and/or registered
+cryptographically. The generic format of a DID is defined in <a
+href="#did-syntax"></a>. A specific [=DID scheme=] is defined in a <a>DID
+method</a> specification. Many—but not all—DID methods make use of
+[=distributed ledger technology=] (DLT) or some other form of decentralized
+network.
+      </dd>
+
+      <dt><dfn class="export" data-lt="did controllers|did controller(s)">DID controller</dfn></dt>
+
+      <dd>
+An entity that has the capability to make changes to a [=DID document=]. A
+[=DID=] might have more than one DID controller. The DID controller(s)
+can be denoted by the optional `controller` property at the top level of the
+[=DID document=]. Note that a DID controller might be the <a>DID
+subject</a>.
+      </dd>
+
+      <dt><dfn class="export">DID delegate</dfn></dt>
+
+      <dd>
+An entity to whom a [=DID controller=] has granted permission to use a
+[=verification method=] associated with a [=DID=] via a <a>DID document</a>. For
+example, a parent who controls a child's [=DID document=] might permit the child
+to use their personal device in order to [=authentication|authenticate=]. In
+this case, the child is the [=DID delegate=]. The child's personal device would
+contain the private cryptographic material enabling the child to
+[=authentication|authenticate=] using the [=DID=]. However, the child might not
+be permitted to add other personal devices without the parent's permission.
+      </dd>
+
+      <dt><dfn class="export" data-lt="DID documents">DID document</dfn></dt>
+
+      <dd>
+A set of data describing the [=DID subject=], including mechanisms, such as
+cryptographic public keys, that the [=DID subject=] or a [=DID delegate=] can
+use to [=authentication|authenticate=] itself and prove its association with the
+[=DID=]. A DID document might have one or more different [=representations=] as
+defined in <a href="#representations"></a> or in the W3C [[[DID-EXTENSIONS]]].
+      </dd>
+
+      <dt><dfn class="export" data-lt="DID fragments">DID fragment</dfn></dt>
+
+      <dd>
+The portion of a [=DID URL=] that follows the first hash sign character
+(<code>#</code>). DID fragment syntax is identical to URI fragment syntax.
+      </dd>
+
+      <dt><dfn class="export" data-lt="DID methods|DID method's">DID method</dfn></dt>
+
+      <dd>
+A definition of how a specific [=DID method scheme=] is implemented. A DID method is
+defined by a DID method specification, which specifies the precise operations by
+which [=DIDs=] and [=DID documents=] are created, resolved, updated,
+and deactivated. See <a href="#methods"></a>.
+      </dd>
+
+      <dt><dfn class="export" data-lt="DID paths">DID path</dfn></dt>
+
+      <dd>
+The portion of a [=DID URL=] that begins with and includes the first forward
+slash (<code>/</code>) character and ends with either a question mark
+(<code>?</code>) character, a fragment hash sign (<code>#</code>) character,
+or the end of the [=DID URL=]. DID path syntax is identical to URI path syntax.
+See <a href="#path"></a>.
+      </dd>
+
+      <dt><dfn class="export" data-lt="DID queries">DID query</dfn></dt>
+
+      <dd>
+The portion of a [=DID URL=] that follows and includes the first question
+mark character (<code>?</code>). DID query syntax is identical to URI query
+syntax. See <a href="#query"></a>.
+      </dd>
+
+      <dt><dfn class="export">DID resolution</dfn></dt>
+
+      <dd>
+The process that takes as its input a [=DID=] and a set of resolution
+options and returns a [=DID document=] in a conforming [=representation=]
+plus additional metadata. This process relies on the "Read" operation of the
+applicable [=DID method=]. The inputs and outputs of this process are
+defined in [[?DID-RESOLUTION]].
+      </dd>
+
+      <dt><dfn class="export" data-lt="DID resolvers|DID resolver's">DID resolver</dfn></dt>
+
+      <dd>
+A [=DID resolver=] is a software and/or hardware component that performs the
+[=DID resolution=] function by taking a [=DID=] as input and producing a
+conforming [=DID document=] as output.
+      </dd>
+
+      <dt><dfn class="export" data-lt="DID schemes|DID method scheme">DID scheme</dfn></dt>
+
+      <dd>
+The formal syntax of a [=decentralized identifier=]. The generic DID scheme
+begins with the prefix <code>did:</code> as defined in <a
+href="#did-syntax"></a>. Each [=DID method=] specification defines a specific
+DID method scheme that works with that specific [=DID method=]. In a specific DID
+method scheme, the DID method name follows the first colon and terminates with
+the second colon, e.g., <code>did:example:</code>
+      </dd>
+
+      <dt><dfn class="export" data-lt="DID subjects">DID subject</dfn></dt>
+
+      <dd>
+The entity identified by a [=DID=] and described by a [=DID document=].
+Anything can be a DID subject: person, group, organization, physical thing,
+digital thing, logical thing, etc.
+      </dd>
+
+      <dt><dfn class="export" data-lt="DID URLs">DID URL</dfn></dt>
+
+      <dd>
+A [=DID=] plus any additional syntactic component that conforms to the
+definition in <a href="#did-url-syntax"></a>. This includes an optional <a>DID
+path</a> (with its leading <code>/</code> character), optional [=DID query=]
+(with its leading <code>?</code> character), and optional [=DID fragment=]
+(with its leading <code>#</code> character).
+      </dd>
+
+      <dt><dfn class="export">DID URL dereferencing</dfn></dt>
+
+      <dd>
+The process that takes as its input a [=DID URL=] and a set of input
+metadata, and returns a [=resource=]. This resource might be a <a>DID
+document</a> plus additional metadata, a secondary resource
+contained within the [=DID document=], or a resource entirely
+external to the [=DID document=]. The process uses [=DID resolution=] to
+fetch a [=DID document=] indicated by the [=DID=] contained within the
+[=DID URL=]. The dereferencing process can then perform additional processing
+on the [=DID document=] to return the dereferenced resource indicated by the
+[=DID URL=]. The inputs and outputs of this process are defined in
+[[?DID-RESOLUTION]].
+      </dd>
+
+      <dt><dfn class="export" data-lt="DID URL dereferencers">DID URL dereferencer</dfn></dt>
+
+      <dd>
+A software and/or hardware system that performs the [=DID URL dereferencing=]
+function for a given [=DID URL=] or [=DID document=].
+      </dd>
+
+      <dt><dfn data-lt="distributed ledger technology|DLT">distributed ledger</dfn> (DLT)</dt>
+
+      <dd>
+A non-centralized system for recording events. These systems establish
+sufficient confidence for participants to rely upon the data recorded by others
+to make operational decisions. They typically use distributed databases where
+different nodes use a consensus protocol to confirm the ordering of
+cryptographically signed transactions. The linking of digitally signed
+transactions over time often makes the history of the ledger effectively
+immutable.
+      </dd>
+
+      <dt><dfn data-lt="resources">resource</dfn></dt>
+
+      <dd>
+A thing that is identified by a [=URI=], as defined in [[RFC3986]]. Similarly,
+any resource might serve as a [=DID subject=] identified by a [=DID=].
+      </dd>
+
+        <dt><dfn data-lt="representations">representation</dfn></dt>
+
+      <dd>
+A concrete expression of a [=resource=], as defined by [[RFC9110]]: "information
+that is intended to reflect a past, current, or desired state of a given
+resource, in a format that can be readily communicated via the protocol. A
+representation consists of a set of representation metadata and a potentially unbounded
+stream of representation data." A [=DID document=] is a representation of
+information describing a [=DID subject=]. See <a href="#representations"></a>.
+      </dd>
+
+        <dt><dfn data-lt="representation-specific entry|non-representation-specific
+    entry">representation-specific entries</dfn></dt>
+
+      <dd>
+Entries in a [=DID document=] whose meaning is particular to a specific
+[=representation=]. Defined in <a href="#data-model"></a> and
+<a href="#representations"></a>.
+      </dd>
+
+      <dt><dfn>service</dfn></dt>
+      <dd>
+A means of communicating or interacting with the [=DID subject=] or
+associated entities via one or more [=service endpoints=].
+Examples include discovery services, agent services, social networking
+services, file storage services, and verifiable credential repository services.
+      </dd>
+
+      <dt><dfn class="export" data-lt="did service endpoints" data-local-lt="service endpoint">did service endpoint</dfn></dt>
+
+      <dd>
+A network address, such as an HTTP URL, at which [=services=] operate on
+behalf of a [=DID subject=].
+      </dd>
+
+      <dt><dfn data-lt="URI|URIs">Uniform Resource Identifier</dfn> (URI)</dt>
+
+      <dd>
+The standard identifier format for all resources on the World Wide Web as
+defined by [[RFC3986]]. A [=DID=] is a type of URI scheme.
+      </dd>
+
+      <dt>
+        <dfn class="export" data-lt="verifiable data registry|verifiable data registries">
+        verifiable data registry</dfn>
+      </dt>
+
+      <dd>
+A system that facilitates the creation, verification, updating, and/or
+deactivation of [=decentralized identifiers=] and [=DID documents=]. A
+verifiable data registry might also be used for other
+cryptographically-verifiable data structures such as [=verifiable
+credentials=]. For more information, see the W3C Verifiable Credentials
+specification [[VC-DATA-MODEL]].
+      </dd>
+
+      <dt><dfn>verifiable timestamp</dfn></dt>
+
+      <dd>
+A verifiable timestamp enables a third-party to verify that a data object
+existed at a specific moment in time and that it has not been modified or
+corrupted since that moment in time. If the data integrity could reasonably have
+been modified or corrupted since that moment in time, the timestamp is not
+verifiable.
+      </dd>
+
+    </dl>
 
     <p>
 In addition to the terminology above, this specification also uses terminology
@@ -899,6 +1195,17 @@ data-cite="RFC3986#section-3.4">RFC&nbsp;3986, section 3.4</a>.
         <pre class="example nohighlight">
 did:example:123456?versionId=1
         </pre>
+
+        <p class="note" title="Avoid comparison of DID URLs containing
+          multiple query parameters">
+Implementers are urged to avoid comparing [=DID URLs=] for equivalence when
+they have more than one query parameter without a specification specifically
+designed for that purpose. This specification defines no normalization rules
+for query parameters, and any query parameter normalization rules defined at
+the DID Method specification or application layer are not universally
+recognized rules.
+        </p>
+
       </section>
 
       <section class="notoc">
@@ -918,17 +1225,12 @@ identifiers are shown below.
 
         <pre class="example nohighlight"
              title="A unique verification method in a DID Document">
-did:example:123#public-key-0
+did:example:123#public-key-1
         </pre>
 
         <pre class="example nohighlight"
              title="A unique service in a DID Document">
-did:example:123#agent
-        </pre>
-
-        <pre class="example nohighlight"
-             title="A resource external to a DID Document">
-did:example:123?service=agent&amp;relativeRef=/credentials%23degree
+did:example:123#service-5
         </pre>
 
         <p class="note"
@@ -942,9 +1244,9 @@ interpreted in the same way across non-JSON [=representations=].
 
         <p>
 Additional semantics for fragment identifiers, which are compatible with and
-layered upon the semantics in this section, are described for JSON-LD
-representations in [[[#application-did]]]. For information
-about how to dereference a [=DID fragment=], see [[?DID-RESOLUTION]].
+layered upon the semantics in this section, are specified in the media type
+description (see Section [[[#application-did]]]). For information about how to
+dereference a [=DID fragment=], see the [[[?DID-RESOLUTION]]] specification.
         </p>
 
       </section>
@@ -1013,63 +1315,23 @@ an absolute [=DID URL=] value of
     <h1>Data Model</h1>
     <p>
 This specification defines a data model that can be used to express [=DID
-documents=] and DID document data structures, which can then be serialized
-into multiple concrete [=representations=]. This section provides a
-high-level description of the data model, descriptions of the ways different
-types of properties are expressed in the data model, and instructions for
-extending the data model.
+documents=] and their internal data structures, which can then be serialized
+into a concrete expression. This section provides a high-level description of
+the data model, descriptions of the ways different types of properties are
+expressed in the data model, and instructions for extending the data model.
     </p>
     <p>
 A [=DID document=] consists of a <a data-cite="INFRA#maps">map</a> of <a
 data-cite="INFRA#map-entry">entries</a>, where each entry consists of a
-key/value pair. The [=DID document=] data model contains at least two
-different classes of entries. The first class of entries is called properties,
-and is specified in section [[[#core-properties]]]. The second class
-is made up of [=representation-specific entries=], and is specified in
-section [[[#representations]]].
+key/value pair. The [=DID document=] data model contains properties that are
+specified in section [[[#core-properties]]].
     </p>
-
-    <figure id="did-document-entries">
-      <img style="margin: auto; display: block;"
-        src="diagrams/diagram-did-document-entries.svg" alt="
-Diagram illustrating the entries in the DID document, including properties
-and representation-specific entries; some entries are defined by this
-specification; others are defined by registered or unregistered extensions.">
-      <figcaption>
-The entries in a DID document.
-See also: <a class="longdesc-link"
-href="#did-document-entries-longdesc">narrative description</a>.
-      </figcaption>
-    </figure>
-
-    <div class="longdesc" id="did-document-entries-longdesc">
-The diagram is titled, "Entries in the DID Document map". A dotted grey line
-runs horizontally through the center of the diagram. The space above the line
-is labeled "Properties", and the space below it, "Representation-specific
-entries". Six labeled rectangles appear in the diagram, three lying above the
-dotted grey line and three below it. A large green rectangle, labeled "DID
-Extensions", encloses the four leftmost rectangles (upper left,
-upper center, lower left, and lower center). The two leftmost rectangles
-(upper left and lower left) are outlined in blue and labeled in blue, as
-follows. The upper left rectangle is labeled "Core Properties", and contains
-text "id, alsoKnownAs, controller, authentication, verificationMethod, service,
-serviceEndpoint, ...". The lower left rectangle is labeled "Core
-Representation-specific Entries", and contains text "@context". The four
-rightmost rectangles (upper center, upper right, lower center, and lower right)
-are outlined in grey and labeled in black, as follows. The upper center
-rectangle is labeled, "Property Extensions", and contains text
-"ethereumAddress". The lower center rectangle is labeled,
-"Representation-specific Entry Extensions", and contains no other text. The
-upper right rectangle is labeled, "Unregistered Property Extensions", and
-contains text "foo". The lower right rectangle is labeled "Unregistered
-Representation-specific Entry Extensions", and contains text "%YAML, xmlns".
-    </div>
 
     <p>
 All entry keys in the [=DID document=] data model are <a
 data-cite="INFRA#strings">strings</a>. All entry values are expressed using one
-of the abstract data types in the table below, and each [=representation=]
-specifies the concrete serialization format of each data type.
+of the data types in the table below, and each [=representation=] specifies the
+concrete serialization format of each data type.
     </p>
 
     <table class="simple" id="data-types">
@@ -1091,8 +1353,8 @@ Considerations
           </td>
           <td>
 A finite ordered sequence of key/value pairs, with no key appearing twice as
-specified in [[INFRA]]. A map is sometimes referred to as an
-<a data-cite="INFRA#maps">ordered map</a> in [[INFRA]].
+specified in the [[[INFRA]]]. A map is sometimes referred to as an
+<a data-cite="INFRA#maps">ordered map</a> in the [[[INFRA]]].
           </td>
         </tr>
         <tr>
@@ -1100,7 +1362,7 @@ specified in [[INFRA]]. A map is sometimes referred to as an
 <a data-cite="INFRA#list">list</a>
           </td>
           <td>
-A finite ordered sequence of items as specified in [[INFRA]].
+A finite ordered sequence of items as specified in the [[[INFRA]]].
           </td>
         </tr>
         <tr>
@@ -1109,8 +1371,8 @@ A finite ordered sequence of items as specified in [[INFRA]].
           </td>
           <td>
 A finite ordered sequence of items that does not contain the same item twice
-as specified in [[INFRA]]. A set is sometimes referred to as an
-<a data-cite="INFRA#ordered-set">ordered set</a> in [[INFRA]].
+as specified in the [[[INFRA]]]. A set is sometimes referred to as an
+<a data-cite="INFRA#ordered-set">ordered set</a> in the [[[INFRA]]].
           </td>
         </tr>
         <tr>
@@ -1119,8 +1381,8 @@ as specified in [[INFRA]]. A set is sometimes referred to as an
           </td>
           <td>
 A date and time value that is capable of losslessly expressing all values
-expressible by a `dateTime` as specified in
-[<a data-cite="XMLSCHEMA11-2#dateTime">XMLSCHEMA11-2</a>].
+expressible by a <a data-cite="XMLSCHEMA11-2#dateTime">dateTime</a> as
+specified in [[XMLSCHEMA11-2]].
           </td>
         </tr>
         <tr>
@@ -1129,7 +1391,7 @@ expressible by a `dateTime` as specified in
           </td>
           <td>
 A sequence of code units often used to represent human readable language
-as specified in [[INFRA]].
+as specified in the [[[INFRA]]].
           </td>
         </tr>
         <tr>
@@ -1137,10 +1399,10 @@ as specified in [[INFRA]].
 <dfn>integer</dfn>
           </td>
           <td>
-A real number without a fractional component as specified in
-[<a data-cite="XMLSCHEMA11-2#decimal">XMLSCHEMA11-2</a>]. To maximize
-interoperability, implementers are urged to heed the advice regarding
-integers in <a data-cite="rfc8259#section-6">RFC8259, Section 6: Numbers</a>.
+A <a data-cite="XMLSCHEMA11-2#decimal">real number without a fractional
+component</a> as specified in [[XMLSCHEMA11-2]]. To maximize interoperability,
+implementers are urged to heed the advice regarding integers in
+<a data-cite="rfc8259#section-6">RFC8259, Section 6: Numbers</a>.
           </td>
         </tr>
         <tr>
@@ -1148,10 +1410,11 @@ integers in <a data-cite="rfc8259#section-6">RFC8259, Section 6: Numbers</a>.
 <dfn>double</dfn>
           </td>
           <td>
-A value that is often used to approximate arbitrary real numbers as specified
-in [<a data-cite="XMLSCHEMA11-2#double">XMLSCHEMA11-2</a>]. To maximize
-interoperability, implementers are urged to heed the advice regarding
-doubles in <a data-cite="rfc8259#section-6">RFC8259, Section 6: Numbers</a>.
+A <a data-cite="XMLSCHEMA11-2#double">real number with a fractional
+component</a> that is often used to approximate arbitrary real numbers as
+specified in [[XMLSCHEMA11-2]]. To maximize interoperability, implementers are
+urged to heed the advice regarding doubles in
+<a data-cite="rfc8259#section-6">RFC8259, Section 6: Numbers</a>.
           </td>
         </tr>
         <tr>
@@ -1159,7 +1422,7 @@ doubles in <a data-cite="rfc8259#section-6">RFC8259, Section 6: Numbers</a>.
 <a data-cite="INFRA#boolean">boolean</a>
           </td>
           <td>
-A value that is either true or false as defined in [[INFRA]].
+A value that is either true or false as defined in the [[[INFRA]]].
           </td>
         </tr>
         <tr>
@@ -1167,7 +1430,7 @@ A value that is either true or false as defined in [[INFRA]].
 <a data-cite="INFRA#nulls">null</a>
           </td>
           <td>
-A value that is used to indicate the lack of a value as defined in [[INFRA]].
+A value that is used to indicate the lack of a value as defined in the [[[INFRA]]].
           </td>
         </tr>
       </tbody>
@@ -1175,14 +1438,14 @@ A value that is used to indicate the lack of a value as defined in [[INFRA]].
 
     <p class="advisement" title="Ordering of values">
 As a result of the <a href="#data-model">data model</a> being defined using
-terminology from [[INFRA]], property values which can contain more than one
-item, such as <a data-cite="INFRA#list">lists</a>, <a
-data-cite="INFRA#ordered-map">maps</a> and <a
+terminology from the [[[INFRA]]], property values which can contain more than
+one item, such as <a data-cite="INFRA#list">lists</a>, <a
+data-cite="INFRA#ordered-map">maps</a>, and <a
 data-cite="INFRA#ordered-set">sets</a>, are explicitly ordered. All list-like
-value structures in [[INFRA]] are ordered, whether or not that order is
-significant. For the purposes of this specification, unless otherwise stated, <a
-data-cite="INFRA#ordered-map">map</a> and <a
-data-cite="INFRA#ordered-set">set</a> ordering is not important and
+value structures in the [[[INFRA]]] are ordered, whether or not that order is
+significant. For the purposes of this specification, unless otherwise stated,
+ordering of a <a data-cite="INFRA#ordered-map">map</a> or <a
+data-cite="INFRA#ordered-set">set</a> is not important and
 implementations are not expected to produce or consume deterministically ordered
 values.
     </p>
@@ -1195,26 +1458,24 @@ The data model supports two types of extensibility.
       <ol>
         <li>
 For maximum interoperability, it is RECOMMENDED that extensions use the
-repository of DID Extensions [[?DID-EXTENSIONS]]. The use of
-this mechanism for new properties or other extensions is the only specified
-mechanism that ensures that two different [=representations=] will be able to
-work together.
+repository of [[[?DID-EXTENSIONS]]]. The use of this mechanism for new
+properties or other extensions is the only specified mechanism that ensures that
+two different [=representations=] will be able to work together.
         </li>
       <li>
 [=Representations=] MAY define other extensibility mechanisms, including ones
-that do not require the use of the DID Extensions. Such extension
-mechanisms SHOULD support lossless conversion into any other conformant
-[=representation=]. Extension mechanisms for a [=representation=] SHOULD
-define a mapping of all properties and [=representation=] syntax into the <a
-href="#data-model">data model</a> and its type system.
+that do not require the use of the [[[?DID-EXTENSIONS]]] repository. Such
+extension mechanisms SHOULD support lossless conversion into any other
+conformant [=representation=]. Extension mechanisms for a [=representation=]
+SHOULD define a mapping of all properties and [=representation=] syntax into the
+[=DID document=] <a href="#data-model">data model</a> and its type system.
       </li>
       </ol>
       <p class="note" title="Unregistered extensions are less reliable">
 It is always possible for two specific implementations to agree out-of-band to
-use a mutually understood extension or [=representation=] that is not
-recorded in the repository of DID Extensions [[?DID-EXTENSIONS]];
-interoperability between such implementations and the larger ecosystem will be
-less reliable.
+use a mutually understood extension or [=representation=] that is not recorded
+in the repository of [[[?DID-EXTENSIONS]]]; interoperability between such
+implementations and the larger ecosystem will be less reliable.
       </p>
     </section>
   </section>
@@ -1427,7 +1688,7 @@ of the [[[CID]]] specification and Section [[[#identifiers]]].
 A <a data-cite="INFRA#string">string</a>.
             </td>
             <td>
-<a data-cite="CID#verifiation-methods">Section 2.2: Verification Methods</a>
+<a data-cite="CID#verification-methods">Section 2.2: Verification Methods</a>
 of the [[[CID]]] specification.
             </td>
           </tr>
@@ -1439,7 +1700,8 @@ A <a data-cite="INFRA#string">string</a> that conforms to the rules in
 [[[#did-syntax]]].
             </td>
             <td>
-Section [[[#did-controller]]].
+<a data-cite="CID#verification-methods">Section 2.2: Verification Methods</a>
+of the [[[CID]]] specification.
             </td>
           </tr>
           <tr>
@@ -1554,11 +1816,13 @@ the [[[CID]]] specification and extended by this specification to include
         </pre>
 
         <p class="note" title="Intermediate representations">
-[=DID method=] specifications can create intermediate representations of a
-[=DID document=] that do not contain the `id` property,
-such as when a [=DID resolver=] is performing [=DID resolution=].
-However, the fully resolved [=DID document=] always contains a valid
-`id` property.
+[=DID method=] specifications can create intermediate representations of a [=DID
+document=], such as when a [=decentralized identifier=] is being registered in a
+[=verifiable data registry=] or when a [=DID resolver=] is performing [=DID
+resolution=]. These intermediate representations might not contain `id` values,
+or might contain interim values for certain `id` properties. Once the [=DID
+document=] is fully resolved, the final `id` value will be
+determined and put in place of the interim values throughout the [=DID document=].
         </p>
 
       </section>
@@ -1580,10 +1844,31 @@ DIDs as defined in Section [[[#did-syntax]]]. The process of authorizing a
 {
   "@context": "https://www.w3.org/ns/did/v1.1",
   "id": "did:example:123456789abcdefghi",
-  "controller": "did:example:bcehfew7h32f32h7af3",
+  "controller": "did:example:bcehfew7h32f32h7af3"
 }
         </pre>
 
+      </section>
+
+      <section>
+        <h3>Identifier Restrictions</h3>
+        <p>
+Identifiers used in a [=DID document=] to identify a [=DID subject=] or a [=DID
+Controller=] cannot use query parameters or fragment identifiers.
+Implementers are urged to pay particular attention to the list of allowable
+characters in Section [[[#did-syntax]]] which makes this requirement clear; the
+syntax does not include the `?` character nor the `#` character. This is in
+contrast to identifiers used in a [=DID document=] to identify a [=verification
+method=] or a [=service=], which follow the syntax rules in Section
+[[[#did-url-syntax]]], which do allow the use of query parameters and fragment
+identifiers. Even so, the use of query parameters in long-lived canonical
+identifiers made for [=DID=] ecosystems is discouraged as it can increase the
+complexity of [=DID resolution=] software and potentially lead to a larger
+security attack surface. Fragment identifiers are also expected to be unique
+within a particular [=DID document=] and implementers are discouraged from
+reusing them to refer to different [=resources=] over time, such as two
+different [=verification methods=] within the same [=DID document=].
+        </p>
       </section>
 
     </section>
@@ -1591,12 +1876,11 @@ DIDs as defined in Section [[[#did-syntax]]]. The process of authorizing a
     <section>
       <h2>Verification Methods</h2>
       <p>
-A [=DID document=] can express [=verification methods=], as defined in
-<a data-cite="CID#verification-methods">Section 2.2: Verification Methods</a> of
-[[[CID]]] with the added restriction that the `id` value
-MUST conform to the [[[#did-url-syntax]]] and the
-`controller` value MUST conform to the [[[#did-syntax]]].
-See
+A [=DID document=] can express [=verification methods=], as defined in Section
+<a data-cite="CID#verification-methods">2.2: Verification Methods</a> of
+[[[CID]]] with the added restrictions that (a) the `id` value MUST conform to
+Section [[[#did-url-syntax]]] or Section [[[#relative-did-urls]]] and (b) the
+`controller` value MUST conform to Section [[[#did-syntax]]]. See
 <a data-cite="CID#verification-methods">Section 2.2: Verification Methods</a>
 of the [[[CID]]] specification for a description of [=verification methods=].
       </p>
@@ -1638,18 +1922,17 @@ specification for a description of [=services=].
     <h1>Representations</h1>
 
     <p>
-A concrete serialization of a [=DID document=] in this specification is
-called a [=representation=]. A [=representation=] is created by
-serializing the <a href="#data-model">data model</a> through a process called
+A concrete serialization of a [=DID document=] in this specification is called a
+[=representation=]. A [=representation=] is created by serializing the <a
+href="#data-model">data model</a> through a process called
 <dfn>production</dfn>. A [=representation=] is transformed into the <a
 href="#data-model">data model</a> through a process called
 <dfn>consumption</dfn>. The <em>production</em> and <em>consumption</em>
 processes enable the conversion of information from one [=representation=] to
-another. This specification defines [=representations=] for JSON and JSON-LD,
-and developers can use any other [=representation=], such as XML or
-YAML, that is capable of expressing the <a href="#data-model">data model</a>.
-The following sections define the general rules for [=production=] and
-[=consumption=], as well as the JSON and JSON-LD [=representations=].
+another. This specification defines a single [=representation=] for JSON, which
+is also compatible with processors that perform JSON-LD processing. The
+following sections define the general rules for [=production=] and
+[=consumption=], as well as the JSON [=representation=].
     </p>
 
     <section>
@@ -1823,7 +2106,7 @@ one blue arrow pointing from the grey-outlined rectangle to the respective
 black-outlined rectangle, labeled "produce", and one red arrow pointing in the
 reverse direction, labeled "consume". The black-outlined rectangle in the upper
 right is labeled "application/did+cbor", and contains hexadecimal data. The
-rectangle in the lower right is labeled "application/did+json", and contains
+rectangle in the lower right is labeled "application/did", and contains
 the following JSON data:
         </p>
         <pre>
@@ -1841,7 +2124,7 @@ the following JSON data:
 }
         </pre>
         <p>
-The rectangle in the lower left is labeled "application/did+ld+json", and
+The rectangle in the lower left is labeled "application/did", and
 contains the following JSON-LD data:
         </p>
         <pre>
@@ -2003,13 +2286,14 @@ All entries of a [=DID document=] MUST be included in the root <a
 data-cite="RFC8259#section-4">JSON Object</a>. Entries MAY contain additional
 data substructures subject to the value representation rules in the list above.
 When serializing a [=DID document=], a [=conforming producer=] MUST
-specify a media type of `application/did+json` to downstream
+specify a media type of `application/did` to downstream
 applications.
         </p>
 
       <pre class="example nohighlight"
         title="Example DID document in JSON representation">
 {
+  "@context": "https://www.w3.org/ns/did/v1.1",
   "id": "did:example:123456789abcdefghi",
   "authentication": [{
     "id": "did:example:123456789abcdefghi#keys-1",
@@ -2138,10 +2422,9 @@ A <a data-cite="INFRA#nulls">null</a> value.
         </table>
 
         <p class="advisement">
-All implementers creating [=conforming consumers=] that produce JSON
-[=representations=] are advised to ensure that their algorithms are aligned
-with the <a
-data-cite="INFRA#parse-json-bytes-to-an-infra-value">JSON
+All implementers creating [=conforming producers=] or [=conforming consumers=]
+are advised to ensure that their algorithms are aligned with the
+<a data-cite="INFRA#parse-json-bytes-to-an-infra-value">JSON
 conversion rules</a> in the [[INFRA]] specification and the <a
 data-cite="RFC8259#section-6">precision advisements regarding Numbers</a> in the
 JSON [[RFC8259]] specification.
@@ -2149,7 +2432,7 @@ JSON [[RFC8259]] specification.
 
         <p>
 If media type information is available to a [=conforming consumer=] and the
-media type value is `application/did+json`, then the data structure
+media type value is `application/did`, then the data structure
 being consumed is a [=DID document=], and the root element MUST be a <a
 data-cite="RFC8259#section-4">JSON Object</a> where all members of the object
 are entries of the [=DID document=]. A [=conforming consumer=] for a JSON
@@ -2159,26 +2442,30 @@ report an error.
         </p>
 
       </section>
-    </section>
 
-    <section>
-      <h2>JSON-LD</h2>
+      <section>
+        <h2>JSON-LD Processors</h2>
 
-      <p>
-JSON-LD [[JSON-LD11]] is a JSON-based format used to serialize <a
-href="http://www.w3.org/TR/ld-glossary/#linked-data">Linked Data</a>. This
-section defines the [=production=] and [=consumption=] rules for the
-JSON-LD [=representation=].
-      </p>
+        <p>
+[[JSON-LD11|JSON-LD]] is a JSON-based format used to serialize
+<a href="http://www.w3.org/TR/ld-glossary/#linked-data">Linked Data</a>. Some
+implementations are expected to process [=DID documents=] using the standard
+JSON-LD Processing algorithms. To maximize interoperability, implementers
+are strongly advised to ensure that JSON-LD Processing using standards-compliant
+libraries is not prevented. The semantics of a [=DID document=] are the same
+whether JSON-LD Processing using standards-compliant libraries is performed or
+not. Any difference in semantics is an error in either implementation or DID
+Method specification.
+        </p>
 
-      <p>
-The JSON-LD [=representation=] defines the following
-[=representation-specific entries=]:
-      </p>
+        <p>
+For JSON-LD processing to occur, a `@context` property MUST be specified
+according to the rules specified in the [[[JSON-LD11]]] specification.
+        </p>
 
-      <dl>
-        <dt><dfn>@context</dfn></dt>
-        <dd>
+        <dl>
+          <dt>@context</dt>
+          <dd>
 The <a href="https://www.w3.org/TR/json-ld11/#the-context">JSON-LD Context</a>
 is either a <a data-cite="INFRA#string">string</a> or a <a
 data-cite="INFRA#list">list</a> containing any combination of <a
@@ -2187,28 +2474,23 @@ maps</a>.
         </dd>
       </dl>
 
-      <section>
-        <h3>Production</h3>
-
-        <p>
+      <p>
 The [=DID document=], DID document data structures, and
 [=representation-specific entries=] <a data-cite="INFRA#maps">map</a> MUST
-be serialized to the JSON-LD [=representation=] according to the JSON
+be serialized to the JSON [=representation=] according to the JSON
 [=representation=] [=production=] rules as defined in [[[#json]]].
         </p>
 
         <p>
 In addition to using the JSON [=representation=] [=production=] rules,
-JSON-LD production MUST include the
-<a data-lt="representation-specific entry">representation-specific</a>
-<a>`@context`</a> entry. The serialized value of
+production MUST include the
+`@context` entry. The serialized value of
 `@context` MUST be the <a data-cite="RFC8259#section-7">JSON
 String</a> `https://www.w3.org/ns/did/v1.1`, or a <a
 data-cite="RFC8259#section-5">JSON Array</a> where the first item is the <a
 data-cite="RFC8259#section-7">JSON String</a>
 `https://www.w3.org/ns/did/v1.1` and the subsequent items are
-serialized according to the JSON [=representation=] [=production=]
-rules.
+serialized according to the JSON [=production=] rules.
         </p>
 
         <pre class="example"
@@ -2230,16 +2512,16 @@ rules.
         </pre>
 
         <p class="advisement" title="JSON-LD serialization rules">
-All implementers creating [=conforming producers=] that produce JSON-LD
-[=representations=] are advised to ensure that their algorithms
-produce valid JSON-LD [[JSON-LD11]] documents. Invalid JSON-LD documents will
-cause JSON-LD processors to halt and report errors.
+All implementers creating [=conforming consumers=] that produce or consume
+[=representations=] meant to be processed as JSON-LD are advised to ensure that
+their algorithms produce valid [[JSON-LD11|JSON-LD]] documents. Invalid JSON-LD
+documents will cause JSON-LD processors to halt and report errors.
         </p>
 
         <p>
-In order to achieve interoperability across different [=representations=],
+To achieve interoperability across different [=representations=],
 all JSON-LD Contexts and their terms SHOULD be registered in the repository of
-DID Extensions [[?DID-EXTENSIONS]].
+[[[?DID-EXTENSIONS]]].
         </p>
 
         <p>
@@ -2248,26 +2530,7 @@ SHOULD NOT produce a [=DID document=] that contains terms not defined via the
 `@context` as [=conforming consumers=] are expected to remove
 unknown terms. When serializing a JSON-LD [=representation=] of a [=DID
 document=], a [=conforming producer=] MUST specify a media type of
-`application/did+ld+json` to downstream applications.
-        </p>
-
-      </section>
-
-      <section>
-        <h3>Consumption</h3>
-
-        <p>
-The [=DID document=] and any DID document data structures expressed by a
-JSON-LD [=representation=] MUST be deserialized into the <a
-href="#data-model">data model</a> according to the JSON [=representation=]
-[=consumption=] rules as defined in [[[#json]]].
-        </p>
-
-        <p class="advisement" title="JSON-LD serialization rules">
-All implementers creating [=conforming consumers=] that consume JSON-LD
-[=representations=] are advised to ensure that their algorithms only accept
-valid JSON-LD [[JSON-LD11]] documents. Invalid JSON-LD documents will cause
-JSON-LD processors to halt and report errors.
+`application/did` to downstream applications.
         </p>
 
         <p>
@@ -2364,7 +2627,7 @@ system.
 HTTP clients and servers use media types associated with [=DID documents=] in
 `Accept:` headers and when indicating content types. Implementers are warned that
 HTTP servers might ignore the `Accept:` header and return another content type, or
-return an error code such as <a data-cite="RFC7231#status.415">`415
+return an error code such as <a data-cite="RFC9110#status.415">`415
 Unsupported Media Type`</a>.
         </p>
       </section>
@@ -2375,10 +2638,10 @@ Unsupported Media Type`</a>.
     <h1>Methods</h1>
 
     <p>
-A [=DID method=] defines how implementers can realize the features
+A [=conforming DID method=] defines how implementers can realize the features
 described by this specification. [=DID methods=] are often associated with a
-particular [=verifiable data registry=]. New [=DID methods=] are defined
-in their own specifications to enable interoperability between different
+particular [=verifiable data registry=]. New [=DID methods=] are defined in
+their own specifications to enable interoperability between different
 implementations of the same [=DID method=].
     </p>
 
@@ -2386,7 +2649,7 @@ implementations of the same [=DID method=].
 Conceptually, the relationship between this specification and a [=DID
 method=] specification is similar to the relationship between the IETF generic
 [=URI=] specification [[?RFC3986]] and a specific [=URI=] scheme
-[[?IANA-URI-SCHEMES]], such as the `http` scheme [[?RFC7230]]. In
+[[?IANA-URI-SCHEMES]], such as the `http` scheme [[?RFC9110]]. In
 addition to defining a specific [=DID scheme=], a [=DID method=]
 specification also defines the mechanisms for creating, resolving, updating, and
 deactivating [=DIDs=] and [=DID documents=] using a specific type of
@@ -2526,6 +2789,13 @@ not use the [=DID document=] for this decision at all, and depend on an
 out-of-band mechanism, instead.
         </li>
       </ul>
+
+      <p>
+        When executing method operations, a [=DID method=] can use any data structures
+        it requires, including intermediate, partial, or temporary [=DID documents=], as
+        long as they are kept internal to the DID method, and the DID documents returned
+        by the method operations are fully conformant, as defined in [[[#conformance]]].
+      </p>
 
     </section>
 
@@ -3106,16 +3376,16 @@ in the [[[CID]]] specification.
     </p>
 
     <section>
-      <h2>Herd Privacy</h2>
+      <h2>Group Privacy</h2>
 
       <p>
-When a [=DID subject=] is indistinguishable from others in the herd,
+When a [=DID subject=] is indistinguishable from others in the group,
 privacy is available. When the act of engaging privately with another party is
 by itself a recognizable flag, privacy is greatly diminished.
       </p>
       <p>
 [=DIDs=] and [=DID
-methods=] need to work to improve herd privacy, particularly for those who
+methods=] need to work to improve group privacy, particularly for those who
 legitimately need it most. Choose technologies and human interfaces that
 default to preserving anonymity and pseudonymity. To reduce <a
 href="https://en.wikipedia.org/wiki/Device_fingerprint">digital
@@ -3344,9 +3614,8 @@ purposes.
       <h2>Proving</h2>
 
       <p class="note">
-These examples are for information purposes only. See
-<a href="https://www.w3.org/TR/vc-data-model/">W3C Verifiable Credentials Data
-Model</a> for additional examples.
+These examples are for information purposes only. See [[[VC-DATA-MODEL]]] for
+additional examples.
       </p>
 
       <pre class="example"
@@ -4025,7 +4294,15 @@ labeled, "DID Subject".
 In the case of group control, the [=DID controllers=] are expected to act
 together in some fashion, such as when using a cryptographic algorithm that
 requires multiple digital signatures ("multi-sig") or a threshold number of
-digital signatures ("m-of-n"). From a functional standpoint, this option is
+digital signatures ("m-of-n"). These additional thresholds for
+verifying a proof can be expressed in a [=verification method=] as described in
+Section [[[#verification-methods]]] or can be an intrinsic part of the
+verification material of the [=verification method=], where the number of [=DID controllers=] that
+participated in the generation of a particular digital signature are hidden for
+privacy reasons. Verification methods that require a proof be produced by a combination of cryptographic operations performed by members of a group can be used to control the contents of a DID document; exactly how this is realized depends on individual DID method specifications.
+        </p>
+        <p>
+From a functional standpoint, this option is
 similar to a single [=DID controller=] because, although each of the
 [=DID controllers=] in the [=DID controller=] group has its own graph
 node, the actual control collapses into a single logical graph node
@@ -4095,7 +4372,7 @@ On the other hand, if the change is implemented by changing the value of the
       </p>
       <p>
 If it is important to verify a change of [=DID controller=], implementers are
-advised to [=authenticate=] the new [=DID controller=] against the
+advised to [=authentication|authenticate=] the new [=DID controller=] against the
 [=verification methods=] in the revised [=DID document=].
       </p>
     </section>
@@ -4110,7 +4387,39 @@ this specification as a W3C First Public Working Draft.
     </p>
 
     <p>
-Changes since the <a
+Changes since the DID v1.0 <a
+href="https://www.w3.org/TR/2022/REC-did-core-20220719/">Recommendation</a>
+include:
+    </p>
+
+    <ul>
+      <li>
+Editorial updates to explanations, grammar, and examples, to improve readability
+of the specification.
+      </li>
+      <li>
+Update references about HTTP semantics to the [[[RFC9110]]] specification.
+      </li>
+      <li>
+Clarified fragment resolution algorithm.
+      </li>
+      <li>
+Consolidated media types to `application/did` after IANA registration process
+completed.
+      </li>
+      <li>
+Added JSON-LD Context for v1.1.
+      </li>
+      <li>
+Moved sections on resolution to the [[[?DID-RESOLUTION]]] specification.
+      </li>
+      <li>
+Refactored specification to layer on top of the [[[?CID]]] specification.
+      </li>
+    </ul>
+
+    <p>
+Changes since the DID v1.0 <a
 href="https://www.w3.org/TR/2021/CR-did-core-20210615/">Second Candidate
 Recommendation</a> include:
     </p>
@@ -4137,7 +4446,7 @@ Working Group efforts.
 Add links to use cases document.
       </li>
       <li>
-Add warning related to [[?MULTIBASE]] and `publicKeyMultibase`.
+Add warning related to Multibase and `publicKeyMultibase` [[?CID]].
       </li>
       <li>
 Remove at risk issue markers for features that gained enough implementation
@@ -4149,7 +4458,7 @@ Finalize the Editors, Authors, and Acknowledgements information.
     </ul>
 
     <p>
-Changes since the <a
+Changes since the DID v1.0 <a
 href="https://www.w3.org/TR/2021/CR-did-core-20210318/">First Candidate
 Recommendation</a> include:
     </p>
@@ -4158,7 +4467,7 @@ Recommendation</a> include:
       <li>
 Addition of at risk markers to most of the DID Parameters, the data model
 datatypes that are expected to not be implemented, and the
-application/did+ld+json media type. This change resulted in the DID WG's
+application/did media type. This change resulted in the DID WG's
 decision to perform a second Candidate Recommendation phase. All other
 changes were either editorial or predicted in "at risk" issue markers.
       </li>
@@ -4184,7 +4493,7 @@ A large number of editorial clean ups to the Security Considerations section.
     </ul>
 
     <p>
-Changes since the <a
+Changes since the DID v1.0 <a
 href="https://www.w3.org/TR/2019/WD-did-core-20191107/">First Public Working
 Draft</a> include:
     </p>
@@ -4392,7 +4701,7 @@ See <a data-cite="DID-CORE#security-considerations">DID Core v1.1, Security Cons
         <dt>Interoperability considerations:</dt>
         <dd>Not Applicable</dd>
         <dt>Published specification:</dt>
-        <dd>https://www.w3.org/TR/did-core/</dd>
+        <dd>https://www.w3.org/TR/did/</dd>
         <dt>Applications that use this media type:</dt>
         <dd>
 Any application that requires an identifier that is decentralized, persistent,
@@ -4433,7 +4742,11 @@ Fragment identifiers used in JSON-LD environments are treated
 according to the rules associated with the
 <a data-cite="JSON-LD11#iana-considerations">JSON-LD 1.1: application/ld+json
 media type</a> [[JSON-LD11]]. Fragment identifiers used in JSON environments
-have the same semantic interpretation as those in JSON-LD environments.
+have the same semantic interpretation as those in JSON-LD environments. An
+algorithm for performing fragment resolution is provided in
+<a data-cite="CID#fragment-resolution">Section 3.4: Fragment Resolution</a> of
+the [[[?CID]]] specification which is extended by the [[[?DID-1.1]]]
+specification.
       </p>
     </section>
 

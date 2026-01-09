@@ -1,0 +1,57 @@
+# Relies on the standard GitHub action setup to deploy to GitHub Pages
+# The really specific details are in the steps that generates the vocabulary files
+# (and the deployment of deno as an underling tool).
+# See https://github.com/w3c/yml2vocab for more details
+#
+# Note that for this script to work, the repository setting for GitHub pages must be changed!
+name: Publish Editor's Draft
+on:
+  push:
+    branches: [main]
+  # Allows workflow to be triggered manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout/@v4
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: Generate the vocabulary files
+        # Run the yml2vocab script
+        # As a result, the following files will be available on w3c.github.io/vocab/
+        # - vocabulary.{html,ttl,jsonld}:  Vocab in HTML/RDFa, Turtle, and JSON-LD, respectively
+        # - vocabulary.context.jsonld: JSON-LD context file for the full vocabulary, including external terms
+        run: |
+          (cd vocab; deno run -A jsr:@iherman/yml2vocab/cli -t template.html -v vocabulary.yml -c)
+          mkdir contexts
+          mv vocab/vocabulary.html vocab/index.html
+        #  mv vocab/vocabulary.context.jsonld contexts/v1.1rc1
+      - name: Setup Github Pages
+        uses: actions/configure-pages@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload entire repository
+          path: '.'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
