@@ -11,6 +11,8 @@
   -->
   <script class="remove"
     src="https://www.w3.org/Tools/respec/respec-w3c"></script>
+  <script class="remove"
+    src="https://cdn.jsdelivr.net/gh/digitalbazaar/respec-vc@3.4.3/dist/main.js"></script>
 
   <script class="remove" type="text/javascript">
   var respecConfig = {
@@ -119,8 +121,7 @@
     // Uncomment these to use the respec extension that generates a list of
     //   normative statements:
     preProcess: [/*prepare_reqlist*/],
-    postProcess: [/*add_reqlist_button, restrictRefs*/],
-
+    postProcess: [window.respecVc.createVcExamples],
     // list of specification editors
     editors: [{
       name: "Manu Sporny", url: "https://www.linkedin.com/in/manusporny/",
@@ -2556,6 +2557,40 @@ drop all terms from a [=DID document=] that are not defined via the
 `@context`.
         </p>
 
+      </section>
+
+      <section>
+        <h2>Remote Resource Integrity</h2>
+
+        <p>
+Implementations MUST treat the base context value, located at
+`https://www.w3.org/ns/did/v1.1`, as already retrieved;
+the following value is the hexadecimal encoded SHA2-256 digest value of the base
+context file: <code><span class="vc-hash"
+data-hash-url="https://www.w3.org/ns/did-vocab/v1.1rc1.jsonld"
+data-hash-format="openssl dgst -sha256" /></code>. It is possible to confirm
+the cryptographic digest above by running the following command from a modern
+Unix command line interface:
+`curl -s https://www.w3.org/ns/did/v1.1 | openssl dgst -sha256`.
+        </p>
+        <p>
+Implementers are warned that other data that is referenced from within a
+[=DID document=], such as resources that are linked to via URLs, are not
+cryptographically protected by default. It is considered a best practice to
+ensure that the same sorts of protections are provided for any URL that is
+critical to the security of the [=DID document=] through the use of
+permanently cached files and/or cryptographic hashes. Ultimately, knowing the
+cryptographic digest of any linked external content enables an application to
+confirm that the content is the same as what the [=DID controller=] intended.
+        </p>
+        <p class="note" title="See errata if hash value changes are detected">
+It is extremely unlikely that the files that have associated cryptographic hash
+values in this specification will change. However, if critical errata are
+found in the specification and corrections are required to ensure
+ecosystem stability, the cryptographic hash values might change. As such, the
+HTTP cache times for the files are not set to infinity and implementers are
+advised to check for errata if a cryptographic hash value change is detected.
+        </p>
       </section>
     </section>
 
