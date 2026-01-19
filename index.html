@@ -867,8 +867,10 @@ defined in <a href="#representations"></a> or in the W3C [[[DID-EXTENSIONS]]].
       <dt><dfn class="export" data-lt="DID fragments">DID fragment</dfn></dt>
 
       <dd>
-The portion of a [=DID URL=] that follows the first hash sign character
-(<code>#</code>). DID fragment syntax is identical to URI fragment syntax.
+          The portion of a <a>DID URL</a> that follows the first
+          <span class="codepoint" translate="no"><bdi lang="en">&#x23;</bdi> character
+          (<code class="uname">U+0023 NUMBER SIGN</code>)</span>. DID fragment syntax
+          is identical to URI fragment syntax.
       </dd>
 
       <dt><dfn class="export" data-lt="DID methods|DID method's">DID method</dfn></dt>
@@ -883,19 +885,26 @@ and deactivated. See <a href="#methods"></a>.
       <dt><dfn class="export" data-lt="DID paths">DID path</dfn></dt>
 
       <dd>
-The portion of a [=DID URL=] that begins with and includes the first forward
-slash (<code>/</code>) character and ends with either a question mark
-(<code>?</code>) character, a fragment hash sign (<code>#</code>) character,
-or the end of the [=DID URL=]. DID path syntax is identical to URI path syntax.
-See <a href="#path"></a>.
+          The portion of a <a>DID URL</a> that begins with and includes the first
+          <span class="codepoint" translate="no"><bdi lang="en">&#x2f;</bdi> character
+          (<code class="uname">U+002F SOLIDUS</code>)</span> and ends with but does
+          not include either a
+          <span class="codepoint" translate="no"><bdi lang="en">&#x3f;</bdi> character
+          (<code class="uname">U+003F QUESTION MARK</code>)</span>, a
+          <span class="codepoint" translate="no"><bdi lang="en">&#x23;</bdi> character
+          (<code class="uname">U+0023 NUMBER SIGN</code>)</span>,
+          or the end of the [=DID URL=]. DID path syntax is identical to URI path syntax.
+          See <a href="#path"></a>.
       </dd>
 
       <dt><dfn class="export" data-lt="DID queries">DID query</dfn></dt>
 
       <dd>
-The portion of a [=DID URL=] that follows and includes the first question
-mark character (<code>?</code>). DID query syntax is identical to URI query
-syntax. See <a href="#query"></a>.
+          The portion of a <a>DID URL</a> that follows and includes the first
+          <span class="codepoint" translate="no"><bdi lang="en">&#x3f;</bdi> character
+          (<code class="uname">U+003F QUESTION MARK</code>)</span>.
+          DID query syntax is identical to URI query
+          syntax. See <a href="#query"></a>.
       </dd>
 
       <dt><dfn class="export">DID resolution</dfn></dt>
@@ -938,11 +947,17 @@ digital thing, logical thing, etc.
       <dt><dfn class="export" data-lt="DID URLs">DID URL</dfn></dt>
 
       <dd>
-A [=DID=] plus any additional syntactic component that conforms to the
-definition in <a href="#did-url-syntax"></a>. This includes an optional <a>DID
-path</a> (with its leading <code>/</code> character), optional [=DID query=]
-(with its leading <code>?</code> character), and optional [=DID fragment=]
-(with its leading <code>#</code> character).
+          A [=DID=] plus any additional syntactic component that conforms to the
+          definition in <a href="#did-url-syntax"></a>. This includes an optional <a>DID
+          path</a> with its leading
+          <span class="codepoint" translate="no"><bdi lang="en">&#x2f;</bdi> character
+          (<code class="uname">U+002F SOLIDUS</code>)</span>,
+          optional <a>DID query</a> with its leading
+          <span class="codepoint" translate="no"><bdi lang="en">&#x3f;</bdi> character
+          (<code class="uname">U+003F QUESTION MARK</code>)</span>,
+          and optional <a>DID fragment</a> with its leading
+          <span class="codepoint" translate="no"><bdi lang="en">&#x23;</bdi> character
+          (<code class="uname">U+0023 NUMBER SIGN</code>)</span>.
       </dd>
 
       <dt><dfn class="export">DID URL dereferencing</dfn></dt>
