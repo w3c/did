@@ -857,9 +857,10 @@ be permitted to add other personal devices without the parent's permission.
       <dt><dfn class="export" data-lt="DID documents">DID document</dfn></dt>
 
       <dd>
-A set of data describing the [=DID subject=], including mechanisms, such as
-cryptographic public keys, that the [=DID subject=] or a [=DID delegate=] can
-use to [=authentication|authenticate=] itself and prove its association with the
+A set of data that enables cryptographically verifiable interactions with a
+[=DID subject=]. This includes mechanisms, such as cryptographic public keys,
+that a [=DID subject=] or a [=DID delegate=] can use to
+[=authentication|authenticate=] itself and prove its association with a
 [=DID=]. A DID document might have one or more different [=representations=] as
 defined in <a href="#representations"></a> or in the W3C [[[DID-EXTENSIONS]]].
       </dd>
@@ -1009,7 +1010,8 @@ that is intended to reflect a past, current, or desired state of a given
 resource, in a format that can be readily communicated via the protocol. A
 representation consists of a set of representation metadata and a potentially unbounded
 stream of representation data." A [=DID document=] is a representation of
-information describing a [=DID subject=]. See <a href="#representations"></a>.
+information which enables cryptographically verifiable interactions with a
+[=DID subject=]. See <a href="#representations"></a>.
       </dd>
 
         <dt><dfn data-lt="representation-specific entry|non-representation-specific
@@ -4006,7 +4008,7 @@ The [=DID=] refers to the [=DID subject=] and <em>resolves to</em> the
 the [=DID subject=] and does not have a [=URI=] separate from the
 [=DID=]. Rather the [=DID document=] is an artifact of [=DID
 resolution=] controlled by the [=DID controller=] for the purpose of
-describing the [=DID subject=].
+enabling cryptographically verifiable interactions with a [=DID subject=].
       </p>
       <p>
 This distinction is illustrated by the graph model shown below.
