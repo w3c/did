@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en" dir="ltr"><head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-<meta name="generator" content="ReSpec 35.5.1">
+<meta name="generator" content="ReSpec 35.6.1">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <style>
 span.example-title{text-transform:none}
@@ -91,6 +91,7 @@ dd{margin-left:0}
 .removeOnSave{display:none}
 }
 </style>
+  
 
   
   
@@ -209,16 +210,236 @@ var[data-type]::before{content:"";transform:translateX(-50%);border-width:4px 6p
 var[data-type]::after{content:attr(data-type);transform:translateX(-50%) translateY(-100%);background:#222;text-align:center;font-family:"Dank Mono","Fira Code",monospace;font-style:normal;padding:6px;border-radius:3px;color:#daca88;text-indent:0;font-weight:400}
 var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
 </style>
+<style>
+
+.vc-tabbed {
+  overflow-x: hidden;
+  margin: 0 0;
+}
+
+.vc-tabbed [type="radio"] {
+  display: none;
+}
+
+.vc-tabs {
+  display: flex;
+  align-items: stretch;
+  list-style: none;
+  padding: 0;
+  border-bottom: 1px solid #ccc;
+}
+
+li.vc-tab {
+  margin: unset;
+}
+
+.vc-tab > label {
+  display: block;
+  margin-bottom: -1px;
+  padding: .4em .5em;
+  border: 1px solid #ccc;
+  border-top-right-radius: .4em;
+  border-top-left-radius: .4em;
+  background: #eee;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.vc-tab:hover label {
+  border-left-color: #333;
+  border-top-color: #333;
+  border-right-color: #333;
+  color: #333;
+}
+
+.vc-tab-content {
+  display: none;
+}
+.vc-tab-content > pre {
+  white-space: pre-wrap;
+}
+
+.vc-jose-cose-tabbed, .vc-jose-cose-tabbed-jwt,
+.vc-jose-cose-tabbed-sd-jwt, .vc-jose-cose-tabbed-cose,
+.sd-jwt-tabbed {
+  overflow-x: hidden;
+  margin: 0 0;
+}
+
+.vc-jose-cose-tabbed [type="radio"], .vc-jose-cose-tabbed-jwt [type="radio"],
+.vc-jose-cose-tabbed-sd-jwt [type="radio"],
+.vc-jose-cose-tabbed-cose [type="radio"],
+.sd-jwt-tabbed [type="radio"] {
+  display: none;
+}
+
+.vc-jose-cose-tabs, .vc-jose-cose-jwt-tabs, .vc-jose-cose-sd-jwt-tabs,
+.vc-jose-cose-cose-tabs,
+.sd-jwt-tabs {
+  display: flex;
+  align-items: stretch;
+  list-style: none;
+  padding: 0;
+  border-bottom: 1px solid #ccc;
+}
+
+li.vc-jose-cose-tab, li.vc-jose-cose-jwt-tab, li.vc-jose-cose-sd-jwt-tab,
+li.vc-jose-cose-cose-tab,
+li.sd-jwt-tab {
+  margin: 0 0;
+  margin-left: 8px;
+}
+
+.vc-jose-cose-tab>label, .vc-jose-cose-jwt-tab>label,
+.vc-jose-cose-sd-jwt-tab>label, .vc-jose-cose-cose-tab>label,
+.sd-jwt-tab>label {
+  display: block;
+  margin-bottom: -1px;
+  padding: .4em .5em;
+  border: 1px solid #ccc;
+  border-top-right-radius: .4em;
+  border-top-left-radius: .4em;
+  background: #eee;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.vc-jose-cose-tab:hover label, .vc-jose-cose-jwt-tab:hover label,
+.vc-jose-cose-sd-jwt-tab:hover label, .vc-jose-cose-cose-tab:hover label,
+.sd-jwt-tab:hover label {
+  border-left-color: #333;
+  border-top-color: #333;
+  border-right-color: #333;
+  color: #333;
+}
+
+.vc-jose-cose-tab-content,
+.sd-jwt-tab-content {
+  display: none;
+}
+
+.vc-tabbed [type="radio"]:nth-of-type(1):checked ~ .vc-tabs .vc-tab:nth-of-type(1) label,
+  .vc-tabbed [type="radio"]:nth-of-type(2):checked ~ .vc-tabs .vc-tab:nth-of-type(2) label,
+  .vc-tabbed [type="radio"]:nth-of-type(3):checked ~ .vc-tabs .vc-tab:nth-of-type(3) label,
+  .vc-tabbed [type="radio"]:nth-of-type(4):checked ~ .vc-tabs .vc-tab:nth-of-type(4) label,
+  .vc-tabbed [type="radio"]:nth-of-type(5):checked ~ .vc-tabs .vc-tab:nth-of-type(5) label,
+  .vc-tabbed [type="radio"]:nth-of-type(6):checked ~ .vc-tabs .vc-tab:nth-of-type(6) label,
+  .vc-tabbed [type="radio"]:nth-of-type(7):checked ~ .vc-tabs .vc-tab:nth-of-type(7) label,
+  .vc-tabbed [type="radio"]:nth-of-type(8):checked ~ .vc-tabs .vc-tab:nth-of-type(8) label,
+  .vc-tabbed [type="radio"]:nth-of-type(9):checked ~ .vc-tabs .vc-tab:nth-of-type(9) label,
+  .vc-tabbed [type="radio"]:nth-of-type(10):checked ~ .vc-tabs .vc-tab:nth-of-type(10) label {
+  border-bottom-color: #fff;
+  background: #fff;
+  color: #222;
+}
+
+.vc-tabbed [type="radio"]:nth-of-type(1):checked ~ .vc-tab-content:nth-of-type(1),
+  .vc-tabbed [type="radio"]:nth-of-type(2):checked ~ .vc-tab-content:nth-of-type(2),
+  .vc-tabbed [type="radio"]:nth-of-type(3):checked ~ .vc-tab-content:nth-of-type(3),
+  .vc-tabbed [type="radio"]:nth-of-type(4):checked ~ .vc-tab-content:nth-of-type(4),
+  .vc-tabbed [type="radio"]:nth-of-type(5):checked ~ .vc-tab-content:nth-of-type(5),
+  .vc-tabbed [type="radio"]:nth-of-type(6):checked ~ .vc-tab-content:nth-of-type(6),
+  .vc-tabbed [type="radio"]:nth-of-type(7):checked ~ .vc-tab-content:nth-of-type(7),
+  .vc-tabbed [type="radio"]:nth-of-type(8):checked ~ .vc-tab-content:nth-of-type(8),
+  .vc-tabbed [type="radio"]:nth-of-type(9):checked ~ .vc-tab-content:nth-of-type(9),
+  .vc-tabbed [type="radio"]:nth-of-type(10):checked ~ .vc-tab-content:nth-of-type(10),
+.sd-jwt-tabbed [type="radio"]:nth-of-type(1):checked ~ .sd-jwt-tab-content:nth-of-type(1),
+.sd-jwt-tabbed [type="radio"]:nth-of-type(2):checked ~ .sd-jwt-tab-content:nth-of-type(2),
+.sd-jwt-tabbed [type="radio"]:nth-of-type(3):checked ~ .sd-jwt-tab-content:nth-of-type(3) {
+  display: block;
+}
+
+.disclosure {
+  margin: 10px 0;
+  font-size: 12px;
+  line-height: 1.6;
+  padding: 5px;
+}
+
+.disclosure h3 {
+  margin: 0;
+  font-size: 14px;
+  padding-left: 5px;
+}
+
+.disclosure .claim-name {
+  color: #333;
+}
+
+.disclosure .hash,
+.disclosure .disclosure-value,
+.disclosure .contents {
+  color: #555;
+  word-wrap: break-word;
+  display: inline;
+}
+
+.disclosure p {
+  margin: 0;
+  padding-left: 5px;
+}
+
+.disclosure pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  margin: 0;
+  padding-left: 5px;
+  line-height: 1.6;
+  display: inline-block;
+}
+
+.header-value {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  margin: 0;
+  padding-left: 5px;
+  line-height: 1.6;
+  font-size: 12px;
+}
+
+.cose-text, .jose-text, .vc-jose-cose-jwt .text, .vc-jose-cose-sd-jwt .text,
+ .vc-jose-cose-cose .text {
+  font-family: monospace;
+  color: green;
+}
+
+.sd-jwt-compact, .jwt-compact, .vc-jose-cose-jwt .compact, .vc-jose-cose-sd-jwt
+ .compact, .vc-jose-cose-cose .compact {
+  background-color: rgba(0,0,0,.03);
+}
+
+.sd-jwt-header, .jwt-header, .vc-jose-cose-jwt .header, .vc-jose-cose-sd-jwt
+ .header, .vc-jose-cose-cose .header {
+  color: red;
+}
+
+.sd-jwt-payload, .jwt-payload, .vc-jose-cose-jwt .payload, .vc-jose-cose-sd-jwt
+ .payload, .vc-jose-cose-cose .payload {
+  color: green;
+}
+
+.sd-jwt-signature, .jwt-signature, .vc-jose-cose-jwt .signature,
+ .vc-jose-cose-sd-jwt .signature, .vc-jose-cose-cose .signature {
+  color: blue;
+}
+
+.sd-jwt-disclosure, .vc-jose-cose-jwt .disclosure, .vc-jose-cose-sd-jwt
+ .disclosure, .vc-jose-cose-cose .disclosure {
+  color: purple;
+}
+</style>
 <script id="initialUserConfig" type="application/json">{
   "group": "did",
   "wgPublicList": "public-did-wg",
   "shortName": "did-1.1",
   "specStatus": "CR",
-  "crEnd": "2026-01-30",
+  "crEnd": "2026-03-19",
   "implementationReportURI": "https://w3c.github.io/did-test-suite/",
   "edDraftURI": "https://w3c.github.io/did/",
   "subtitle": "Core architecture, data model, and representations",
-  "publishDate": "2025-11-25",
+  "publishDate": "2026-02-19",
   "previousPublishDate": "2022-07-19",
   "previousMaturity": "REC",
   "pluralize": true,
@@ -305,7 +526,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   },
   "includePermalinks": false,
   "preProcess": [],
-  "postProcess": [],
+  "postProcess": [
+    null
+  ],
   "editors": [
     {
       "name": "Manu Sporny",
@@ -411,20 +634,20 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       ]
     }
   ],
-  "publishISODate": "2025-11-25T00:00:00.000Z",
-  "generatedSubtitle": "W3C Candidate Recommendation Snapshot 25 November 2025"
+  "publishISODate": "2026-02-19T00:00:00.000Z",
+  "generatedSubtitle": "W3C Candidate Recommendation Snapshot 19 February 2026"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-CR"></head>
 <body data-cite="infra rfc3986 web-platform cid" class="h-entry"><div class="head">
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Decentralized Identifiers (DIDs) v1.1</h1> <h2 id="subtitle" class="subtitle">Core architecture, data model, and representations</h2>
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#CR">W3C Candidate Recommendation Snapshot</a> <time class="dt-published" datetime="2025-11-25">25 November 2025</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#CR">W3C Candidate Recommendation Snapshot</a> <time class="dt-published" datetime="2026-02-19">19 February 2026</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
         <dt>This version:</dt><dd>
-                <a class="u-url" href="https://www.w3.org/TR/2025/CR-did-1.1-20251125/">https://www.w3.org/TR/2025/CR-did-1.1-20251125/</a>
+                <a class="u-url" href="https://www.w3.org/TR/2026/CR-did-1.1-20260219/">https://www.w3.org/TR/2026/CR-did-1.1-20260219/</a>
               </dd>
         <dt>Latest published version:</dt><dd>
                 <a href="https://www.w3.org/TR/did-1.1/">https://www.w3.org/TR/did-1.1/</a>
@@ -490,7 +713,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <p class="copyright">
     <a href="https://www.w3.org/policies/#copyright">Copyright</a>
     ©
-    2025
+    2026
     
     <a href="https://www.w3.org/">World Wide Web Consortium</a>.
     <abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup>
@@ -553,7 +776,7 @@ specification: <cite><a data-matched-text="[[[DID-CORE]]]" href="https://www.w3.
         <a href="https://www.w3.org/policies/patent-policy/#sec-Requirements">royalty-free licensing</a>
         for implementations.</p><p>
           This Candidate Recommendation is not expected to advance to Proposed
-          Recommendation any earlier than 30 January 2026.
+          Recommendation any earlier than 19 March 2026.
         </p><p>
     
         This document was produced by a group
@@ -579,7 +802,7 @@ specification: <cite><a data-matched-text="[[[DID-CORE]]]" href="https://www.w3.
 Architecture Overview
       </a></li><li class="tocline"><a class="tocxref" href="#conformance"><bdi class="secno">1.4 </bdi>Conformance</a></li><li class="tocline"><a class="tocxref" href="#audience"><bdi class="secno">1.5 </bdi>
         Audience
-      </a></li></ol></li><li class="tocline"><a class="tocxref" href="#terminology"><bdi class="secno">2. </bdi>Terminology</a></li><li class="tocline"><a class="tocxref" href="#identifier"><bdi class="secno">3. </bdi>Identifier</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#did-syntax"><bdi class="secno">3.1 </bdi>DID Syntax</a></li><li class="tocline"><a class="tocxref" href="#did-url-syntax"><bdi class="secno">3.2 </bdi>DID URL Syntax</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#relative-did-urls"><bdi class="secno">3.2.1 </bdi>Relative DID URLs</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#data-model"><bdi class="secno">4. </bdi>Data Model</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#extensibility"><bdi class="secno">4.1 </bdi>Extensibility</a></li></ol></li><li class="tocline"><a class="tocxref" href="#core-properties"><bdi class="secno">5. </bdi>Core Properties</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#identifiers"><bdi class="secno">5.1 </bdi>Identifiers</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#did-subject"><bdi class="secno">5.1.1 </bdi>DID Subject</a></li><li class="tocline"><a class="tocxref" href="#did-controller"><bdi class="secno">5.1.2 </bdi>DID Controller</a></li><li class="tocline"><a class="tocxref" href="#identifier-restrictions"><bdi class="secno">5.1.3 </bdi>Identifier Restrictions</a></li></ol></li><li class="tocline"><a class="tocxref" href="#verification-methods"><bdi class="secno">5.2 </bdi>Verification Methods</a></li><li class="tocline"><a class="tocxref" href="#verification-relationships"><bdi class="secno">5.3 </bdi>Verification Relationships</a></li><li class="tocline"><a class="tocxref" href="#services"><bdi class="secno">5.4 </bdi>Services</a></li></ol></li><li class="tocline"><a class="tocxref" href="#representations"><bdi class="secno">6. </bdi>Representations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#production-and-consumption"><bdi class="secno">6.1 </bdi>Production and Consumption</a></li><li class="tocline"><a class="tocxref" href="#json"><bdi class="secno">6.2 </bdi>JSON</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#production"><bdi class="secno">6.2.1 </bdi>Production</a></li><li class="tocline"><a class="tocxref" href="#consumption"><bdi class="secno">6.2.2 </bdi>Consumption</a></li><li class="tocline"><a class="tocxref" href="#json-ld-processors"><bdi class="secno">6.2.3 </bdi>JSON-LD Processors</a></li></ol></li><li class="tocline"><a class="tocxref" href="#media-types"><bdi class="secno">6.3 </bdi>Media Types</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#media-type-precision"><bdi class="secno">6.3.1 </bdi>Media Type Precision</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#methods"><bdi class="secno">7. </bdi>Methods</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#method-syntax"><bdi class="secno">7.1 </bdi>Method Syntax</a></li><li class="tocline"><a class="tocxref" href="#method-operations"><bdi class="secno">7.2 </bdi>Method Operations</a></li><li class="tocline"><a class="tocxref" href="#security-requirements"><bdi class="secno">7.3 </bdi>Security Requirements</a></li><li class="tocline"><a class="tocxref" href="#privacy-requirements"><bdi class="secno">7.4 </bdi>Privacy Requirements</a></li></ol></li><li class="tocline"><a class="tocxref" href="#security-considerations"><bdi class="secno">8. </bdi>Security Considerations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#choosing-did-resolvers"><bdi class="secno">8.1 </bdi>Choosing DID Resolvers</a></li><li class="tocline"><a class="tocxref" href="#non-repudiation"><bdi class="secno">8.2 </bdi>Non-Repudiation</a></li><li class="tocline"><a class="tocxref" href="#notification-of-did-document-changes"><bdi class="secno">8.3 </bdi>Notification of DID Document Changes</a></li><li class="tocline"><a class="tocxref" href="#revocation-in-trustless-systems"><bdi class="secno">8.4 </bdi>Revocation in Trustless Systems</a></li><li class="tocline"><a class="tocxref" href="#did-recovery"><bdi class="secno">8.5 </bdi>DID Recovery</a></li><li class="tocline"><a class="tocxref" href="#the-role-of-human-friendly-identifiers"><bdi class="secno">8.6 </bdi>The Role of Human-Friendly Identifiers</a></li><li class="tocline"><a class="tocxref" href="#dids-as-enhanced-urns"><bdi class="secno">8.7 </bdi>DIDs as Enhanced URNs</a></li><li class="tocline"><a class="tocxref" href="#immutability"><bdi class="secno">8.8 </bdi>Immutability</a></li><li class="tocline"><a class="tocxref" href="#encrypted-data-in-did-documents"><bdi class="secno">8.9 </bdi>Encrypted Data in DID Documents</a></li><li class="tocline"><a class="tocxref" href="#equivalence-properties"><bdi class="secno">8.10 </bdi>Equivalence Properties</a></li><li class="tocline"><a class="tocxref" href="#persistence"><bdi class="secno">8.11 </bdi>Persistence</a></li><li class="tocline"><a class="tocxref" href="#evaluating-competing-considerations"><bdi class="secno">8.12 </bdi>Evaluating Competing Considerations</a></li></ol></li><li class="tocline"><a class="tocxref" href="#privacy-considerations"><bdi class="secno">9. </bdi>Privacy Considerations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#group-privacy"><bdi class="secno">9.1 </bdi>Group Privacy</a></li></ol></li><li class="tocline"><a class="tocxref" href="#examples"><bdi class="secno">A. </bdi>Examples</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#did-documents"><bdi class="secno">A.1 </bdi>DID Documents</a></li><li class="tocline"><a class="tocxref" href="#proving"><bdi class="secno">A.2 </bdi>Proving</a></li><li class="tocline"><a class="tocxref" href="#encrypting"><bdi class="secno">A.3 </bdi>Encrypting</a></li></ol></li><li class="tocline"><a class="tocxref" href="#architectural-considerations"><bdi class="secno">B. </bdi>Architectural Considerations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#detailed-architecture-diagram"><bdi class="secno">B.1 </bdi>Detailed Architecture Diagram</a></li><li class="tocline"><a class="tocxref" href="#creation-of-a-did"><bdi class="secno">B.2 </bdi>Creation of a DID</a></li><li class="tocline"><a class="tocxref" href="#determining-the-did-subject"><bdi class="secno">B.3 </bdi>Determining the DID subject</a></li><li class="tocline"><a class="tocxref" href="#referring-to-the-did-document"><bdi class="secno">B.4 </bdi>Referring to the DID document</a></li><li class="tocline"><a class="tocxref" href="#statements-in-the-did-document"><bdi class="secno">B.5 </bdi>Statements in the DID document</a></li><li class="tocline"><a class="tocxref" href="#discovering-more-information-about-the-did-subject"><bdi class="secno">B.6 </bdi>Discovering more information about the DID subject</a></li><li class="tocline"><a class="tocxref" href="#serving-a-representation-of-the-did-subject"><bdi class="secno">B.7 </bdi>Serving a representation of the DID subject</a></li><li class="tocline"><a class="tocxref" href="#assigning-dids-to-existing-web-resources"><bdi class="secno">B.8 </bdi>Assigning DIDs to existing web resources</a></li><li class="tocline"><a class="tocxref" href="#the-relationship-between-did-controllers-and-did-subjects"><bdi class="secno">B.9 </bdi>The relationship between DID controllers and DID subjects</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#set-1-the-did-subject-is-the-did-controller"><bdi class="secno">B.9.1 </bdi>Set #1: The DID subject <em>is</em> the DID controller</a></li><li class="tocline"><a class="tocxref" href="#set-2-the-did-subject-is-not-the-did-controller"><bdi class="secno">B.9.2 </bdi>Set #2: The DID subject is <em>not</em> the DID controller</a></li></ol></li><li class="tocline"><a class="tocxref" href="#multiple-did-controllers"><bdi class="secno">B.10 </bdi>Multiple DID controllers</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#independent-control"><bdi class="secno">B.10.1 </bdi>Independent Control</a></li><li class="tocline"><a class="tocxref" href="#group-control"><bdi class="secno">B.10.2 </bdi>Group Control</a></li></ol></li><li class="tocline"><a class="tocxref" href="#changing-the-did-subject"><bdi class="secno">B.11 </bdi>Changing the DID subject</a></li><li class="tocline"><a class="tocxref" href="#changing-the-did-controller"><bdi class="secno">B.12 </bdi>Changing the DID controller</a></li></ol></li><li class="tocline"><a class="tocxref" href="#revision-history"><bdi class="secno">C. </bdi>Revision History</a></li><li class="tocline"><a class="tocxref" href="#acknowledgements"><bdi class="secno">D. </bdi>Acknowledgements</a></li><li class="tocline"><a class="tocxref" href="#iana-considerations"><bdi class="secno">E. </bdi>IANA Considerations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#application-did"><bdi class="secno">E.1 </bdi>application/did</a></li></ol></li><li class="tocline"><a class="tocxref" href="#references"><bdi class="secno">F. </bdi>References</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#normative-references"><bdi class="secno">F.1 </bdi>Normative references</a></li><li class="tocline"><a class="tocxref" href="#informative-references"><bdi class="secno">F.2 </bdi>Informative references</a></li></ol></li></ol></nav>
+      </a></li></ol></li><li class="tocline"><a class="tocxref" href="#terminology"><bdi class="secno">2. </bdi>Terminology</a></li><li class="tocline"><a class="tocxref" href="#identifier"><bdi class="secno">3. </bdi>Identifier</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#did-syntax"><bdi class="secno">3.1 </bdi>DID Syntax</a></li><li class="tocline"><a class="tocxref" href="#did-url-syntax"><bdi class="secno">3.2 </bdi>DID URL Syntax</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#relative-did-urls"><bdi class="secno">3.2.1 </bdi>Relative DID URLs</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#data-model"><bdi class="secno">4. </bdi>Data Model</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#extensibility"><bdi class="secno">4.1 </bdi>Extensibility</a></li></ol></li><li class="tocline"><a class="tocxref" href="#core-properties"><bdi class="secno">5. </bdi>Core Properties</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#identifiers"><bdi class="secno">5.1 </bdi>Identifiers</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#did-subject"><bdi class="secno">5.1.1 </bdi>DID Subject</a></li><li class="tocline"><a class="tocxref" href="#did-controller"><bdi class="secno">5.1.2 </bdi>DID Controller</a></li><li class="tocline"><a class="tocxref" href="#identifier-restrictions"><bdi class="secno">5.1.3 </bdi>Identifier Restrictions</a></li></ol></li><li class="tocline"><a class="tocxref" href="#verification-methods"><bdi class="secno">5.2 </bdi>Verification Methods</a></li><li class="tocline"><a class="tocxref" href="#verification-relationships"><bdi class="secno">5.3 </bdi>Verification Relationships</a></li><li class="tocline"><a class="tocxref" href="#services"><bdi class="secno">5.4 </bdi>Services</a></li></ol></li><li class="tocline"><a class="tocxref" href="#representations"><bdi class="secno">6. </bdi>Representations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#production-and-consumption"><bdi class="secno">6.1 </bdi>Production and Consumption</a></li><li class="tocline"><a class="tocxref" href="#json"><bdi class="secno">6.2 </bdi>JSON</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#production"><bdi class="secno">6.2.1 </bdi>Production</a></li><li class="tocline"><a class="tocxref" href="#consumption"><bdi class="secno">6.2.2 </bdi>Consumption</a></li><li class="tocline"><a class="tocxref" href="#json-ld-processors"><bdi class="secno">6.2.3 </bdi>JSON-LD Processors</a></li><li class="tocline"><a class="tocxref" href="#remote-resource-integrity"><bdi class="secno">6.2.4 </bdi>Remote Resource Integrity</a></li></ol></li><li class="tocline"><a class="tocxref" href="#media-types"><bdi class="secno">6.3 </bdi>Media Types</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#media-type-precision"><bdi class="secno">6.3.1 </bdi>Media Type Precision</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#methods"><bdi class="secno">7. </bdi>Methods</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#method-syntax"><bdi class="secno">7.1 </bdi>Method Syntax</a></li><li class="tocline"><a class="tocxref" href="#method-operations"><bdi class="secno">7.2 </bdi>Method Operations</a></li><li class="tocline"><a class="tocxref" href="#security-requirements"><bdi class="secno">7.3 </bdi>Security Requirements</a></li><li class="tocline"><a class="tocxref" href="#privacy-requirements"><bdi class="secno">7.4 </bdi>Privacy Requirements</a></li></ol></li><li class="tocline"><a class="tocxref" href="#security-considerations"><bdi class="secno">8. </bdi>Security Considerations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#choosing-did-resolvers"><bdi class="secno">8.1 </bdi>Choosing DID Resolvers</a></li><li class="tocline"><a class="tocxref" href="#non-repudiation"><bdi class="secno">8.2 </bdi>Non-Repudiation</a></li><li class="tocline"><a class="tocxref" href="#notification-of-did-document-changes"><bdi class="secno">8.3 </bdi>Notification of DID Document Changes</a></li><li class="tocline"><a class="tocxref" href="#revocation-in-trustless-systems"><bdi class="secno">8.4 </bdi>Revocation in Trustless Systems</a></li><li class="tocline"><a class="tocxref" href="#did-recovery"><bdi class="secno">8.5 </bdi>DID Recovery</a></li><li class="tocline"><a class="tocxref" href="#the-role-of-human-friendly-identifiers"><bdi class="secno">8.6 </bdi>The Role of Human-Friendly Identifiers</a></li><li class="tocline"><a class="tocxref" href="#dids-as-enhanced-urns"><bdi class="secno">8.7 </bdi>DIDs as Enhanced URNs</a></li><li class="tocline"><a class="tocxref" href="#immutability"><bdi class="secno">8.8 </bdi>Immutability</a></li><li class="tocline"><a class="tocxref" href="#encrypted-data-in-did-documents"><bdi class="secno">8.9 </bdi>Encrypted Data in DID Documents</a></li><li class="tocline"><a class="tocxref" href="#equivalence-properties"><bdi class="secno">8.10 </bdi>Equivalence Properties</a></li><li class="tocline"><a class="tocxref" href="#persistence"><bdi class="secno">8.11 </bdi>Persistence</a></li><li class="tocline"><a class="tocxref" href="#evaluating-competing-considerations"><bdi class="secno">8.12 </bdi>Evaluating Competing Considerations</a></li></ol></li><li class="tocline"><a class="tocxref" href="#privacy-considerations"><bdi class="secno">9. </bdi>Privacy Considerations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#group-privacy"><bdi class="secno">9.1 </bdi>Group Privacy</a></li></ol></li><li class="tocline"><a class="tocxref" href="#examples"><bdi class="secno">A. </bdi>Examples</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#did-documents"><bdi class="secno">A.1 </bdi>DID Documents</a></li><li class="tocline"><a class="tocxref" href="#proving"><bdi class="secno">A.2 </bdi>Proving</a></li><li class="tocline"><a class="tocxref" href="#encrypting"><bdi class="secno">A.3 </bdi>Encrypting</a></li></ol></li><li class="tocline"><a class="tocxref" href="#architectural-considerations"><bdi class="secno">B. </bdi>Architectural Considerations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#detailed-architecture-diagram"><bdi class="secno">B.1 </bdi>Detailed Architecture Diagram</a></li><li class="tocline"><a class="tocxref" href="#creation-of-a-did"><bdi class="secno">B.2 </bdi>Creation of a DID</a></li><li class="tocline"><a class="tocxref" href="#determining-the-did-subject"><bdi class="secno">B.3 </bdi>Determining the DID subject</a></li><li class="tocline"><a class="tocxref" href="#referring-to-the-did-document"><bdi class="secno">B.4 </bdi>Referring to the DID document</a></li><li class="tocline"><a class="tocxref" href="#statements-in-the-did-document"><bdi class="secno">B.5 </bdi>Statements in the DID document</a></li><li class="tocline"><a class="tocxref" href="#discovering-more-information-about-the-did-subject"><bdi class="secno">B.6 </bdi>Discovering more information about the DID subject</a></li><li class="tocline"><a class="tocxref" href="#serving-a-representation-of-the-did-subject"><bdi class="secno">B.7 </bdi>Serving a representation of the DID subject</a></li><li class="tocline"><a class="tocxref" href="#assigning-dids-to-existing-web-resources"><bdi class="secno">B.8 </bdi>Assigning DIDs to existing web resources</a></li><li class="tocline"><a class="tocxref" href="#the-relationship-between-did-controllers-and-did-subjects"><bdi class="secno">B.9 </bdi>The relationship between DID controllers and DID subjects</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#set-1-the-did-subject-is-the-did-controller"><bdi class="secno">B.9.1 </bdi>Set #1: The DID subject <em>is</em> the DID controller</a></li><li class="tocline"><a class="tocxref" href="#set-2-the-did-subject-is-not-the-did-controller"><bdi class="secno">B.9.2 </bdi>Set #2: The DID subject is <em>not</em> the DID controller</a></li></ol></li><li class="tocline"><a class="tocxref" href="#multiple-did-controllers"><bdi class="secno">B.10 </bdi>Multiple DID controllers</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#independent-control"><bdi class="secno">B.10.1 </bdi>Independent Control</a></li><li class="tocline"><a class="tocxref" href="#group-control"><bdi class="secno">B.10.2 </bdi>Group Control</a></li></ol></li><li class="tocline"><a class="tocxref" href="#changing-the-did-subject"><bdi class="secno">B.11 </bdi>Changing the DID subject</a></li><li class="tocline"><a class="tocxref" href="#changing-the-did-controller"><bdi class="secno">B.12 </bdi>Changing the DID controller</a></li></ol></li><li class="tocline"><a class="tocxref" href="#revision-history"><bdi class="secno">C. </bdi>Revision History</a></li><li class="tocline"><a class="tocxref" href="#acknowledgements"><bdi class="secno">D. </bdi>Acknowledgements</a></li><li class="tocline"><a class="tocxref" href="#iana-considerations"><bdi class="secno">E. </bdi>IANA Considerations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#application-did"><bdi class="secno">E.1 </bdi>application/did</a></li></ol></li><li class="tocline"><a class="tocxref" href="#references"><bdi class="secno">F. </bdi>References</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#normative-references"><bdi class="secno">F.1 </bdi>Normative references</a></li><li class="tocline"><a class="tocxref" href="#informative-references"><bdi class="secno">F.2 </bdi>Informative references</a></li></ol></li></ol></nav>
 
   <section class="informative" id="introduction"><div class="header-wrapper"><h2 id="x1-introduction"><bdi class="secno">1. </bdi>Introduction</h2><a class="self-link" href="#introduction" aria-label="Permalink for Section 1."></a></div><p><em>This section is non-normative.</em></p>
     
@@ -1106,7 +1329,7 @@ can be denoted by the optional <code>controller</code> property at the top level
 subject</a>.
       </dd>
 
-      <dt><dfn id="dfn-did-delegate" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">DID delegate</dfn></dt>
+      <dt><dfn class="export" data-export="" id="dfn-did-delegate" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">DID delegate</dfn></dt>
 
       <dd>
 An entity to whom a <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-6">DID controller</a> has granted permission to use a
@@ -1122,21 +1345,24 @@ be permitted to add other personal devices without the parent's permission.
       <dt><dfn class="export" data-lt="DID documents|DID document" data-export="" data-plurals="did documents" id="dfn-did-documents" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">DID document</dfn></dt>
 
       <dd>
-A set of data describing the <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-9">DID subject</a>, including mechanisms, such as
-cryptographic public keys, that the <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-10">DID subject</a> or a <a data-link-type="dfn|abstract-op" href="#dfn-did-delegate" class="internalDFN" id="ref-for-dfn-did-delegate-2">DID delegate</a> can
-use to <a data-link-type="dfn" data-lt="authentication" href="https://www.w3.org/TR/cid-1.0/#dfn-authentication">authenticate</a> itself and prove its association with the
+A set of data that enables cryptographically verifiable interactions with a
+<a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-9">DID subject</a>. This includes mechanisms, such as cryptographic public keys,
+that a <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-10">DID subject</a> or a <a data-link-type="dfn|abstract-op" href="#dfn-did-delegate" class="internalDFN" id="ref-for-dfn-did-delegate-2">DID delegate</a> can use to
+<a data-link-type="dfn" data-lt="authentication" href="https://www.w3.org/TR/cid-1.0/#dfn-authentication">authenticate</a> itself and prove its association with a
 <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-40">DID</a>. A DID document might have one or more different <a data-link-type="dfn|abstract-op" href="#dfn-representations" class="internalDFN" id="ref-for-dfn-representations-1">representations</a> as
 defined in <a href="#representations" class="sec-ref"><bdi class="secno">6. </bdi>Representations</a> or in the <abbr title="World Wide Web Consortium">W3C</abbr> <cite><a data-matched-text="[[[DID-EXTENSIONS]]]" href="https://www.w3.org/TR/did-extensions/">Decentralized Identifier Extensions</a></cite>.
       </dd>
 
-      <dt><dfn data-lt="DID fragments|DID fragment" data-plurals="did fragments" id="dfn-did-fragments" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">DID fragment</dfn></dt>
+      <dt><dfn class="export" data-lt="DID fragments|DID fragment" data-export="" data-plurals="did fragments" id="dfn-did-fragments" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">DID fragment</dfn></dt>
 
       <dd>
-The portion of a <a data-link-type="dfn|abstract-op" href="#dfn-did-urls" class="internalDFN" id="ref-for-dfn-did-urls-3">DID URL</a> that follows the first hash sign character
-(<code>#</code>). DID fragment syntax is identical to URI fragment syntax.
+          The portion of a <a href="#dfn-did-urls" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-did-urls-3">DID URL</a> that follows the first
+          <span class="codepoint" translate="no"><bdi lang="en">#</bdi> character
+          (<code class="uname">U+0023 NUMBER SIGN</code>)</span>. DID fragment syntax
+          is identical to URI fragment syntax.
       </dd>
 
-      <dt><dfn class="export" data-lt="DID methods|DID method" data-export="" data-plurals="did methods" id="dfn-did-methods" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">DID method</dfn></dt>
+      <dt><dfn class="export" data-lt="DID methods|DID method's|DID method" data-export="" data-plurals="did methods" id="dfn-did-methods" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">DID method</dfn></dt>
 
       <dd>
 A definition of how a specific <a data-link-type="dfn|abstract-op" href="#dfn-did-schemes" class="internalDFN" id="ref-for-dfn-did-schemes-2">DID method scheme</a> is implemented. A DID method is
@@ -1145,22 +1371,29 @@ which <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" 
 and deactivated. See <a href="#methods" class="sec-ref"><bdi class="secno">7. </bdi>Methods</a>.
       </dd>
 
-      <dt><dfn data-lt="DID paths|DID path" data-plurals="did paths" id="dfn-did-paths" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">DID path</dfn></dt>
+      <dt><dfn class="export" data-lt="DID paths|DID path" data-export="" data-plurals="did paths" id="dfn-did-paths" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">DID path</dfn></dt>
 
       <dd>
-The portion of a <a data-link-type="dfn|abstract-op" href="#dfn-did-urls" class="internalDFN" id="ref-for-dfn-did-urls-4">DID URL</a> that begins with and includes the first forward
-slash (<code>/</code>) character and ends with either a question mark
-(<code>?</code>) character, a fragment hash sign (<code>#</code>) character,
-or the end of the <a data-link-type="dfn|abstract-op" href="#dfn-did-urls" class="internalDFN" id="ref-for-dfn-did-urls-5">DID URL</a>. DID path syntax is identical to URI path syntax.
-See <a href="#path" class="sec-ref">Path</a>.
+          The portion of a <a href="#dfn-did-urls" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-did-urls-4">DID URL</a> that begins with and includes the first
+          <span class="codepoint" translate="no"><bdi lang="en">/</bdi> character
+          (<code class="uname">U+002F SOLIDUS</code>)</span> and ends with but does
+          not include either a
+          <span class="codepoint" translate="no"><bdi lang="en">?</bdi> character
+          (<code class="uname">U+003F QUESTION MARK</code>)</span>, a
+          <span class="codepoint" translate="no"><bdi lang="en">#</bdi> character
+          (<code class="uname">U+0023 NUMBER SIGN</code>)</span>,
+          or the end of the <a data-link-type="dfn|abstract-op" href="#dfn-did-urls" class="internalDFN" id="ref-for-dfn-did-urls-5">DID URL</a>. DID path syntax is identical to URI path syntax.
+          See <a href="#path" class="sec-ref">Path</a>.
       </dd>
 
-      <dt><dfn data-lt="DID queries|DID query" data-plurals="did queries" id="dfn-did-queries" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">DID query</dfn></dt>
+      <dt><dfn class="export" data-lt="DID queries|DID query" data-export="" data-plurals="did queries" id="dfn-did-queries" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">DID query</dfn></dt>
 
       <dd>
-The portion of a <a data-link-type="dfn|abstract-op" href="#dfn-did-urls" class="internalDFN" id="ref-for-dfn-did-urls-6">DID URL</a> that follows and includes the first question
-mark character (<code>?</code>). DID query syntax is identical to URI query
-syntax. See <a href="#query" class="sec-ref">Query</a>.
+          The portion of a <a href="#dfn-did-urls" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-did-urls-6">DID URL</a> that follows and includes the first
+          <span class="codepoint" translate="no"><bdi lang="en">?</bdi> character
+          (<code class="uname">U+003F QUESTION MARK</code>)</span>.
+          DID query syntax is identical to URI query
+          syntax. See <a href="#query" class="sec-ref">Query</a>.
       </dd>
 
       <dt><dfn class="export" data-export="" id="dfn-did-resolution" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">DID resolution</dfn></dt>
@@ -1173,7 +1406,7 @@ applicable <a data-link-type="dfn|abstract-op" href="#dfn-did-methods" class="in
 defined in [<cite><a class="bibref" data-link-type="biblio" href="#bib-did-resolution" title="Decentralized Identifier Resolution (DID Resolution) v0.3">DID-RESOLUTION</a></cite>].
       </dd>
 
-      <dt><dfn class="export" data-lt="DID resolvers|DID resolver" data-export="" id="dfn-did-resolvers" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">DID resolver</dfn></dt>
+      <dt><dfn class="export" data-lt="DID resolvers|DID resolver's|DID resolver" data-export="" id="dfn-did-resolvers" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">DID resolver</dfn></dt>
 
       <dd>
 A <a data-link-type="dfn|abstract-op" href="#dfn-did-resolvers" class="internalDFN" id="ref-for-dfn-did-resolvers-2">DID resolver</a> is a software and/or hardware component that performs the
@@ -1181,7 +1414,7 @@ A <a data-link-type="dfn|abstract-op" href="#dfn-did-resolvers" class="internalD
 conforming <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-29">DID document</a> as output.
       </dd>
 
-      <dt><dfn data-lt="DID schemes|DID method scheme|DID scheme" id="dfn-did-schemes" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">DID scheme</dfn></dt>
+      <dt><dfn class="export" data-lt="DID schemes|DID method scheme|DID scheme" data-export="" id="dfn-did-schemes" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">DID scheme</dfn></dt>
 
       <dd>
 The formal syntax of a <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-44">decentralized identifier</a>. The generic DID scheme
@@ -1191,7 +1424,7 @@ method scheme, the DID method name follows the first colon and terminates with
 the second colon, e.g., <code>did:example:</code>
       </dd>
 
-      <dt><dfn data-lt="DID subjects|DID subject" data-plurals="did subjects" id="dfn-did-subjects" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">DID subject</dfn></dt>
+      <dt><dfn class="export" data-lt="DID subjects|DID subject" data-export="" data-plurals="did subjects" id="dfn-did-subjects" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">DID subject</dfn></dt>
 
       <dd>
 The entity identified by a <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-45">DID</a> and described by a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-30">DID document</a>.
@@ -1199,17 +1432,23 @@ Anything can be a DID subject: person, group, organization, physical thing,
 digital thing, logical thing, etc.
       </dd>
 
-      <dt><dfn data-lt="DID URLs|DID URL" data-plurals="did urls" id="dfn-did-urls" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">DID URL</dfn></dt>
+      <dt><dfn class="export" data-lt="DID URLs|DID URL" data-export="" data-plurals="did urls" id="dfn-did-urls" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">DID URL</dfn></dt>
 
       <dd>
-A <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-46">DID</a> plus any additional syntactic component that conforms to the
-definition in <a href="#did-url-syntax" class="sec-ref"><bdi class="secno">3.2 </bdi>DID URL Syntax</a>. This includes an optional <a href="#dfn-did-paths" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-did-paths-1">DID
-path</a> (with its leading <code>/</code> character), optional <a data-link-type="dfn|abstract-op" href="#dfn-did-queries" class="internalDFN" id="ref-for-dfn-did-queries-1">DID query</a>
-(with its leading <code>?</code> character), and optional <a data-link-type="dfn|abstract-op" href="#dfn-did-fragments" class="internalDFN" id="ref-for-dfn-did-fragments-1">DID fragment</a>
-(with its leading <code>#</code> character).
+          A <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-46">DID</a> plus any additional syntactic component that conforms to the
+          definition in <a href="#did-url-syntax" class="sec-ref"><bdi class="secno">3.2 </bdi>DID URL Syntax</a>. This includes an optional <a href="#dfn-did-paths" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-did-paths-1">DID
+          path</a> with its leading
+          <span class="codepoint" translate="no"><bdi lang="en">/</bdi> character
+          (<code class="uname">U+002F SOLIDUS</code>)</span>,
+          optional <a href="#dfn-did-queries" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-did-queries-1">DID query</a> with its leading
+          <span class="codepoint" translate="no"><bdi lang="en">?</bdi> character
+          (<code class="uname">U+003F QUESTION MARK</code>)</span>,
+          and optional <a href="#dfn-did-fragments" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-did-fragments-1">DID fragment</a> with its leading
+          <span class="codepoint" translate="no"><bdi lang="en">#</bdi> character
+          (<code class="uname">U+0023 NUMBER SIGN</code>)</span>.
       </dd>
 
-      <dt><dfn id="dfn-did-url-dereferencing" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">DID URL dereferencing</dfn></dt>
+      <dt><dfn class="export" data-export="" id="dfn-did-url-dereferencing" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">DID URL dereferencing</dfn></dt>
 
       <dd>
 The process that takes as its input a <a data-link-type="dfn|abstract-op" href="#dfn-did-urls" class="internalDFN" id="ref-for-dfn-did-urls-7">DID URL</a> and a set of input
@@ -1224,7 +1463,7 @@ on the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="inte
 [<cite><a class="bibref" data-link-type="biblio" href="#bib-did-resolution" title="Decentralized Identifier Resolution (DID Resolution) v0.3">DID-RESOLUTION</a></cite>].
       </dd>
 
-      <dt><dfn data-lt="DID URL dereferencers|DID URL dereferencer" id="dfn-did-url-dereferencers" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">DID URL dereferencer</dfn></dt>
+      <dt><dfn class="export" data-lt="DID URL dereferencers|DID URL dereferencer" data-export="" id="dfn-did-url-dereferencers" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">DID URL dereferencer</dfn></dt>
 
       <dd>
 A software and/or hardware system that performs the <a data-link-type="dfn|abstract-op" href="#dfn-did-url-dereferencing" class="internalDFN" id="ref-for-dfn-did-url-dereferencing-3">DID URL dereferencing</a>
@@ -1258,7 +1497,8 @@ that is intended to reflect a past, current, or desired state of a given
 resource, in a format that can be readily communicated via the protocol. A
 representation consists of a set of representation metadata and a potentially unbounded
 stream of representation data." A <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-37">DID document</a> is a representation of
-information describing a <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-12">DID subject</a>. See <a href="#representations" class="sec-ref"><bdi class="secno">6. </bdi>Representations</a>.
+information which enables cryptographically verifiable interactions with a
+<a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-12">DID subject</a>. See <a href="#representations" class="sec-ref"><bdi class="secno">6. </bdi>Representations</a>.
       </dd>
 
         <dt><dfn data-lt="representation-specific entry|non-representation-specific entry|representation-specific entries" data-plurals="non-representation-specific entries" id="dfn-representation-specific-entry" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">representation-specific entries</dfn></dt>
@@ -1272,12 +1512,12 @@ Entries in a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class
       <dt><dfn data-plurals="services" id="dfn-service" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">service</dfn></dt>
       <dd>
 A means of communicating or interacting with the <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-13">DID subject</a> or
-associated entities via one or more <a data-link-type="dfn|abstract-op" href="#dfn-service-endpoints" class="internalDFN" id="ref-for-dfn-service-endpoints-1">service endpoints</a>.
+associated entities via one or more <a data-link-type="dfn|abstract-op" href="#dfn-did-service-endpoints" class="internalDFN" id="ref-for-dfn-did-service-endpoints-1">service endpoints</a>.
 Examples include discovery services, agent services, social networking
 services, file storage services, and verifiable credential repository services.
       </dd>
 
-      <dt><dfn data-lt="service endpoints|service endpoint" id="dfn-service-endpoints" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">service endpoint</dfn></dt>
+      <dt><dfn class="export" data-lt="did service endpoints|did service endpoint" data-local-lt="service endpoint" data-export="" data-plurals="service endpoints" id="dfn-did-service-endpoints" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">did service endpoint</dfn></dt>
 
       <dd>
 A network address, such as an HTTP URL, at which <a data-link-type="dfn|abstract-op" href="#dfn-service" class="internalDFN" id="ref-for-dfn-service-5">services</a> operate on
@@ -2749,6 +2989,39 @@ drop all terms from a <a data-link-type="dfn|abstract-op" href="#dfn-did-documen
         </p>
 
       </section>
+
+      <section id="remote-resource-integrity"><div class="header-wrapper"><h4 id="x6-2-4-remote-resource-integrity"><bdi class="secno">6.2.4 </bdi>Remote Resource Integrity</h4><a class="self-link" href="#remote-resource-integrity" aria-label="Permalink for Section 6.2.4"></a></div>
+        
+
+        <p>
+Implementations <em class="rfc2119">MUST</em> treat the base context value, located at
+<code>https://www.w3.org/ns/did/v1.1</code>, as already retrieved;
+the following value is the hexadecimal encoded SHA2-256 digest value of the base
+context file: <code><span class="vc-hash" data-hash-url="https://www.w3.org/ns/did-vocab/v1.1rc1.jsonld" data-hash-format="openssl dgst -sha256">ea216ecc1cb02cd39b693dba2250141e270ba0bf95890be107dd9a9e8e43de85</span></code>. It is possible to confirm
+the cryptographic digest above by running the following command from a modern
+Unix command line interface:
+<code>curl -s https://www.w3.org/ns/did/v1.1 | openssl dgst -sha256</code>.
+        </p>
+        <p>
+Implementers are warned that other data that is referenced from within a
+<a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-89">DID document</a>, such as resources that are linked to via URLs, are not
+cryptographically protected by default. It is considered a best practice to
+ensure that the same sorts of protections are provided for any URL that is
+critical to the security of the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-90">DID document</a> through the use of
+permanently cached files and/or cryptographic hashes. Ultimately, knowing the
+cryptographic digest of any linked external content enables an application to
+confirm that the content is the same as what the <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-12">DID controller</a> intended.
+        </p>
+        <div class="note" role="note" id="issue-container-generatedID-6"><div role="heading" class="note-title marker" id="h-note-6" aria-level="5"><span>Note</span><span class="issue-label">: See errata if hash value changes are detected</span></div><p class="">
+It is extremely unlikely that the files that have associated cryptographic hash
+values in this specification will change. However, if critical errata are
+found in the specification and corrections are required to ensure
+ecosystem stability, the cryptographic hash values might change. As such, the
+HTTP cache times for the files are not set to infinity and implementers are
+advised to check for errata if a change is detected in a cryptographic hash
+value.
+        </p></div>
+      </section>
     </section>
 
     <section class="normative" id="media-types"><div class="header-wrapper"><h3 id="x6-3-media-types"><bdi class="secno">6.3 </bdi>Media Types</h3><a class="self-link" href="#media-types" aria-label="Permalink for Section 6.3"></a></div>
@@ -2756,12 +3029,12 @@ drop all terms from a <a data-link-type="dfn|abstract-op" href="#dfn-did-documen
 
       <p>
 Media types, as defined in [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc6838" title="Media Type Specifications and Registration Procedures">RFC6838</a></cite>], identify the syntax used to express a
-<a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-89">DID document</a> as well as other useful processing guidelines.
+<a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-91">DID document</a> as well as other useful processing guidelines.
       </p>
       <p>
 Syntaxes used to express the data model in this specification <em class="rfc2119">SHOULD</em> be
 identified by a media type, and conventions outlined in this section <em class="rfc2119">SHOULD</em> be
-followed when defining or using media types with <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-90">DID documents</a>.
+followed when defining or using media types with <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-92">DID documents</a>.
       </p>
       <p>
 There is one media type associated with the core data model, which is
@@ -2774,7 +3047,7 @@ listed in Section <a href="#iana-considerations" data-matched-text="[[[#iana-con
 
         <p>
 At times, developers or systems might use lower-precision media types to convey
-<a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-91">DID documents</a>. Some of the reasons for use of lower-precision media types
+<a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-93">DID documents</a>. Some of the reasons for use of lower-precision media types
 include:
         </p>
 
@@ -2833,7 +3106,7 @@ ensure that payloads conform with the requirements for their use in a given
 system.
         </p>
         <p>
-HTTP clients and servers use media types associated with <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-92">DID documents</a> in
+HTTP clients and servers use media types associated with <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-94">DID documents</a> in
 <code>Accept:</code> headers and when indicating content types. Implementers are warned that
 HTTP servers might ignore the <code>Accept:</code> header and return another content type, or
 return an error code such as <a href="https://httpwg.org/specs/rfc9110.html#status.415"><code>415
@@ -2860,7 +3133,7 @@ Conceptually, the relationship between this specification and a <a data-link-typ
 [<cite><a class="bibref" data-link-type="biblio" href="#bib-iana-uri-schemes" title="Uniform Resource Identifier (URI) Schemes">IANA-URI-SCHEMES</a></cite>], such as the <code>http</code> scheme [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc9110" title="HTTP Semantics">RFC9110</a></cite>]. In
 addition to defining a specific <a data-link-type="dfn|abstract-op" href="#dfn-did-schemes" class="internalDFN" id="ref-for-dfn-did-schemes-4">DID scheme</a>, a <a data-link-type="dfn|abstract-op" href="#dfn-did-methods" class="internalDFN" id="ref-for-dfn-did-methods-27">DID method</a>
 specification also defines the mechanisms for creating, resolving, updating, and
-deactivating <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-63">DIDs</a> and <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-93">DID documents</a> using a specific type of
+deactivating <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-63">DIDs</a> and <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-95">DID documents</a> using a specific type of
 <a data-link-type="dfn|abstract-op" href="#dfn-verifiable-data-registry" class="internalDFN" id="ref-for-dfn-verifiable-data-registry-4">verifiable data registry</a>. It also documents all implementation
 considerations related to <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-64">DIDs</a> as well as Security and Privacy
 Considerations.
@@ -2925,7 +3198,7 @@ A <a data-link-type="dfn|abstract-op" href="#dfn-did-methods" class="internalDFN
         </li>
       </ol>
 
-      <div class="note" role="note" id="issue-container-generatedID-6"><div role="heading" class="note-title marker" id="h-note-6" aria-level="4"><span>Note</span><span class="issue-label">: Colons in method-specific-id</span></div><p class="">
+      <div class="note" role="note" id="issue-container-generatedID-7"><div role="heading" class="note-title marker" id="h-note-7" aria-level="4"><span>Note</span><span class="issue-label">: Colons in method-specific-id</span></div><p class="">
 The meaning of colons in the <code>method-specific-id</code> is entirely
 method-specific. Colons might be used by <a data-link-type="dfn|abstract-op" href="#dfn-did-methods" class="internalDFN" id="ref-for-dfn-did-methods-40">DID methods</a> for establishing
 hierarchically partitioned namespaces, for identifying specific instances or
@@ -2951,19 +3224,19 @@ A <a data-link-type="dfn|abstract-op" href="#dfn-did-methods" class="internalDFN
 execute all operations, including any necessary cryptographic processes.
         </li>
         <li>
-A <a data-link-type="dfn|abstract-op" href="#dfn-did-methods" class="internalDFN" id="ref-for-dfn-did-methods-44">DID method</a> specification <em class="rfc2119">MUST</em> specify how a <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-12">DID controller</a>
-creates a <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-67">DID</a> and its associated <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-94">DID document</a>.
+A <a data-link-type="dfn|abstract-op" href="#dfn-did-methods" class="internalDFN" id="ref-for-dfn-did-methods-44">DID method</a> specification <em class="rfc2119">MUST</em> specify how a <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-13">DID controller</a>
+creates a <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-67">DID</a> and its associated <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-96">DID document</a>.
         </li>
         <li>
 A <a data-link-type="dfn|abstract-op" href="#dfn-did-methods" class="internalDFN" id="ref-for-dfn-did-methods-45">DID method</a> specification <em class="rfc2119">MUST</em> specify how a <a data-link-type="dfn|abstract-op" href="#dfn-did-resolvers" class="internalDFN" id="ref-for-dfn-did-resolvers-4">DID resolver</a> uses a
-<a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-68">DID</a> to resolve a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-95">DID document</a>, including how the <a data-link-type="dfn|abstract-op" href="#dfn-did-resolvers" class="internalDFN" id="ref-for-dfn-did-resolvers-5">DID resolver</a> can verify the authenticity of the response.
+<a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-68">DID</a> to resolve a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-97">DID document</a>, including how the <a data-link-type="dfn|abstract-op" href="#dfn-did-resolvers" class="internalDFN" id="ref-for-dfn-did-resolvers-5">DID resolver</a> can verify the authenticity of the response.
         </li>
         <li>
 A <a data-link-type="dfn|abstract-op" href="#dfn-did-methods" class="internalDFN" id="ref-for-dfn-did-methods-46">DID method</a> specification <em class="rfc2119">MUST</em> specify what constitutes an update to a
-<a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-96">DID document</a> and how a <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-13">DID controller</a> can update a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-97">DID document</a> <em>or</em> state that updates are not possible.
+<a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-98">DID document</a> and how a <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-14">DID controller</a> can update a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-99">DID document</a> <em>or</em> state that updates are not possible.
         </li>
         <li>
-The <a data-link-type="dfn|abstract-op" href="#dfn-did-methods" class="internalDFN" id="ref-for-dfn-did-methods-47">DID method</a> specification <em class="rfc2119">MUST</em> specify how a <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-14">DID controller</a> can
+The <a data-link-type="dfn|abstract-op" href="#dfn-did-methods" class="internalDFN" id="ref-for-dfn-did-methods-47">DID method</a> specification <em class="rfc2119">MUST</em> specify how a <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-15">DID controller</a> can
 deactivate a <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-69">DID</a> <em>or</em> state that deactivation is not possible.
         </li>
       </ol>
@@ -2983,18 +3256,18 @@ use the <a data-link-type="dfn" href="https://www.w3.org/TR/cid-1.0/#dfn-verific
 <code>authentication</code>.
         </li>
         <li>
-use other constructs in the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-98">DID Document</a> such as the <a data-link-type="dfn" href="https://www.w3.org/TR/cid-1.0/#dfn-verification-method">verification method</a> specified via the <code>capabilityInvocation</code>
+use other constructs in the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-100">DID Document</a> such as the <a data-link-type="dfn" href="https://www.w3.org/TR/cid-1.0/#dfn-verification-method">verification method</a> specified via the <code>capabilityInvocation</code>
 <a data-link-type="dfn" href="https://www.w3.org/TR/cid-1.0/#dfn-verification-relationship">verification relationship</a>.
         </li>
         <li>
-not use the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-99">DID document</a> for this decision at all, and depend on an
+not use the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-101">DID document</a> for this decision at all, and depend on an
 out-of-band mechanism, instead.
         </li>
       </ul>
 
       <p>
         When executing method operations, a <a data-link-type="dfn|abstract-op" href="#dfn-did-methods" class="internalDFN" id="ref-for-dfn-did-methods-50">DID method</a> can use any data structures
-        it requires, including intermediate, partial, or temporary <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-100">DID documents</a>, as
+        it requires, including intermediate, partial, or temporary <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-102">DID documents</a>, as
         long as they are kept internal to the DID method, and the DID documents returned
         by the method operations are fully conformant, as defined in <a href="#conformance" data-matched-text="[[[#conformance]]]" class="sec-ref"><bdi class="secno">1.4 </bdi>Conformance</a>.
       </p>
@@ -3060,7 +3333,7 @@ Data which is to be held secret (keying material, random seeds, and so on)
         </li>
         <li>
 <a data-link-type="dfn|abstract-op" href="#dfn-did-methods" class="internalDFN" id="ref-for-dfn-did-methods-58">DID method</a> specifications <em class="rfc2119">SHOULD</em> explain and specify the implementation
-of signatures on <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-101">DID documents</a>, if applicable.
+of signatures on <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-103">DID documents</a>, if applicable.
         </li>
         <li>
 Where <a data-link-type="dfn|abstract-op" href="#dfn-did-methods" class="internalDFN" id="ref-for-dfn-did-methods-59">DID methods</a> use peer-to-peer computing resources, such as with all
@@ -3131,7 +3404,7 @@ implementation to use.
       
 
       <p>
-Non-repudiation of <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-75">DIDs</a> and <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-102">DID document</a> updates is supported if:
+Non-repudiation of <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-75">DIDs</a> and <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-104">DID document</a> updates is supported if:
       </p>
 
       <ul>
@@ -3156,7 +3429,7 @@ to the authorization mechanism for the <a data-link-type="dfn|abstract-op" href=
       
 
       <p>
-One mitigation against unauthorized changes to a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-103">DID document</a> is
+One mitigation against unauthorized changes to a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-105">DID document</a> is
 monitoring and actively notifying the <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-21">DID subject</a> when there are changes.
 This is analogous to helping prevent account takeover on conventional
 username/password accounts by sending password reset notifications to the email
@@ -3165,12 +3438,12 @@ addresses on file.
       <p>
 In the case of a <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-76">DID</a>, there is no intermediary registrar or account
 provider to generate such notifications. However, if the <a data-link-type="dfn|abstract-op" href="#dfn-verifiable-data-registry" class="internalDFN" id="ref-for-dfn-verifiable-data-registry-7">verifiable data registry</a> on which the <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-77">DID</a> is registered directly supports change
-notifications, a subscription service can be offered to <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-15">DID controllers</a>.
-Notifications could be sent directly to the relevant <a data-link-type="dfn|abstract-op" href="#dfn-service-endpoints" class="internalDFN" id="ref-for-dfn-service-endpoints-2">service endpoints</a>
+notifications, a subscription service can be offered to <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-16">DID controllers</a>.
+Notifications could be sent directly to the relevant <a data-link-type="dfn|abstract-op" href="#dfn-did-service-endpoints" class="internalDFN" id="ref-for-dfn-did-service-endpoints-2">service endpoints</a>
 listed in an existing <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-78">DID</a>.
       </p>
       <p>
-If a <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-16">DID controller</a> chooses to rely on a third-party monitoring service
+If a <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-17">DID controller</a> chooses to rely on a third-party monitoring service
 (other than the <a data-link-type="dfn|abstract-op" href="#dfn-verifiable-data-registry" class="internalDFN" id="ref-for-dfn-verifiable-data-registry-8">verifiable data registry</a> itself), this introduces another
 vector of attack.
       </p>
@@ -3186,14 +3459,14 @@ cryptographic system is factored into the determination of trust in the system.
 To verify a signature of proof for a <a data-link-type="dfn" href="https://www.w3.org/TR/cid-1.0/#dfn-verification-method">verification method</a> which has been
 revoked in a trustless system, a <a data-link-type="dfn|abstract-op" href="#dfn-did-methods" class="internalDFN" id="ref-for-dfn-did-methods-69">DID method</a> needs to support either or
 both of the <code>versionId</code> or <code>versionTime</code>, as well as both the <code>updated</code> and
-<code>nextUpdate</code>, <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-104">DID document</a> metadata properties. A verifier can validate a
+<code>nextUpdate</code>, <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-106">DID document</a> metadata properties. A verifier can validate a
 signature or proof of a revoked key if and only if all of the following are
 true:
       </p>
 
       <ul>
         <li>
-The proof or signature includes the <code>versionId</code> or <code>versionTime</code> of the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-105">DID document</a> that was used at the point in time at which the signature or
+The proof or signature includes the <code>versionId</code> or <code>versionTime</code> of the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-107">DID document</a> that was used at the point in time at which the signature or
 proof was made.
         </li>
         <li>
@@ -3201,7 +3474,7 @@ The verifier can determine the point in time at which the signature or proof was
 made; for example, it was anchored on a blockchain.
         </li>
         <li>
-In the resolved <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-106">DID document</a> metadata, the <code>updated</code> timestamp is
+In the resolved <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-108">DID document</a> metadata, the <code>updated</code> timestamp is
 before, and the <code>nextUpdate</code> timestamp is after, the point in time at which the
 signature or proof was made.
         </li>
@@ -3209,7 +3482,7 @@ signature or proof was made.
       <p>
 Similar trust may be achieved in systems that are willing to accept metadata
 beyond that which constitutes cryptographic input -- but this always requires
-a careful judgment about whether a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-107">DID document</a>'s content included the
+a careful judgment about whether a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-109">DID document</a>'s content included the
 expected content at the moment of a signing event.
       </p>
     </section>
@@ -3295,7 +3568,7 @@ Triangle</a>.
       <p>
 There are use cases where it is desirable to discover a <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-83">DID</a> when
 starting from a human-friendly identifier. For example, a natural language
-name, a domain name, or a conventional address for a <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-17">DID controller</a>,
+name, a domain name, or a conventional address for a <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-18">DID controller</a>,
 such as a mobile telephone number, email address, social media username, or
 blog URL. However, the problem of mapping human-friendly identifiers to
 <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-84">DIDs</a>, and doing so in a way that can be verified and trusted, is
@@ -3325,34 +3598,34 @@ correlatable, especially if they are globally unique.
       
 
       <p>
-If desired by a <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-18">DID controller</a>, a <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-85">DID</a> or a <a data-link-type="dfn|abstract-op" href="#dfn-did-urls" class="internalDFN" id="ref-for-dfn-did-urls-23">DID URL</a> is
+If desired by a <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-19">DID controller</a>, a <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-85">DID</a> or a <a data-link-type="dfn|abstract-op" href="#dfn-did-urls" class="internalDFN" id="ref-for-dfn-did-urls-23">DID URL</a> is
 capable of acting as persistent, location-independent resource identifier.
 These sorts of identifiers
 are classified as Uniform Resource Names (URNs) and are defined in [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc8141" title="Uniform Resource Names (URNs)">RFC8141</a></cite>].
 <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-86">DIDs</a> are an enhanced form of URN that provide a
 cryptographically secure, location-independent identifier for a digital
 resource, while also providing metadata that enables retrieval. Due to the
-indirection between the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-108">DID document</a> and the <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-87">DID</a> itself, the
-<a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-19">DID controller</a> can adjust the actual location of the resource — or
+indirection between the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-110">DID document</a> and the <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-87">DID</a> itself, the
+<a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-20">DID controller</a> can adjust the actual location of the resource — or
 even provide the resource directly — without adjusting the <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-88">DID</a>.
 <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-89">DIDs</a> of this type can definitively verify that the resource retrieved is,
 in fact, the resource identified.
       </p>
       <p>
-A <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-20">DID controller</a> who intends to use a <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-90">DID</a> for this purpose is
+A <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-21">DID controller</a> who intends to use a <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-90">DID</a> for this purpose is
 advised to follow the security considerations in [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc8141" title="Uniform Resource Names (URNs)">RFC8141</a></cite>]. In particular:
       </p>
       <ul>
         <li>
-The <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-21">DID controller</a> is expected to choose a <a data-link-type="dfn|abstract-op" href="#dfn-did-methods" class="internalDFN" id="ref-for-dfn-did-methods-75">DID method</a> that
+The <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-22">DID controller</a> is expected to choose a <a data-link-type="dfn|abstract-op" href="#dfn-did-methods" class="internalDFN" id="ref-for-dfn-did-methods-75">DID method</a> that
 supports the controller's requirements for persistence. The Decentralized
 Characteristics Rubric [<cite><a class="bibref" data-link-type="biblio" href="#bib-did-rubric" title="DID Method Rubric v1.0">DID-RUBRIC</a></cite>] is one tool available to help
 implementers decide upon the most suitable <a data-link-type="dfn|abstract-op" href="#dfn-did-methods" class="internalDFN" id="ref-for-dfn-did-methods-76">DID method</a>.
         </li>
         <li>
-The <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-22">DID controller</a> is expected to publish its operational policies so
+The <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-23">DID controller</a> is expected to publish its operational policies so
 requesting parties can determine the degree to which they can rely on the
-persistence of a <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-91">DID</a> controlled by that <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-23">DID controller</a>. In the
+persistence of a <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-91">DID</a> controlled by that <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-24">DID controller</a>. In the
 absence of such policies, requesting parties are not expected to make any
 assumption about whether a <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-92">DID</a> is a persistent identifier for the same
 <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-22">DID subject</a>.
@@ -3365,14 +3638,14 @@ assumption about whether a <a data-link-type="dfn|abstract-op" href="#dfn-decent
 
       <p>
 Many cybersecurity abuses hinge on exploiting gaps between reality and the
-assumptions of rational, good-faith actors. Immutability of <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-109">DID documents</a>
+assumptions of rational, good-faith actors. Immutability of <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-111">DID documents</a>
 can provide some security benefits. Individual <a data-link-type="dfn|abstract-op" href="#dfn-did-methods" class="internalDFN" id="ref-for-dfn-did-methods-77">DID methods</a> ought to
 consider constraints that would eliminate behaviors or semantics they do not
 need. The more <em>locked down</em> a <a data-link-type="dfn|abstract-op" href="#dfn-did-methods" class="internalDFN" id="ref-for-dfn-did-methods-78">DID method</a> is, while providing the
 same set of features, the less it can be manipulated by malicious actors.
       </p>
       <p>
-As an example, consider that a single edit to a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-110">DID document</a> can change
+As an example, consider that a single edit to a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-112">DID document</a> can change
 anything except the root <code>id</code> property of the document. But
 is it actually desirable for a <a data-link-type="dfn|abstract-op" href="#dfn-service" class="internalDFN" id="ref-for-dfn-service-14">service</a> to change its
 <code>type</code> after it is defined? Or for a key to change its value? Or
@@ -3387,12 +3660,12 @@ harder and more expensive to carry out.
       </p>
       <p>
 For <a data-link-type="dfn|abstract-op" href="#dfn-did-methods" class="internalDFN" id="ref-for-dfn-did-methods-79">DID methods</a> tied to a global source of truth, a direct,
-just-in-time lookup of the latest version of a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-111">DID document</a> is always
+just-in-time lookup of the latest version of a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-113">DID document</a> is always
 possible. However, it seems likely that layers of cache might eventually sit
 between a <a data-link-type="dfn|abstract-op" href="#dfn-did-resolvers" class="internalDFN" id="ref-for-dfn-did-resolvers-8">DID resolver</a> and that source of truth. If they do, believing
-the attributes of an object in the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-112">DID document</a> to have a given state
+the attributes of an object in the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-114">DID document</a> to have a given state
 when they are actually subtly different might invite exploits. This is
-particularly true if some lookups are of a full <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-113">DID document</a>, and
+particularly true if some lookups are of a full <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-115">DID document</a>, and
 others are of partial data where the larger context is assumed.
       </p>
     </section>
@@ -3402,17 +3675,17 @@ others are of partial data where the larger context is assumed.
       <p>
 Encryption algorithms have been known to fail due to advances in cryptography
 and computing power. Implementers are advised to assume that any encrypted data
-placed in a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-114">DID document</a> might eventually be made available in clear text
+placed in a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-116">DID document</a> might eventually be made available in clear text
 to the same audience to which the encrypted data is available. This is
-particularly pertinent if the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-115">DID document</a> is public.
+particularly pertinent if the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-117">DID document</a> is public.
       </p>
       <p>
-Encrypting all or parts of a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-116">DID document</a> is <em>not</em> an appropriate
+Encrypting all or parts of a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-118">DID document</a> is <em>not</em> an appropriate
 means to protect data in the long term. Similarly, placing encrypted data in
-a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-117">DID document</a> is not an appropriate means to protect personal data.
+a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-119">DID document</a> is not an appropriate means to protect personal data.
       </p>
       <p>
-Given the caveats above, if encrypted data is included in a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-118">DID document</a>,
+Given the caveats above, if encrypted data is included in a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-120">DID document</a>,
 implementers are advised to not associate any correlatable information
 that could be used to infer a relationship between the encrypted data
 and an associated party. Examples of correlatable information include
@@ -3429,10 +3702,10 @@ receiving party.
 Given the <code>equivalentId</code> and <code>canonicalId</code>
 properties are generated by <a data-link-type="dfn|abstract-op" href="#dfn-did-methods" class="internalDFN" id="ref-for-dfn-did-methods-80">DID methods</a> themselves, the same security and
 accuracy guarantees that apply to the resolved <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-93">DID</a> present in the
-<code>id</code> field of a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-119">DID document</a> also apply to these properties.
+<code>id</code> field of a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-121">DID document</a> also apply to these properties.
 The <code>alsoKnownAs</code> property is not guaranteed to be an accurate
 statement of equivalence, and should not be relied upon without performing
-validation steps beyond the resolution of the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-120">DID document</a>.
+validation steps beyond the resolution of the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-122">DID document</a>.
       </p>
       <p>
 The <code>equivalentId</code> and <code>canonicalId</code>
@@ -3449,11 +3722,11 @@ trusted without performing verification steps outside of the governing <a data-l
 <cite><a data-matched-text="[[[CID]]]" href="https://www.w3.org/TR/cid-1.0/">Controlled Identifiers v1.0</a></cite> specification.
       </p>
       <p>
-As with any other security-related properties in the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-121">DID document</a>,
-parties relying on any equivalence statement in a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-122">DID document</a> should
+As with any other security-related properties in the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-123">DID document</a>,
+parties relying on any equivalence statement in a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-124">DID document</a> should
 guard against the values of these properties being substituted by an attacker
-after the proper verification has been performed. Any write access to a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-123">DID document</a> stored in memory or disk after verification has been performed is
-an attack vector that might circumvent verification unless the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-124">DID document</a> is re-verified.
+after the proper verification has been performed. Any write access to a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-125">DID document</a> stored in memory or disk after verification has been performed is
+an attack vector that might circumvent verification unless the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-126">DID document</a> is re-verified.
       </p>
 
     </section>
@@ -3548,8 +3821,8 @@ evaluation criteria to help decision makers determine whether or not a particula
     
 
     <p>
-Since <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-105">DIDs</a> and <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-125">DID documents</a> are designed to be administered
-directly by the <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-24">DID controller(s)</a>, it is critically important to apply
+Since <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-105">DIDs</a> and <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-127">DID documents</a> are designed to be administered
+directly by the <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-25">DID controller(s)</a>, it is critically important to apply
 the principles of Privacy by Design [<cite><a class="bibref" data-link-type="biblio" href="#bib-privacy-by-design" title="Privacy by Design">PRIVACY-BY-DESIGN</a></cite>] to all aspects of the
 <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-106">decentralized identifier</a> architecture. All seven of these principles
 have been applied throughout the development of this specification. The design
@@ -3596,7 +3869,7 @@ Verification Method Types</a> [<cite><a class="bibref" data-link-type="biblio" h
 and other verification method types.
       </p>
 
-      <div class="note" role="note" id="issue-container-generatedID-7"><div role="heading" class="note-title marker" id="h-note-7" aria-level="4"><span>Note</span></div><p class="">
+      <div class="note" role="note" id="issue-container-generatedID-8"><div role="heading" class="note-title marker" id="h-note-8" aria-level="4"><span>Note</span></div><p class="">
 These examples are for information purposes only, it is considered a best
 practice to avoid using the same <a data-link-type="dfn" href="https://www.w3.org/TR/cid-1.0/#dfn-verification-method">verification method</a> for multiple
 purposes.
@@ -3809,7 +4082,7 @@ purposes.
     <section class="informative" id="proving"><div class="header-wrapper"><h3 id="a-2-proving"><bdi class="secno">A.2 </bdi>Proving</h3><a class="self-link" href="#proving" aria-label="Permalink for Appendix A.2"></a></div><p><em>This section is non-normative.</em></p>
       
 
-      <div class="note" role="note" id="issue-container-generatedID-8"><div role="heading" class="note-title marker" id="h-note-8" aria-level="4"><span>Note</span></div><p class="">
+      <div class="note" role="note" id="issue-container-generatedID-9"><div role="heading" class="note-title marker" id="h-note-9" aria-level="4"><span>Note</span></div><p class="">
 These examples are for information purposes only. See <cite><a data-matched-text="[[[VC-DATA-MODEL]]]" href="https://www.w3.org/TR/vc-data-model-2.0/">Verifiable Credentials Data Model v2.0</a></cite> for
 additional examples.
       </p></div>
@@ -4068,7 +4341,7 @@ additional examples.
     <section class="informative" id="encrypting"><div class="header-wrapper"><h3 id="a-3-encrypting"><bdi class="secno">A.3 </bdi>Encrypting</h3><a class="self-link" href="#encrypting" aria-label="Permalink for Appendix A.3"></a></div><p><em>This section is non-normative.</em></p>
       
 
-      <div class="note" role="note" id="issue-container-generatedID-9"><div role="heading" class="note-title marker" id="h-note-9" aria-level="4"><span>Note</span></div><p class="">
+      <div class="note" role="note" id="issue-container-generatedID-10"><div role="heading" class="note-title marker" id="h-note-10" aria-level="4"><span>Note</span></div><p class="">
 These examples are for information purposes only, it is considered a best
 practice to avoid dislosing unnecessary information in JWE headers.
       </p></div>
@@ -4133,10 +4406,10 @@ Following is a diagram showing the relationships among <a href="#data-model" dat
       
       <p>
 The creation of a <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-110">DID</a> is a process that is defined by each <a data-link-type="dfn|abstract-op" href="#dfn-did-methods" class="internalDFN" id="ref-for-dfn-did-methods-88">DID Method</a>. Some <a data-link-type="dfn|abstract-op" href="#dfn-did-methods" class="internalDFN" id="ref-for-dfn-did-methods-89">DID Methods</a>, such as <code>did:key</code>, are purely
-generative, such that a <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-111">DID</a> and a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-126">DID document</a> are generated by
+generative, such that a <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-111">DID</a> and a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-128">DID document</a> are generated by
 transforming a single piece of cryptographic material into a conformant
 <a data-link-type="dfn|abstract-op" href="#dfn-representations" class="internalDFN" id="ref-for-dfn-representations-54">representation</a>. Other <a data-link-type="dfn|abstract-op" href="#dfn-did-methods" class="internalDFN" id="ref-for-dfn-did-methods-90">DID methods</a> might require the use of a
-<a data-link-type="dfn|abstract-op" href="#dfn-verifiable-data-registry" class="internalDFN" id="ref-for-dfn-verifiable-data-registry-10">verifiable data registry</a>, where the <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-112">DID</a> and <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-127">DID document</a>
+<a data-link-type="dfn|abstract-op" href="#dfn-verifiable-data-registry" class="internalDFN" id="ref-for-dfn-verifiable-data-registry-10">verifiable data registry</a>, where the <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-112">DID</a> and <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-129">DID document</a>
 are recognized to exist by third parties only when the registration has been
 completed, as defined by the respective <a data-link-type="dfn|abstract-op" href="#dfn-did-methods" class="internalDFN" id="ref-for-dfn-did-methods-91">DID method</a>. Other processes
 might be defined by the respective <a data-link-type="dfn|abstract-op" href="#dfn-did-methods" class="internalDFN" id="ref-for-dfn-did-methods-92">DID method</a>.
@@ -4162,18 +4435,18 @@ can be assigned a URI can be assigned a <a data-link-type="dfn|abstract-op" href
 by the <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-116">DID</a> is the <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-24">DID subject</a>.
       </p>
       <p>
-The <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-25">DID controller</a> determines the <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-25">DID subject</a>.
+The <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-26">DID controller</a> determines the <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-25">DID subject</a>.
 It is not expected to be possible to determine the <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-26">DID subject</a>
 from looking at the <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-117">DID</a> itself, as <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-118">DIDs</a> are generally
 only meaningful to machines, not human. A <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-119">DID</a> is unlikely to contain
 any information about the <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-27">DID subject</a>, so further information
 about the <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-28">DID subject</a> is only discoverable by resolving the <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-120">DID</a>
-to the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-128">DID document</a>, obtaining a verifiable credential about the
+to the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-130">DID document</a>, obtaining a verifiable credential about the
 <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-121">DID</a>, or via some other description of the <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-122">DID</a>.
       </p>
       <p>
 While the value of the <code>id</code> property in the retrieved
-<a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-129">DID document</a> must always match the <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-123">DID</a> being resolved, whether
+<a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-131">DID document</a> must always match the <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-123">DID</a> being resolved, whether
 or not the actual resource to which the <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-124">DID</a> refers can change over time
 is dependent upon the <a data-link-type="dfn|abstract-op" href="#dfn-did-methods" class="internalDFN" id="ref-for-dfn-did-methods-93">DID method</a>. For example, a <a data-link-type="dfn|abstract-op" href="#dfn-did-methods" class="internalDFN" id="ref-for-dfn-did-methods-94">DID method</a>
 that permits the <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-29">DID subject</a> to change could be used to generate a
@@ -4186,11 +4459,11 @@ depending on when the <a data-link-type="dfn|abstract-op" href="#dfn-decentraliz
       
       <p>
 The <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-127">DID</a> refers to the <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-30">DID subject</a> and <em>resolves to</em> the
-<a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-130">DID document</a> (by following the protocol specified by the
-<a data-link-type="dfn|abstract-op" href="#dfn-did-methods" class="internalDFN" id="ref-for-dfn-did-methods-95">DID method</a>). The <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-131">DID document</a> is not a separate resource from
+<a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-132">DID document</a> (by following the protocol specified by the
+<a data-link-type="dfn|abstract-op" href="#dfn-did-methods" class="internalDFN" id="ref-for-dfn-did-methods-95">DID method</a>). The <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-133">DID document</a> is not a separate resource from
 the <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-31">DID subject</a> and does not have a <a data-link-type="dfn|abstract-op" href="#dfn-uri" class="internalDFN" id="ref-for-dfn-uri-14">URI</a> separate from the
-<a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-128">DID</a>. Rather the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-132">DID document</a> is an artifact of <a data-link-type="dfn|abstract-op" href="#dfn-did-resolution" class="internalDFN" id="ref-for-dfn-did-resolution-8">DID resolution</a> controlled by the <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-26">DID controller</a> for the purpose of
-describing the <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-32">DID subject</a>.
+<a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-128">DID</a>. Rather the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-134">DID document</a> is an artifact of <a data-link-type="dfn|abstract-op" href="#dfn-did-resolution" class="internalDFN" id="ref-for-dfn-did-resolution-8">DID resolution</a> controlled by the <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-27">DID controller</a> for the purpose of
+enabling cryptographically verifiable interactions with a <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-32">DID subject</a>.
       </p>
       <p>
 This distinction is illustrated by the graph model shown below.
@@ -4201,9 +4474,9 @@ Diagram showing a graph model for how DID controllers assign DIDs to refer to
 DID subjects and resolve to DID documents that describe the DID subjects.
 ">
           <figcaption><a class="self-link" href="#did-and-did-document-graph">Figure <bdi class="figno">5</bdi></a> <span class="fig-title">
-A <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-129">DID</a> is an identifier assigned by a <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-27">DID controller</a> to refer to
-a <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-33">DID subject</a> and resolve to a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-133">DID document</a> that describes the
-<a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-34">DID subject</a>. The <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-134">DID document</a> is an artifact of <a data-link-type="dfn|abstract-op" href="#dfn-did-resolution" class="internalDFN" id="ref-for-dfn-did-resolution-9">DID resolution</a> and not a separate resource distinct from the <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-35">DID subject</a>.
+A <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-129">DID</a> is an identifier assigned by a <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-28">DID controller</a> to refer to
+a <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-33">DID subject</a> and resolve to a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-135">DID document</a> that describes the
+<a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-34">DID subject</a>. The <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-136">DID document</a> is an artifact of <a data-link-type="dfn|abstract-op" href="#dfn-did-resolution" class="internalDFN" id="ref-for-dfn-did-resolution-9">DID resolution</a> and not a separate resource distinct from the <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-35">DID subject</a>.
 See also: <a class="longdesc-link" href="#did-and-did-document-graph-longdesc">narrative description</a>.
           </span></figcaption>
         </figure>
@@ -4229,8 +4502,8 @@ Subject.
     <section class="informative" id="statements-in-the-did-document"><div class="header-wrapper"><h3 id="b-5-statements-in-the-did-document"><bdi class="secno">B.5 </bdi>Statements in the DID document</h3><a class="self-link" href="#statements-in-the-did-document" aria-label="Permalink for Appendix B.5"></a></div><p><em>This section is non-normative.</em></p>
       
       <p>
-Each property in a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-135">DID document</a> is a statement by the
-<a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-28">DID controller</a> that describes:
+Each property in a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-137">DID document</a> is a statement by the
+<a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-29">DID controller</a> that describes:
       </p>
       <ul>
         <li>
@@ -4244,13 +4517,13 @@ How to interact with the <a data-link-type="dfn|abstract-op" href="#dfn-did-subj
 properties).
         </li>
         <li>
-How to interpret the specific representation of the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-136">DID document</a>
+How to interpret the specific representation of the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-138">DID document</a>
 (e.g., the <code>@context</code> property for a JSON-LD representation).
         </li>
       </ul>
       <p>
-The only required property in a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-137">DID document</a> is <code>id</code>,
-so that is the only statement guaranteed to be in a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-138">DID document</a>.
+The only required property in a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-139">DID document</a> is <code>id</code>,
+so that is the only statement guaranteed to be in a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-140">DID document</a>.
 That statement is illustrated in <a href="#did-and-did-document-graph" data-matched-text="[[[#did-and-did-document-graph]]]" class="fig-ref" title="A DID is an identifier assigned by a DID controller to refer to a DID subject and resolve to a DID document that describes the DID subject. The DID document is an artifact of DID resolution and not a separate resource distinct from the DID subject. See also: narrative description.">Figure <bdi class="">5</bdi></a>
 with a direct link between the <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-130">DID</a> and the <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-38">DID subject</a>.
       </p>
@@ -4259,15 +4532,15 @@ with a direct link between the <a data-link-type="dfn|abstract-op" href="#dfn-de
       
       <p>
 Options for discovering more information about the <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-39">DID subject</a> depend
-on the properties present in the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-139">DID document</a>. If the
+on the properties present in the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-141">DID document</a>. If the
 <code>service</code> property is present, more information can be
-requested from a <a data-link-type="dfn|abstract-op" href="#dfn-service-endpoints" class="internalDFN" id="ref-for-dfn-service-endpoints-3">service endpoint</a>. For example, by querying a
-<a data-link-type="dfn|abstract-op" href="#dfn-service-endpoints" class="internalDFN" id="ref-for-dfn-service-endpoints-4">service endpoint</a> that supports verifiable credentials for one or more
+requested from a <a data-link-type="dfn|abstract-op" href="#dfn-did-service-endpoints" class="internalDFN" id="ref-for-dfn-did-service-endpoints-3">service endpoint</a>. For example, by querying a
+<a data-link-type="dfn|abstract-op" href="#dfn-did-service-endpoints" class="internalDFN" id="ref-for-dfn-did-service-endpoints-4">service endpoint</a> that supports verifiable credentials for one or more
 claims (attributes) describing the <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-40">DID subject</a>.
       </p>
       <p>
 Another option is to use the <code>alsoKnownAs</code> property if it
-is present in the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-140">DID document</a>. The <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-29">DID controller</a> can use it
+is present in the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-142">DID document</a>. The <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-30">DID controller</a> can use it
 to provide a list of other URIs (including other <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-131">DIDs</a>) that refer to
 the same <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-41">DID subject</a>. Resolving or dereferencing these URIs might yield
 other descriptions or representations of the <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-42">DID subject</a> as
@@ -4281,7 +4554,7 @@ illustrated in the figure below.
           DID subject.
         ">
         <figcaption><a class="self-link" href="#alsoKnownAs-graph">Figure <bdi class="figno">6</bdi></a> <span class="fig-title">
-A <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-141">DID document</a> can use the alsoKnownAs property to assert that another
+A <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-143">DID document</a> can use the alsoKnownAs property to assert that another
 <a data-link-type="dfn|abstract-op" href="#dfn-uri" class="internalDFN" id="ref-for-dfn-uri-15">URI</a> (including, but not necessarily, another <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-132">DID</a>) refers to the
 same <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-43">DID subject</a>. See also: <a class="longdesc-link" href="#alsoKnownAs-graph-longdesc">narrative description</a>.
         </span></figcaption>
@@ -4337,7 +4610,7 @@ If the controller of a web page or any other web resource wants to
 assign it a persistent, cryptographically verifiable identifier, the
 controller can give it a <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-135">DID</a>. For example, the author of a blog
 hosted by a blog hosting company (under that hosting company's domain)
-could create a <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-136">DID</a> for the blog. In the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-142">DID document</a>, the
+could create a <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-136">DID</a> for the blog. In the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-144">DID document</a>, the
 author can include the <code>alsoKnownAs</code> property pointing to
 the current URL of the blog, e.g.:
       </p>
@@ -4346,7 +4619,7 @@ the current URL of the blog, e.g.:
       </code>
       <p>
 If the author subsequently moves the blog to a different hosting company
-(or to the author's own domain), the author can update the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-143">DID document</a>
+(or to the author's own domain), the author can update the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-145">DID document</a>
 to point to the new URL for the blog, e.g.:
       </p>
       <code>
@@ -4367,13 +4640,13 @@ network location might change over time.
       <p>
 To avoid confusion, it is helpful to classify
 <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-46">DID subject</a>s into two disjoint sets based on their relationship to
-the <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-30">DID controller</a>.
+the <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-31">DID controller</a>.
       </p>
       <section class="informative" id="set-1-the-did-subject-is-the-did-controller"><div class="header-wrapper"><h4 id="b-9-1-set-1-the-did-subject-is-the-did-controller"><bdi class="secno">B.9.1 </bdi>Set #1: The DID subject <em>is</em> the DID controller</h4><a class="self-link" href="#set-1-the-did-subject-is-the-did-controller" aria-label="Permalink for Appendix B.9.1"></a></div><p><em>This section is non-normative.</em></p>
         
         <p>
 The first case, shown in <a href="#controller-subject-equivalence" data-matched-text="[[[#controller-subject-equivalence]]]" class="fig-ref" title="The DID subject is the same entity as the DID controller. See also: narrative description.">Figure <bdi class="">7</bdi></a>, is
-the common scenario where the <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-47">DID subject</a> is also the <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-31">DID controller</a>. This is the case when an individual or organization creates a
+the common scenario where the <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-47">DID subject</a> is also the <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-32">DID controller</a>. This is the case when an individual or organization creates a
 <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-139">DID</a> to self-identify.
         </p>
         <figure id="controller-subject-equivalence">
@@ -4382,7 +4655,7 @@ Diagram showing a graph model with an equivalence arc from the DID
 subject to the DID controller.
           ">
           <figcaption><a class="self-link" href="#controller-subject-equivalence">Figure <bdi class="figno">7</bdi></a> <span class="fig-title">
-The <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-48">DID subject</a> is the same entity as the <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-32">DID controller</a>. See
+The <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-48">DID subject</a> is the same entity as the <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-33">DID controller</a>. See
 also: <a class="longdesc-link" href="#controller-subject-equivalence-longdesc">narrative description</a>.
           </span></figcaption>
         </figure>
@@ -4406,7 +4679,7 @@ Subject, then curving downward to point to the DID Document.
         </div>
         <p>
 From a graph model perspective, even though the nodes identified as the
-<a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-33">DID controller</a> and <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-49">DID subject</a> in
+<a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-34">DID controller</a> and <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-49">DID subject</a> in
 <a href="#controller-subject-equivalence" data-matched-text="[[[#controller-subject-equivalence]]]" class="fig-ref" title="The DID subject is the same entity as the DID controller. See also: narrative description.">Figure <bdi class="">7</bdi></a> are distinct, there is a
 logical arc connecting them to express a semantic equivalence relationship.
         </p>
@@ -4415,7 +4688,7 @@ logical arc connecting them to express a semantic equivalence relationship.
         
         <p>
 The second case is when the <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-50">DID subject</a> is a separate entity from the
-<a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-34">DID controller</a>. This is the case when, for example, a parent creates
+<a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-35">DID controller</a>. This is the case when, for example, a parent creates
 and maintains control of a <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-140">DID</a> for a child; a corporation creates and
 maintains control of a <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-141">DID</a> for a subsidiary; or a manufacturer
 creates and maintains control of a <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-142">DID</a> for a product, an IoT device,
@@ -4424,7 +4697,7 @@ or a digital file.
         <p>
 From a graph model perspective, the only difference from Set 1 that there is
 no equivalence arc relationship between the <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-51">DID subject</a> and
-<a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-35">DID controller</a> nodes.
+<a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-36">DID controller</a> nodes.
         </p>
       </section>
     </section>
@@ -4432,24 +4705,24 @@ no equivalence arc relationship between the <a data-link-type="dfn|abstract-op" 
     <section class="informative" id="multiple-did-controllers"><div class="header-wrapper"><h3 id="b-10-multiple-did-controllers"><bdi class="secno">B.10 </bdi>Multiple DID controllers</h3><a class="self-link" href="#multiple-did-controllers" aria-label="Permalink for Appendix B.10"></a></div><p><em>This section is non-normative.</em></p>
       
       <p>
-A <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-144">DID document</a> might have more than one <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-36">DID controller</a>. This can
+A <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-146">DID document</a> might have more than one <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-37">DID controller</a>. This can
 happen in one of two ways.
       </p>
       <section class="informative" id="independent-control"><div class="header-wrapper"><h4 id="b-10-1-independent-control"><bdi class="secno">B.10.1 </bdi>Independent Control</h4><a class="self-link" href="#independent-control" aria-label="Permalink for Appendix B.10.1"></a></div><p><em>This section is non-normative.</em></p>
         
         <p>
-In this case, each of the <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-37">DID controllers</a> might act on its own, i.e.,
-each one has full power to update the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-145">DID document</a> independently. From
+In this case, each of the <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-38">DID controllers</a> might act on its own, i.e.,
+each one has full power to update the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-147">DID document</a> independently. From
 a graph model perspective, in this configuration:
         </p>
         <ul>
           <li>
-Each additional <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-38">DID controller</a> is another distinct graph node
+Each additional <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-39">DID controller</a> is another distinct graph node
 (which might be identified by its own <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-143">DID</a>).
           </li>
           <li>
 The same arcs ("controls" and "controller") exist between each
-<a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-39">DID controller</a> and the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-146">DID document</a>.
+<a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-40">DID controller</a> and the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-148">DID document</a>.
           </li>
         </ul>
         <figure id="independent-did-controllers">
@@ -4458,7 +4731,7 @@ The same arcs ("controls" and "controller") exist between each
             control relationship with the DID document
           ">
           <figcaption><a class="self-link" href="#independent-did-controllers">Figure <bdi class="figno">8</bdi></a> <span class="fig-title">
-Multiple independent <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-40">DID controllers</a> that can each act independently. See
+Multiple independent <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-41">DID controllers</a> that can each act independently. See
 also: <a href="#independent-did-controllers-longdesc" class="longdesc-link">Text
 Description</a>
           </span></figcaption>
@@ -4479,22 +4752,22 @@ labeled, "DID Subject".
       <section class="informative" id="group-control"><div class="header-wrapper"><h4 id="b-10-2-group-control"><bdi class="secno">B.10.2 </bdi>Group Control</h4><a class="self-link" href="#group-control" aria-label="Permalink for Appendix B.10.2"></a></div><p><em>This section is non-normative.</em></p>
         
         <p>
-In the case of group control, the <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-41">DID controllers</a> are expected to act
+In the case of group control, the <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-42">DID controllers</a> are expected to act
 together in some fashion, such as when using a cryptographic algorithm that
 requires multiple digital signatures ("multi-sig") or a threshold number of
 digital signatures ("m-of-n"). These additional thresholds for
 verifying a proof can be expressed in a <a data-link-type="dfn" href="https://www.w3.org/TR/cid-1.0/#dfn-verification-method">verification method</a> as described in
 Section <a href="#verification-methods" data-matched-text="[[[#verification-methods]]]" class="sec-ref"><bdi class="secno">5.2 </bdi>Verification Methods</a> or can be an intrinsic part of the
-verification material of the <a data-link-type="dfn" href="https://www.w3.org/TR/cid-1.0/#dfn-verification-method">verification method</a>, where the number of <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-42">DID controllers</a> that
+verification material of the <a data-link-type="dfn" href="https://www.w3.org/TR/cid-1.0/#dfn-verification-method">verification method</a>, where the number of <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-43">DID controllers</a> that
 participated in the generation of a particular digital signature are hidden for
 privacy reasons. Verification methods that require a proof be produced by a combination of cryptographic operations performed by members of a group can be used to control the contents of a DID document; exactly how this is realized depends on individual DID method specifications.
         </p>
         <p>
 From a functional standpoint, this option is
-similar to a single <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-43">DID controller</a> because, although each of the
-<a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-44">DID controllers</a> in the <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-45">DID controller</a> group has its own graph
+similar to a single <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-44">DID controller</a> because, although each of the
+<a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-45">DID controllers</a> in the <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-46">DID controller</a> group has its own graph
 node, the actual control collapses into a single logical graph node
-representing the <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-46">DID controller</a> group as shown in
+representing the <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-47">DID controller</a> group as shown in
 <a href="#group-did-controllers" data-matched-text="[[[#group-did-controllers]]]" class="fig-ref" title="Multiple DID controllers who are expected to act together as a DID controller group. See also: narrative description.">Figure <bdi class="">9</bdi></a>.
         </p>
         <figure id="group-did-controllers">
@@ -4503,7 +4776,7 @@ Diagram showing three DID controllers together as a single
 DID controller group to control a DID document
           ">
           <figcaption><a class="self-link" href="#group-did-controllers">Figure <bdi class="figno">9</bdi></a> <span class="fig-title">
-Multiple <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-47">DID controllers</a> who are expected to act together as a <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-48">DID controller</a> group. See also: <a class="longdesc-link" href="#group-did-controllers-longdesc"> narrative description</a>.
+Multiple <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-48">DID controllers</a> who are expected to act together as a <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-49">DID controller</a> group. See also: <a class="longdesc-link" href="#group-did-controllers-longdesc"> narrative description</a>.
           </span></figcaption>
         </figure>
         <div class="longdesc" id="group-did-controllers-longdesc">
@@ -4528,26 +4801,26 @@ that is not controlled by a single individual.
     <section class="informative" id="changing-the-did-subject"><div class="header-wrapper"><h3 id="b-11-changing-the-did-subject"><bdi class="secno">B.11 </bdi>Changing the DID subject</h3><a class="self-link" href="#changing-the-did-subject" aria-label="Permalink for Appendix B.11"></a></div><p><em>This section is non-normative.</em></p>
       
       <p>
-A <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-147">DID document</a> has exactly one <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-144">DID</a> which refers to
+A <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-149">DID document</a> has exactly one <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-144">DID</a> which refers to
 the <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-53">DID subject</a>. The <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-145">DID</a> is expressed as the value of the
 <code>id</code> property. This property value is immutable for
 the lifetime of the
-<a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-148">DID document</a>.
+<a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-150">DID document</a>.
       </p>
       <p>
 However, it is possible that the resource <em>identified</em> by the <a data-link-type="dfn|abstract-op" href="#dfn-decentralized-identifiers" class="internalDFN" id="ref-for-dfn-decentralized-identifiers-146">DID</a>,
 the <a data-link-type="dfn|abstract-op" href="#dfn-did-subjects" class="internalDFN" id="ref-for-dfn-did-subjects-54">DID subject</a>, may change over time. This is under the exclusive
-authority of the <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-49">DID controller</a>. For more details, see section  <a href="#persistence" data-matched-text="[[[#persistence]]]" class="sec-ref"><bdi class="secno">8.11 </bdi>Persistence</a>.
+authority of the <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-50">DID controller</a>. For more details, see section  <a href="#persistence" data-matched-text="[[[#persistence]]]" class="sec-ref"><bdi class="secno">8.11 </bdi>Persistence</a>.
       </p>
     </section>
     <section class="informative" id="changing-the-did-controller"><div class="header-wrapper"><h3 id="b-12-changing-the-did-controller"><bdi class="secno">B.12 </bdi>Changing the DID controller</h3><a class="self-link" href="#changing-the-did-controller" aria-label="Permalink for Appendix B.12"></a></div><p><em>This section is non-normative.</em></p>
       
       <p>
-The <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-50">DID controller</a> for a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-149">DID document</a> might change over time.
-However, depending on how it is implemented, a change in the <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-51">DID controller</a> might not be made apparent by changes to the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-150">DID document</a>
+The <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-51">DID controller</a> for a <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-151">DID document</a> might change over time.
+However, depending on how it is implemented, a change in the <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-52">DID controller</a> might not be made apparent by changes to the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-152">DID document</a>
 itself. For example, if the change is implemented through a shift in ownership
 of the underlying cryptographic keys or other controls used for one or more of
-the <a data-link-type="dfn" href="https://www.w3.org/TR/cid-1.0/#dfn-verification-method">verification methods</a> in the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-151">DID document</a>, it might be
+the <a data-link-type="dfn" href="https://www.w3.org/TR/cid-1.0/#dfn-verification-method">verification methods</a> in the <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-153">DID document</a>, it might be
 indistinguishable from a standard key rotation.
       </p>
       <p>
@@ -4555,9 +4828,9 @@ On the other hand, if the change is implemented by changing the value of the
 <a data-link-type="dfn" href="https://www.w3.org/TR/cid-1.0/#dfn-controller"><code>controller</code></a> property, it will be transparent.
       </p>
       <p>
-If it is important to verify a change of <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-52">DID controller</a>, implementers are
-advised to <a data-link-type="dfn" data-lt="authentication" href="https://www.w3.org/TR/cid-1.0/#dfn-authentication">authenticate</a> the new <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-53">DID controller</a> against the
-<a data-link-type="dfn" href="https://www.w3.org/TR/cid-1.0/#dfn-verification-method">verification methods</a> in the revised <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-152">DID document</a>.
+If it is important to verify a change of <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-53">DID controller</a>, implementers are
+advised to <a data-link-type="dfn" data-lt="authentication" href="https://www.w3.org/TR/cid-1.0/#dfn-authentication">authenticate</a> the new <a data-link-type="dfn|abstract-op" href="#dfn-did-controllers" class="internalDFN" id="ref-for-dfn-did-controllers-54">DID controller</a> against the
+<a data-link-type="dfn" href="https://www.w3.org/TR/cid-1.0/#dfn-verification-method">verification methods</a> in the revised <a data-link-type="dfn|abstract-op" href="#dfn-did-documents" class="internalDFN" id="ref-for-dfn-did-documents-154">DID document</a>.
       </p>
     </section>
   </section>
@@ -4963,11 +5236,11 @@ specification.
   </section><section id="informative-references"><div class="header-wrapper"><h3 id="f-2-informative-references"><bdi class="secno">F.2 </bdi>Informative references</h3><a class="self-link" href="#informative-references" aria-label="Permalink for Appendix F.2"></a></div>
     
     <dl class="bibliography"><dt id="bib-did-1.1">[DID-1.1]</dt><dd>
-      <a href="https://www.w3.org/TR/did-1.1/"><cite>Decentralized Identifiers (DIDs) v1.1</cite></a>. Manu Sporny; Dmitri Zagidulin.  W3C. 13 September 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/did-1.1/">https://www.w3.org/TR/did-1.1/</a>
+      <a href="https://www.w3.org/TR/did-1.1/"><cite>Decentralized Identifiers (DIDs) v1.1</cite></a>. Manu Sporny; Dmitri Zagidulin.  W3C. 24 January 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/did-1.1/">https://www.w3.org/TR/did-1.1/</a>
     </dd><dt id="bib-did-extensions">[DID-EXTENSIONS]</dt><dd>
-      <a href="https://www.w3.org/TR/did-extensions/"><cite>Decentralized Identifier Extensions</cite></a>. Manu Sporny; Markus Sabadello.  W3C. 19 February 2025. W3C Working Group Note. URL: <a href="https://www.w3.org/TR/did-extensions/">https://www.w3.org/TR/did-extensions/</a>
+      <a href="https://www.w3.org/TR/did-extensions/"><cite>Decentralized Identifier Extensions</cite></a>. Manu Sporny; Markus Sabadello.  W3C. 11 December 2025. W3C Working Group Note. URL: <a href="https://www.w3.org/TR/did-extensions/">https://www.w3.org/TR/did-extensions/</a>
     </dd><dt id="bib-did-resolution">[DID-RESOLUTION]</dt><dd>
-      <a href="https://www.w3.org/TR/did-resolution/"><cite>Decentralized Identifier Resolution (DID Resolution) v0.3</cite></a>. Markus Sabadello; Dmitri Zagidulin.  W3C. 8 September 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/did-resolution/">https://www.w3.org/TR/did-resolution/</a>
+      <a href="https://www.w3.org/TR/did-resolution/"><cite>Decentralized Identifier Resolution (DID Resolution) v0.3</cite></a>. Markus Sabadello; Dmitri Zagidulin.  W3C. 5 February 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/did-resolution/">https://www.w3.org/TR/did-resolution/</a>
     </dd><dt id="bib-did-rubric">[DID-RUBRIC]</dt><dd>
       <a href="https://www.w3.org/TR/did-rubric/"><cite>DID Method Rubric v1.0</cite></a>. Joe Andrieu; Daniel Hardman.  W3C. 19 November 2021. W3C Working Group Note. URL: <a href="https://www.w3.org/TR/did-rubric/">https://www.w3.org/TR/did-rubric/</a>
     </dd><dt id="bib-did-use-cases">[DID-USE-CASES]</dt><dd>
@@ -5188,46 +5461,48 @@ specification.
     </li><li>
       <a href="#ref-for-dfn-did-controllers-11" title="§ 5.1.3 Identifier Restrictions">§ 5.1.3 Identifier Restrictions</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-controllers-12" title="§ 7.2 Method Operations">§ 7.2 Method Operations</a> <a href="#ref-for-dfn-did-controllers-13" title="Reference 2">(2)</a> <a href="#ref-for-dfn-did-controllers-14" title="Reference 3">(3)</a> 
+      <a href="#ref-for-dfn-did-controllers-12" title="§ 6.2.4 Remote Resource Integrity">§ 6.2.4 Remote Resource Integrity</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-controllers-15" title="§ 8.3 Notification of DID Document Changes">§ 8.3 Notification of DID Document Changes</a> <a href="#ref-for-dfn-did-controllers-16" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-did-controllers-13" title="§ 7.2 Method Operations">§ 7.2 Method Operations</a> <a href="#ref-for-dfn-did-controllers-14" title="Reference 2">(2)</a> <a href="#ref-for-dfn-did-controllers-15" title="Reference 3">(3)</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-controllers-17" title="§ 8.6 The Role of Human-Friendly Identifiers">§ 8.6 The Role of Human-Friendly Identifiers</a> 
+      <a href="#ref-for-dfn-did-controllers-16" title="§ 8.3 Notification of DID Document Changes">§ 8.3 Notification of DID Document Changes</a> <a href="#ref-for-dfn-did-controllers-17" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-controllers-18" title="§ 8.7 DIDs as Enhanced URNs">§ 8.7 DIDs as Enhanced URNs</a> <a href="#ref-for-dfn-did-controllers-19" title="Reference 2">(2)</a> <a href="#ref-for-dfn-did-controllers-20" title="Reference 3">(3)</a> <a href="#ref-for-dfn-did-controllers-21" title="Reference 4">(4)</a> <a href="#ref-for-dfn-did-controllers-22" title="Reference 5">(5)</a> <a href="#ref-for-dfn-did-controllers-23" title="Reference 6">(6)</a> 
+      <a href="#ref-for-dfn-did-controllers-18" title="§ 8.6 The Role of Human-Friendly Identifiers">§ 8.6 The Role of Human-Friendly Identifiers</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-controllers-24" title="§ 9. Privacy Considerations">§ 9. Privacy Considerations</a> 
+      <a href="#ref-for-dfn-did-controllers-19" title="§ 8.7 DIDs as Enhanced URNs">§ 8.7 DIDs as Enhanced URNs</a> <a href="#ref-for-dfn-did-controllers-20" title="Reference 2">(2)</a> <a href="#ref-for-dfn-did-controllers-21" title="Reference 3">(3)</a> <a href="#ref-for-dfn-did-controllers-22" title="Reference 4">(4)</a> <a href="#ref-for-dfn-did-controllers-23" title="Reference 5">(5)</a> <a href="#ref-for-dfn-did-controllers-24" title="Reference 6">(6)</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-controllers-25" title="§ B.3 Determining the DID subject">§ B.3 Determining the DID subject</a> 
+      <a href="#ref-for-dfn-did-controllers-25" title="§ 9. Privacy Considerations">§ 9. Privacy Considerations</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-controllers-26" title="§ B.4 Referring to the DID document">§ B.4 Referring to the DID document</a> <a href="#ref-for-dfn-did-controllers-27" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-did-controllers-26" title="§ B.3 Determining the DID subject">§ B.3 Determining the DID subject</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-controllers-28" title="§ B.5 Statements in the DID document">§ B.5 Statements in the DID document</a> 
+      <a href="#ref-for-dfn-did-controllers-27" title="§ B.4 Referring to the DID document">§ B.4 Referring to the DID document</a> <a href="#ref-for-dfn-did-controllers-28" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-controllers-29" title="§ B.6 Discovering more information about the DID subject">§ B.6 Discovering more information about the DID subject</a> 
+      <a href="#ref-for-dfn-did-controllers-29" title="§ B.5 Statements in the DID document">§ B.5 Statements in the DID document</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-controllers-30" title="§ B.9 The relationship between DID controllers and DID subjects">§ B.9 The relationship between DID controllers and DID subjects</a> 
+      <a href="#ref-for-dfn-did-controllers-30" title="§ B.6 Discovering more information about the DID subject">§ B.6 Discovering more information about the DID subject</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-controllers-31" title="§ B.9.1 Set #1: The DID subject is the DID controller">§ B.9.1 Set #1: The DID subject is the DID controller</a> <a href="#ref-for-dfn-did-controllers-32" title="Reference 2">(2)</a> <a href="#ref-for-dfn-did-controllers-33" title="Reference 3">(3)</a> 
+      <a href="#ref-for-dfn-did-controllers-31" title="§ B.9 The relationship between DID controllers and DID subjects">§ B.9 The relationship between DID controllers and DID subjects</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-controllers-34" title="§ B.9.2 Set #2: The DID subject is not the DID controller">§ B.9.2 Set #2: The DID subject is not the DID controller</a> <a href="#ref-for-dfn-did-controllers-35" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-did-controllers-32" title="§ B.9.1 Set #1: The DID subject is the DID controller">§ B.9.1 Set #1: The DID subject is the DID controller</a> <a href="#ref-for-dfn-did-controllers-33" title="Reference 2">(2)</a> <a href="#ref-for-dfn-did-controllers-34" title="Reference 3">(3)</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-controllers-36" title="§ B.10 Multiple DID controllers">§ B.10 Multiple DID controllers</a> 
+      <a href="#ref-for-dfn-did-controllers-35" title="§ B.9.2 Set #2: The DID subject is not the DID controller">§ B.9.2 Set #2: The DID subject is not the DID controller</a> <a href="#ref-for-dfn-did-controllers-36" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-controllers-37" title="§ B.10.1 Independent Control">§ B.10.1 Independent Control</a> <a href="#ref-for-dfn-did-controllers-38" title="Reference 2">(2)</a> <a href="#ref-for-dfn-did-controllers-39" title="Reference 3">(3)</a> <a href="#ref-for-dfn-did-controllers-40" title="Reference 4">(4)</a> 
+      <a href="#ref-for-dfn-did-controllers-37" title="§ B.10 Multiple DID controllers">§ B.10 Multiple DID controllers</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-controllers-41" title="§ B.10.2 Group Control">§ B.10.2 Group Control</a> <a href="#ref-for-dfn-did-controllers-42" title="Reference 2">(2)</a> <a href="#ref-for-dfn-did-controllers-43" title="Reference 3">(3)</a> <a href="#ref-for-dfn-did-controllers-44" title="Reference 4">(4)</a> <a href="#ref-for-dfn-did-controllers-45" title="Reference 5">(5)</a> <a href="#ref-for-dfn-did-controllers-46" title="Reference 6">(6)</a> <a href="#ref-for-dfn-did-controllers-47" title="Reference 7">(7)</a> <a href="#ref-for-dfn-did-controllers-48" title="Reference 8">(8)</a> 
+      <a href="#ref-for-dfn-did-controllers-38" title="§ B.10.1 Independent Control">§ B.10.1 Independent Control</a> <a href="#ref-for-dfn-did-controllers-39" title="Reference 2">(2)</a> <a href="#ref-for-dfn-did-controllers-40" title="Reference 3">(3)</a> <a href="#ref-for-dfn-did-controllers-41" title="Reference 4">(4)</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-controllers-49" title="§ B.11 Changing the DID subject">§ B.11 Changing the DID subject</a> 
+      <a href="#ref-for-dfn-did-controllers-42" title="§ B.10.2 Group Control">§ B.10.2 Group Control</a> <a href="#ref-for-dfn-did-controllers-43" title="Reference 2">(2)</a> <a href="#ref-for-dfn-did-controllers-44" title="Reference 3">(3)</a> <a href="#ref-for-dfn-did-controllers-45" title="Reference 4">(4)</a> <a href="#ref-for-dfn-did-controllers-46" title="Reference 5">(5)</a> <a href="#ref-for-dfn-did-controllers-47" title="Reference 6">(6)</a> <a href="#ref-for-dfn-did-controllers-48" title="Reference 7">(7)</a> <a href="#ref-for-dfn-did-controllers-49" title="Reference 8">(8)</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-controllers-50" title="§ B.12 Changing the DID controller">§ B.12 Changing the DID controller</a> <a href="#ref-for-dfn-did-controllers-51" title="Reference 2">(2)</a> <a href="#ref-for-dfn-did-controllers-52" title="Reference 3">(3)</a> <a href="#ref-for-dfn-did-controllers-53" title="Reference 4">(4)</a> 
+      <a href="#ref-for-dfn-did-controllers-50" title="§ B.11 Changing the DID subject">§ B.11 Changing the DID subject</a> 
+    </li><li>
+      <a href="#ref-for-dfn-did-controllers-51" title="§ B.12 Changing the DID controller">§ B.12 Changing the DID controller</a> <a href="#ref-for-dfn-did-controllers-52" title="Reference 2">(2)</a> <a href="#ref-for-dfn-did-controllers-53" title="Reference 3">(3)</a> <a href="#ref-for-dfn-did-controllers-54" title="Reference 4">(4)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-did-delegate" aria-label="Links in this document to definition: DID delegate">
       <span class="caret"></span>
       <div>
         <a class="self-link" href="#dfn-did-delegate" aria-label="Permalink for definition: DID delegate. Activate to close this dialog.">Permalink</a>
-         
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5292,58 +5567,60 @@ specification.
     </li><li>
       <a href="#ref-for-dfn-did-documents-83" title="§ 6.2.3 JSON-LD Processors">§ 6.2.3 JSON-LD Processors</a> <a href="#ref-for-dfn-did-documents-84" title="Reference 2">(2)</a> <a href="#ref-for-dfn-did-documents-85" title="Reference 3">(3)</a> <a href="#ref-for-dfn-did-documents-86" title="Reference 4">(4)</a> <a href="#ref-for-dfn-did-documents-87" title="Reference 5">(5)</a> <a href="#ref-for-dfn-did-documents-88" title="Reference 6">(6)</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-documents-89" title="§ 6.3 Media Types">§ 6.3 Media Types</a> <a href="#ref-for-dfn-did-documents-90" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-did-documents-89" title="§ 6.2.4 Remote Resource Integrity">§ 6.2.4 Remote Resource Integrity</a> <a href="#ref-for-dfn-did-documents-90" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-documents-91" title="§ 6.3.1 Media Type Precision">§ 6.3.1 Media Type Precision</a> <a href="#ref-for-dfn-did-documents-92" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-did-documents-91" title="§ 6.3 Media Types">§ 6.3 Media Types</a> <a href="#ref-for-dfn-did-documents-92" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-documents-93" title="§ 7. Methods">§ 7. Methods</a> 
+      <a href="#ref-for-dfn-did-documents-93" title="§ 6.3.1 Media Type Precision">§ 6.3.1 Media Type Precision</a> <a href="#ref-for-dfn-did-documents-94" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-documents-94" title="§ 7.2 Method Operations">§ 7.2 Method Operations</a> <a href="#ref-for-dfn-did-documents-95" title="Reference 2">(2)</a> <a href="#ref-for-dfn-did-documents-96" title="Reference 3">(3)</a> <a href="#ref-for-dfn-did-documents-97" title="Reference 4">(4)</a> <a href="#ref-for-dfn-did-documents-98" title="Reference 5">(5)</a> <a href="#ref-for-dfn-did-documents-99" title="Reference 6">(6)</a> <a href="#ref-for-dfn-did-documents-100" title="Reference 7">(7)</a> 
+      <a href="#ref-for-dfn-did-documents-95" title="§ 7. Methods">§ 7. Methods</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-documents-101" title="§ 7.3 Security Requirements">§ 7.3 Security Requirements</a> 
+      <a href="#ref-for-dfn-did-documents-96" title="§ 7.2 Method Operations">§ 7.2 Method Operations</a> <a href="#ref-for-dfn-did-documents-97" title="Reference 2">(2)</a> <a href="#ref-for-dfn-did-documents-98" title="Reference 3">(3)</a> <a href="#ref-for-dfn-did-documents-99" title="Reference 4">(4)</a> <a href="#ref-for-dfn-did-documents-100" title="Reference 5">(5)</a> <a href="#ref-for-dfn-did-documents-101" title="Reference 6">(6)</a> <a href="#ref-for-dfn-did-documents-102" title="Reference 7">(7)</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-documents-102" title="§ 8.2 Non-Repudiation">§ 8.2 Non-Repudiation</a> 
+      <a href="#ref-for-dfn-did-documents-103" title="§ 7.3 Security Requirements">§ 7.3 Security Requirements</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-documents-103" title="§ 8.3 Notification of DID Document Changes">§ 8.3 Notification of DID Document Changes</a> 
+      <a href="#ref-for-dfn-did-documents-104" title="§ 8.2 Non-Repudiation">§ 8.2 Non-Repudiation</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-documents-104" title="§ 8.4 Revocation in Trustless Systems">§ 8.4 Revocation in Trustless Systems</a> <a href="#ref-for-dfn-did-documents-105" title="Reference 2">(2)</a> <a href="#ref-for-dfn-did-documents-106" title="Reference 3">(3)</a> <a href="#ref-for-dfn-did-documents-107" title="Reference 4">(4)</a> 
+      <a href="#ref-for-dfn-did-documents-105" title="§ 8.3 Notification of DID Document Changes">§ 8.3 Notification of DID Document Changes</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-documents-108" title="§ 8.7 DIDs as Enhanced URNs">§ 8.7 DIDs as Enhanced URNs</a> 
+      <a href="#ref-for-dfn-did-documents-106" title="§ 8.4 Revocation in Trustless Systems">§ 8.4 Revocation in Trustless Systems</a> <a href="#ref-for-dfn-did-documents-107" title="Reference 2">(2)</a> <a href="#ref-for-dfn-did-documents-108" title="Reference 3">(3)</a> <a href="#ref-for-dfn-did-documents-109" title="Reference 4">(4)</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-documents-109" title="§ 8.8 Immutability">§ 8.8 Immutability</a> <a href="#ref-for-dfn-did-documents-110" title="Reference 2">(2)</a> <a href="#ref-for-dfn-did-documents-111" title="Reference 3">(3)</a> <a href="#ref-for-dfn-did-documents-112" title="Reference 4">(4)</a> <a href="#ref-for-dfn-did-documents-113" title="Reference 5">(5)</a> 
+      <a href="#ref-for-dfn-did-documents-110" title="§ 8.7 DIDs as Enhanced URNs">§ 8.7 DIDs as Enhanced URNs</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-documents-114" title="§ 8.9 Encrypted Data in DID Documents">§ 8.9 Encrypted Data in DID Documents</a> <a href="#ref-for-dfn-did-documents-115" title="Reference 2">(2)</a> <a href="#ref-for-dfn-did-documents-116" title="Reference 3">(3)</a> <a href="#ref-for-dfn-did-documents-117" title="Reference 4">(4)</a> <a href="#ref-for-dfn-did-documents-118" title="Reference 5">(5)</a> 
+      <a href="#ref-for-dfn-did-documents-111" title="§ 8.8 Immutability">§ 8.8 Immutability</a> <a href="#ref-for-dfn-did-documents-112" title="Reference 2">(2)</a> <a href="#ref-for-dfn-did-documents-113" title="Reference 3">(3)</a> <a href="#ref-for-dfn-did-documents-114" title="Reference 4">(4)</a> <a href="#ref-for-dfn-did-documents-115" title="Reference 5">(5)</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-documents-119" title="§ 8.10 Equivalence Properties">§ 8.10 Equivalence Properties</a> <a href="#ref-for-dfn-did-documents-120" title="Reference 2">(2)</a> <a href="#ref-for-dfn-did-documents-121" title="Reference 3">(3)</a> <a href="#ref-for-dfn-did-documents-122" title="Reference 4">(4)</a> <a href="#ref-for-dfn-did-documents-123" title="Reference 5">(5)</a> <a href="#ref-for-dfn-did-documents-124" title="Reference 6">(6)</a> 
+      <a href="#ref-for-dfn-did-documents-116" title="§ 8.9 Encrypted Data in DID Documents">§ 8.9 Encrypted Data in DID Documents</a> <a href="#ref-for-dfn-did-documents-117" title="Reference 2">(2)</a> <a href="#ref-for-dfn-did-documents-118" title="Reference 3">(3)</a> <a href="#ref-for-dfn-did-documents-119" title="Reference 4">(4)</a> <a href="#ref-for-dfn-did-documents-120" title="Reference 5">(5)</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-documents-125" title="§ 9. Privacy Considerations">§ 9. Privacy Considerations</a> 
+      <a href="#ref-for-dfn-did-documents-121" title="§ 8.10 Equivalence Properties">§ 8.10 Equivalence Properties</a> <a href="#ref-for-dfn-did-documents-122" title="Reference 2">(2)</a> <a href="#ref-for-dfn-did-documents-123" title="Reference 3">(3)</a> <a href="#ref-for-dfn-did-documents-124" title="Reference 4">(4)</a> <a href="#ref-for-dfn-did-documents-125" title="Reference 5">(5)</a> <a href="#ref-for-dfn-did-documents-126" title="Reference 6">(6)</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-documents-126" title="§ B.2 Creation of a DID">§ B.2 Creation of a DID</a> <a href="#ref-for-dfn-did-documents-127" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-did-documents-127" title="§ 9. Privacy Considerations">§ 9. Privacy Considerations</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-documents-128" title="§ B.3 Determining the DID subject">§ B.3 Determining the DID subject</a> <a href="#ref-for-dfn-did-documents-129" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-did-documents-128" title="§ B.2 Creation of a DID">§ B.2 Creation of a DID</a> <a href="#ref-for-dfn-did-documents-129" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-documents-130" title="§ B.4 Referring to the DID document">§ B.4 Referring to the DID document</a> <a href="#ref-for-dfn-did-documents-131" title="Reference 2">(2)</a> <a href="#ref-for-dfn-did-documents-132" title="Reference 3">(3)</a> <a href="#ref-for-dfn-did-documents-133" title="Reference 4">(4)</a> <a href="#ref-for-dfn-did-documents-134" title="Reference 5">(5)</a> 
+      <a href="#ref-for-dfn-did-documents-130" title="§ B.3 Determining the DID subject">§ B.3 Determining the DID subject</a> <a href="#ref-for-dfn-did-documents-131" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-documents-135" title="§ B.5 Statements in the DID document">§ B.5 Statements in the DID document</a> <a href="#ref-for-dfn-did-documents-136" title="Reference 2">(2)</a> <a href="#ref-for-dfn-did-documents-137" title="Reference 3">(3)</a> <a href="#ref-for-dfn-did-documents-138" title="Reference 4">(4)</a> 
+      <a href="#ref-for-dfn-did-documents-132" title="§ B.4 Referring to the DID document">§ B.4 Referring to the DID document</a> <a href="#ref-for-dfn-did-documents-133" title="Reference 2">(2)</a> <a href="#ref-for-dfn-did-documents-134" title="Reference 3">(3)</a> <a href="#ref-for-dfn-did-documents-135" title="Reference 4">(4)</a> <a href="#ref-for-dfn-did-documents-136" title="Reference 5">(5)</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-documents-139" title="§ B.6 Discovering more information about the DID subject">§ B.6 Discovering more information about the DID subject</a> <a href="#ref-for-dfn-did-documents-140" title="Reference 2">(2)</a> <a href="#ref-for-dfn-did-documents-141" title="Reference 3">(3)</a> 
+      <a href="#ref-for-dfn-did-documents-137" title="§ B.5 Statements in the DID document">§ B.5 Statements in the DID document</a> <a href="#ref-for-dfn-did-documents-138" title="Reference 2">(2)</a> <a href="#ref-for-dfn-did-documents-139" title="Reference 3">(3)</a> <a href="#ref-for-dfn-did-documents-140" title="Reference 4">(4)</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-documents-142" title="§ B.8 Assigning DIDs to existing web resources">§ B.8 Assigning DIDs to existing web resources</a> <a href="#ref-for-dfn-did-documents-143" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-did-documents-141" title="§ B.6 Discovering more information about the DID subject">§ B.6 Discovering more information about the DID subject</a> <a href="#ref-for-dfn-did-documents-142" title="Reference 2">(2)</a> <a href="#ref-for-dfn-did-documents-143" title="Reference 3">(3)</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-documents-144" title="§ B.10 Multiple DID controllers">§ B.10 Multiple DID controllers</a> 
+      <a href="#ref-for-dfn-did-documents-144" title="§ B.8 Assigning DIDs to existing web resources">§ B.8 Assigning DIDs to existing web resources</a> <a href="#ref-for-dfn-did-documents-145" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-documents-145" title="§ B.10.1 Independent Control">§ B.10.1 Independent Control</a> <a href="#ref-for-dfn-did-documents-146" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-did-documents-146" title="§ B.10 Multiple DID controllers">§ B.10 Multiple DID controllers</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-documents-147" title="§ B.11 Changing the DID subject">§ B.11 Changing the DID subject</a> <a href="#ref-for-dfn-did-documents-148" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-did-documents-147" title="§ B.10.1 Independent Control">§ B.10.1 Independent Control</a> <a href="#ref-for-dfn-did-documents-148" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-dfn-did-documents-149" title="§ B.12 Changing the DID controller">§ B.12 Changing the DID controller</a> <a href="#ref-for-dfn-did-documents-150" title="Reference 2">(2)</a> <a href="#ref-for-dfn-did-documents-151" title="Reference 3">(3)</a> <a href="#ref-for-dfn-did-documents-152" title="Reference 4">(4)</a> 
+      <a href="#ref-for-dfn-did-documents-149" title="§ B.11 Changing the DID subject">§ B.11 Changing the DID subject</a> <a href="#ref-for-dfn-did-documents-150" title="Reference 2">(2)</a> 
+    </li><li>
+      <a href="#ref-for-dfn-did-documents-151" title="§ B.12 Changing the DID controller">§ B.12 Changing the DID controller</a> <a href="#ref-for-dfn-did-documents-152" title="Reference 2">(2)</a> <a href="#ref-for-dfn-did-documents-153" title="Reference 3">(3)</a> <a href="#ref-for-dfn-did-documents-154" title="Reference 4">(4)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-did-fragments" aria-label="Links in this document to definition: DID fragment">
       <span class="caret"></span>
       <div>
         <a class="self-link" href="#dfn-did-fragments" aria-label="Permalink for definition: DID fragment. Activate to close this dialog.">Permalink</a>
-         
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5431,7 +5708,7 @@ specification.
       <span class="caret"></span>
       <div>
         <a class="self-link" href="#dfn-did-paths" aria-label="Permalink for definition: DID path. Activate to close this dialog.">Permalink</a>
-         
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5447,7 +5724,7 @@ specification.
       <span class="caret"></span>
       <div>
         <a class="self-link" href="#dfn-did-queries" aria-label="Permalink for definition: DID query. Activate to close this dialog.">Permalink</a>
-         
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5507,7 +5784,7 @@ specification.
       <span class="caret"></span>
       <div>
         <a class="self-link" href="#dfn-did-schemes" aria-label="Permalink for definition: DID scheme. Activate to close this dialog.">Permalink</a>
-         
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5525,7 +5802,7 @@ specification.
       <span class="caret"></span>
       <div>
         <a class="self-link" href="#dfn-did-subjects" aria-label="Permalink for definition: DID subject. Activate to close this dialog.">Permalink</a>
-         
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5579,7 +5856,7 @@ specification.
       <span class="caret"></span>
       <div>
         <a class="self-link" href="#dfn-did-urls" aria-label="Permalink for definition: DID URL. Activate to close this dialog.">Permalink</a>
-         
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5605,7 +5882,7 @@ specification.
       <span class="caret"></span>
       <div>
         <a class="self-link" href="#dfn-did-url-dereferencing" aria-label="Permalink for definition: DID URL dereferencing. Activate to close this dialog.">Permalink</a>
-         
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5619,7 +5896,7 @@ specification.
       <span class="caret"></span>
       <div>
         <a class="self-link" href="#dfn-did-url-dereferencers" aria-label="Permalink for definition: DID URL dereferencer. Activate to close this dialog.">Permalink</a>
-         
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5745,20 +6022,20 @@ specification.
       <a href="#ref-for-dfn-service-14" title="§ 8.8 Immutability">§ 8.8 Immutability</a> 
     </li>
   </ul>
-    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-service-endpoints" aria-label="Links in this document to definition: service endpoint">
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-did-service-endpoints" aria-label="Links in this document to definition: did service endpoint">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="#dfn-service-endpoints" aria-label="Permalink for definition: service endpoint. Activate to close this dialog.">Permalink</a>
-         
+        <a class="self-link" href="#dfn-did-service-endpoints" aria-label="Permalink for definition: did service endpoint. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-dfn-service-endpoints-1" title="§ 2. Terminology">§ 2. Terminology</a> 
+      <a href="#ref-for-dfn-did-service-endpoints-1" title="§ 2. Terminology">§ 2. Terminology</a> 
     </li><li>
-      <a href="#ref-for-dfn-service-endpoints-2" title="§ 8.3 Notification of DID Document Changes">§ 8.3 Notification of DID Document Changes</a> 
+      <a href="#ref-for-dfn-did-service-endpoints-2" title="§ 8.3 Notification of DID Document Changes">§ 8.3 Notification of DID Document Changes</a> 
     </li><li>
-      <a href="#ref-for-dfn-service-endpoints-3" title="§ B.6 Discovering more information about the DID subject">§ B.6 Discovering more information about the DID subject</a> <a href="#ref-for-dfn-service-endpoints-4" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-did-service-endpoints-3" title="§ B.6 Discovering more information about the DID subject">§ B.6 Discovering more information about the DID subject</a> <a href="#ref-for-dfn-did-service-endpoints-4" title="Reference 2">(2)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-uri" aria-label="Links in this document to definition: Uniform Resource Identifier">
