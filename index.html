@@ -2944,47 +2944,10 @@ for further information on useful timestamps that can be used during the
 [=DID resolution=] process.
         </li>
         <li>
-The subject is monitoring for unauthorized updates as elaborated upon in
-[[[#notification-of-did-document-changes]]].
-        </li>
-        <li>
 The subject has had adequate opportunity to revert malicious updates according
 to the authorization mechanism for the [=DID method=].
         </li>
       </ul>
-    </section>
-
-    <section>
-      <h2>Notification of DID Document Changes</h2>
-
-      <p>
-One mitigation against unauthorized changes to a [=DID document=] is
-monitoring and actively notifying the [=DID subject=] when there are changes.
-This is analogous to helping prevent account takeover on conventional
-username/password accounts by sending password reset notifications to the email
-addresses on file.
-      </p>
-      <p>
-In the case of a [=DID=], there is no intermediary registrar or account provider
-to generate such notifications. However, if the [=verifiable data registry=] on
-which the [=DID=] is registered directly supports change notifications, or a
-monitoring service is used, a subscription service can be offered to [=DID
-controllers=]. Notifications could be sent directly to the relevant [=service
-endpoints=] listed in an existing [=DID document=].
-      </p>
-      <p>
-If a [=DID controller=] chooses to rely on a third-party monitoring service
-(other than the [=verifiable data registry=] itself), this introduces another
-vector of attack.
-      </p>
-      <p>
-Any sort of change notification service is expected to be hardened against
-spoofing, denial of service, linkability, and other attacks on security or
-privacy. Mitigations such as integrity-protecting change notification messages
-and their sources, binding notifications to previous cryptographic hashes of the
-[=DID document=], and enforcement of rate limits are expected to be documented
-and be a core part of change notification service specifications.
-      </p>
     </section>
 
     <section>
