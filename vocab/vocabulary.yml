@@ -62,7 +62,11 @@ class:
     defined_by: https://www.w3.org/TR/cid-1.0/#jsonwebkey
     context: https://w3id.org/security/jwk/v1
 
-
+  - id: ResolutionError
+    label: DID Resolution error
+    defined_by: https://www.w3.org/TR/did-resolution/#errors
+    context: none
+    
 property:
   - id: sec:controller
     label: Controller
@@ -244,6 +248,6 @@ individual:
   - id: DEACTIVATED
     label: Deactivated
     comment: The DID has been deactivated and the DID document is no longer available.
-    defined_by: https://wwww.w3.org/TR/did-resolution/#DEACTIVATED
+    defined_by: https://www.w3.org/TR/did-resolution/#DEACTIVATED
     type: ResolutionError
     context: vocab
