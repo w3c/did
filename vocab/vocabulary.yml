@@ -198,4 +198,45 @@ datatype:
     defined_by: https://www.w3.org/TR/cid-1.0/#multibase
     context: https://w3id.org/security/multikey/v1
 
+individual:
+  - id: INVALID_DID
+    label: Invalid DID
+    comment: The DID supplied to the DID resolution function does not conform to valid syntax.
+    defined_by: https://w3c.github.io/did-resolution/#errors
+    context: vocab
 
+  - id: NOT_FOUND
+    label: Not Found
+    comment: The DID resolver was unable to find the DID document associated with the DID.
+    defined_by: https://w3c.github.io/did-resolution/#errors
+    context: vocab
+
+  - id: REPRESENTATION_NOT_SUPPORTED
+    label: Representation Not Supported
+    comment: The requested representation is not supported by the DID resolver.
+    defined_by: https://w3c.github.io/did-resolution/#errors
+    context: vocab
+
+  - id: METHOD_NOT_SUPPORTED
+    label: Method Not Supported
+    comment: The DID resolver does not support the DID method of the specified DID.
+    defined_by: https://w3c.github.io/did-resolution/#errors
+    context: vocab
+
+  - id: INTERNAL_ERROR
+    label: Internal Error
+    comment: The DID resolver encountered an internal error.
+    defined_by: https://w3c.github.io/did-resolution/#errors
+    context: vocab
+
+  - id: INVALID_DID_DOCUMENT
+    label: Invalid DID Document
+    comment: The DID document was found but it is not a valid DID document.
+    defined_by: https://w3c.github.io/did-resolution/#errors
+    context: vocab
+
+  - id: DEACTIVATED
+    label: Deactivated
+    comment: The DID has been deactivated and the DID document is no longer available.
+    defined_by: https://w3c.github.io/did-resolution/#errors
+    context: vocab
