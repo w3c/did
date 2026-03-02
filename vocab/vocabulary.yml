@@ -251,3 +251,17 @@ individual:
     defined_by: https://www.w3.org/TR/did-resolution/#DEACTIVATED
     type: ResolutionError
     context: vocab
+
+  - id: INVALID_DID_URL
+    label: Invalid DID URL
+    comment: The DID URL supplied to the DID resolution function does not conform to valid syntax.
+    defined_by: https://www.w3.org/TR/did-resolution/#INVALID_DID_URL
+    type: ResolutionError
+    context: vocab
+
+  - id: INVALID_OPTIONS
+    label: Invalid Options
+    comment: The options supplied to the DID resolution function are invalid.
+    defined_by: https://www.w3.org/TR/did-resolution/#INVALID_OPTIONS
+    type: ResolutionError
+    context: vocab
