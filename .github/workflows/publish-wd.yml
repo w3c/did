@@ -17,4 +17,4 @@ jobs:
           W3C_WG_DECISION_URL: https://www.w3.org/2024/09/24-did-minutes.html#r02
           W3C_BUILD_OVERRIDE: |
              shortName: did-1.1
-             specStatus: WD
+             specStatus: CRD
