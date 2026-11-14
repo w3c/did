@@ -1960,6 +1960,15 @@ Relationships</a> of the [[[CID]]] specification for a description of
 [=verification methods=].
       </p>
 
+      <p class="note" title="Selecting among multiple eligible verification methods">
+A [=verification relationship=] can reference more than one [=verification
+method=] that is suitable for a particular task. When an implementation needs
+exactly one [=verification method=] and more than one remains eligible,
+implementers are advised to require that the [=verification method=] be
+explicitly identified, such as by its `id` value, rather than selecting one
+arbitrarily.
+      </p>
+
     </section>
 
     <section>
