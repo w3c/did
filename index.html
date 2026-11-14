@@ -1316,10 +1316,13 @@ dereference a [=DID fragment=], see the [[[?DID-RESOLUTION]]] specification.
         <h2>Relative DID URLs</h2>
 
         <p>
-A relative [=DID URL=] is any URL value in a [=DID document=] that does
-not start with `did:&lt;method-name>:&lt;method-specific-id>`. More
-specifically, it is any URL value that does not start with the ABNF defined in
-[[[#did-syntax]]]. The URL is expected to reference
+A relative [=DID URL=] is a
+<a data-cite="URL#relative-url-with-fragment-string">relative-URL-with-fragment
+string</a>, as defined in the [[[URL]]] standard, that appears as a value in a
+[=DID document=] and does not start with
+`did:&lt;method-name>:&lt;method-specific-id>`. More specifically, it is any
+such value that does not start with the ABNF defined in [[[#did-syntax]]]. The
+relative [=DID URL=] is expected to reference
 a [=resource=] in the same [=DID document=]. Relative [=DID URLs=] MAY
 contain relative path components, query parameters, and fragment identifiers.
         </p>
@@ -1735,7 +1738,7 @@ of the [[[CID]]] specification and Section [[[#verification-methods]]].
             <td>yes</td>
             <td>
 A <a data-cite="INFRA#string">string</a> that conforms to the rules in
-[[[#did-url-syntax]]].
+Section [[[#did-url-syntax]]] or Section [[[#relative-did-urls]]].
             </td>
             <td>
 <a data-cite="CID#subjects">Section 2.1.1: Subjects</a>
@@ -1811,7 +1814,8 @@ of the [[[CID]]] specification.
             <td>yes</td>
             <td>
 A <a data-cite="INFRA#string">string</a> that conforms to the rules of
-either the [[[URL]]] standard, or Section [[[#did-syntax]]].
+the [[[URL]]] standard, Section [[[#did-url-syntax]]], or Section
+[[[#relative-did-urls]]].
             </td>
             <td>
 <a data-cite="CID#subjects">Section 2.1.1: Subjects</a>
@@ -1969,8 +1973,8 @@ Relationships</a> of the [[[CID]]] specification for a description of
 A [=DID document=] can express [=services=], as defined in
 <a data-cite="CID#services">Section 2.1.4: Services</a> of the [[[CID]]]
 specification. Identifiers used in [=services=]
-can be expressed according to Section [[[#did-syntax]]] or
-Section [[[#did-url-syntax]]]. See
+can be expressed according to Section [[[#did-syntax]]],
+Section [[[#did-url-syntax]]], or Section [[[#relative-did-urls]]]. See
 <a data-cite="CID#services">Section 2.1.4: Services</a> of the [[[CID]]]
 specification for a description of [=services=].
       </p>
@@ -3671,6 +3675,14 @@ purposes.
           "assertionMethod": [
             <span class="comment">// Using relative DID URL #key-1 is equivalent to using the absolute DID URL value did:example:123#key-1</span>
             "did:example:123#key-1"
+          ],
+          "service": [
+            {
+              <span class="comment">// A relative DID URL, that will be transformed to the absolute DID URL value did:example:123#linked-domain</span>
+              "id": "#linked-domain",
+              "type": "LinkedDomains",
+              "serviceEndpoint": "https://bar.example.com"
+            }
           ]
       }
       </pre>
