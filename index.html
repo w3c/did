@@ -1316,26 +1316,23 @@ dereference a [=DID fragment=], see the [[[?DID-RESOLUTION]]] specification.
         <h2>Relative DID URLs</h2>
 
         <p>
-A relative [=DID URL=] is a
-<a data-cite="URL#relative-url-with-fragment-string">relative-URL-with-fragment
-string</a>, as defined in the [[[URL]]] standard, that appears as a value in a
-[=DID document=] and does not start with
-`did:&lt;method-name>:&lt;method-specific-id>`. More specifically, it is any
-such value that does not start with the ABNF defined in [[[#did-syntax]]]. The
-relative [=DID URL=] is expected to reference
-a [=resource=] in the same [=DID document=]. Relative [=DID URLs=] MAY
-contain relative path components, query parameters, and fragment identifiers.
+A relative [=DID URL=] is a non-empty string that appears as a value in a [=DID
+document=] and matches `path-abempty [ "?" query ] [ "#" fragment ]`, using the
+rules defined in Section [[[#did-url-syntax]]]. That is, a relative [=DID URL=]
+is the portion of a [=DID URL=] that follows the [=DID=], and it starts with
+`/`, `?`, or `#`. A relative [=DID URL=] MAY contain a path, a query, and a
+fragment, as defined in [[[#path]]], [[[#query]]], and [[[#fragment]]],
+respectively.
         </p>
 
         <p>
-When resolving a relative [=DID URL=] reference, the algorithm specified in
-<a data-cite="RFC3986#section-5">RFC3986 Section 5: Reference Resolution</a>
-MUST be used. The <strong>base URI</strong> value is the [=DID=] that is
-associated with the [=DID subject=], see [[[#did-subject]]]. The
-<strong>scheme</strong> is `did`. The <strong>authority</strong> is a
-combination of `&lt;method-name>:&lt;method-specific-id>`, and the
-<strong>path</strong>, <strong>query</strong>, and <strong>fragment</strong>
-values are those defined in [[[#path]]], [[[#query]]], and [[[#fragment]]],
+A relative [=DID URL=] is resolved to an absolute [=DID URL=] by appending it
+to the [=DID=] that is associated with the [=DID subject=] (see
+[[[#did-subject]]]). The resulting value MUST conform to Section
+[[[#did-url-syntax]]]. For example, resolving the relative [=DID URLs=]
+`#key-1`, `?versionId=1`, and `/path/to/resource` against the [=DID=]
+`did:example:123` results in `did:example:123#key-1`,
+`did:example:123?versionId=1`, and `did:example:123/path/to/resource`,
 respectively.
         </p>
 
