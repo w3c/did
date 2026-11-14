@@ -2893,6 +2893,29 @@ out-of-band mechanism, instead.
         by the method operations are fully conformant, as defined in [[[#conformance]]].
       </p>
 
+      <p>
+A [=DID method=] can express [=DIDs=] that are logically equivalent to the
+resolved [=DID=] by using the
+<a data-cite="DID-RESOLUTION#dfn-equivalentid">`equivalentId`</a> and
+<a data-cite="DID-RESOLUTION#dfn-canonicalid">`canonicalId`</a> [=DID
+document=] metadata properties defined in the [[[DID-RESOLUTION]]]
+specification. The requirements for [=DID method=] specifications that use
+these properties are as follows:
+      </p>
+
+      <ol>
+        <li>
+Each `equivalentId` value, and the `canonicalId` value, MUST be produced by,
+and be a form of, the same [=DID method=] as the `id` property value of the
+[=DID document=].
+        </li>
+        <li>
+A [=DID method=] specification MUST guarantee that each `equivalentId` value,
+and the `canonicalId` value, is logically equivalent to the `id` property value
+of the [=DID document=].
+        </li>
+      </ol>
+
     </section>
 
     <section>
