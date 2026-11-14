@@ -1304,6 +1304,24 @@ interpreted in the same way across non-JSON [=representations=].
         </p>
 
         <p>
+A [=DID controller=] MAY reassign a [=DID fragment=] to a different
+[=resource=] in a later version of a [=DID document=]. For example,
+`did:example:123#signing-key` might identify one [=verification method=] and,
+after a key rotation, identify a different [=verification method=]. As a result,
+a reference to a [=DID URL=] containing a [=DID fragment=] that was made in the
+past, such as in a [=verification method=], can be ambiguous
+unless it also identifies a specific version of the [=DID document=], such as by
+using the `versionId` or `versionTime` parameters defined in
+<a data-cite="DID-RESOLUTION#did-parameters">DID Parameters</a> of the
+[[[DID-RESOLUTION]]] specification. To avoid this ambiguity, the [=DID
+fragment=] of a [=verification method=] identifier SHOULD be derived from the
+key material it identifies, such as a multibase-encoded public key or a hash of
+the public key, so that it remains bound to the same key across all versions of
+the [=DID document=]. See [[[#reuse-of-did-fragments]]] for related security
+considerations.
+        </p>
+
+        <p>
 Additional semantics for fragment identifiers, which are compatible with and
 layered upon the semantics in this section, are specified in the media type
 description (see Section [[[#application-did]]]). For information about how to
@@ -3083,6 +3101,47 @@ beyond that which constitutes cryptographic input -- but this always requires
 a careful judgment about whether a [=DID document=]'s content included the
 expected content at the moment of a signing event.
       </p>
+    </section>
+
+    <section>
+      <h2>Reuse of DID Fragments</h2>
+
+      <p>
+A [=DID controller=] can reassign a [=DID fragment=] to a different
+[=resource=] in a later version of a [=DID document=] (see [[[#fragment]]]).
+That is, the [=resource=] identified by a [=DID URL=] containing a [=DID fragment=] can
+change over time. A system that references such
+a [=DID URL=] can become ambiguous after the [=DID document=] is updated. For
+example, a [=proof=] containing `did:example:123#key-1` cannot be verified
+using the key that `#key-1` identifies after a key rotation.
+      </p>
+
+      <p>
+Implementers are urged to consider the following when processing [=DID URLs=]
+that contain [=DID fragments=]:
+      </p>
+
+      <ul>
+        <li>
+The [=resource=] identified by a [=DID fragment=] is not guaranteed to remain
+the same over time unless the [=DID fragment=] is derived from the key material
+it identifies, or the [=DID URL=] identifies a specific version of the [=DID
+document=].
+        </li>
+        <li>
+When the `versionId` or `versionTime` parameters are used to select a version
+of a [=DID document=], the verifier, not the author of the [=DID URL=], needs to
+determine which version is appropriate. Otherwise, an attacker who has possession of a
+key that was compromised and later rotated out of a [=DID document=] could
+reference an older version of the [=DID document=] in which a [=DID fragment=]
+still identifies the compromised key.
+        </li>
+        <li>
+[=DID fragments=] that are derived from key material, such as a
+multibase-encoded public key, remain bound to the same key across all versions
+of a [=DID document=], which avoids these ambiguities.
+        </li>
+      </ul>
     </section>
 
     <section>
