@@ -1316,23 +1316,23 @@ dereference a [=DID fragment=], see the [[[?DID-RESOLUTION]]] specification.
         <h2>Relative DID URLs</h2>
 
         <p>
-A relative [=DID URL=] is any URL value in a [=DID document=] that does
-not start with `did:&lt;method-name>:&lt;method-specific-id>`. More
-specifically, it is any URL value that does not start with the ABNF defined in
-[[[#did-syntax]]]. The URL is expected to reference
-a [=resource=] in the same [=DID document=]. Relative [=DID URLs=] MAY
-contain relative path components, query parameters, and fragment identifiers.
+A relative [=DID URL=] is a non-empty string that appears as a value in a [=DID
+document=] and matches `path-abempty [ "?" query ] [ "#" fragment ]`, using the
+rules defined in Section [[[#did-url-syntax]]]. That is, a relative [=DID URL=]
+is the portion of a [=DID URL=] that follows the [=DID=], and it starts with
+`/`, `?`, or `#`. A relative [=DID URL=] MAY contain a path, a query, and a
+fragment, as defined in [[[#path]]], [[[#query]]], and [[[#fragment]]],
+respectively.
         </p>
 
         <p>
-When resolving a relative [=DID URL=] reference, the algorithm specified in
-<a data-cite="RFC3986#section-5">RFC3986 Section 5: Reference Resolution</a>
-MUST be used. The <strong>base URI</strong> value is the [=DID=] that is
-associated with the [=DID subject=], see [[[#did-subject]]]. The
-<strong>scheme</strong> is `did`. The <strong>authority</strong> is a
-combination of `&lt;method-name>:&lt;method-specific-id>`, and the
-<strong>path</strong>, <strong>query</strong>, and <strong>fragment</strong>
-values are those defined in [[[#path]]], [[[#query]]], and [[[#fragment]]],
+A relative [=DID URL=] is resolved to an absolute [=DID URL=] by appending it
+to the [=DID=] that is associated with the [=DID subject=] (see
+[[[#did-subject]]]). The resulting value MUST conform to Section
+[[[#did-url-syntax]]]. For example, resolving the relative [=DID URLs=]
+`#key-1`, `?versionId=1`, and `/path/to/resource` against the [=DID=]
+`did:example:123` results in `did:example:123#key-1`,
+`did:example:123?versionId=1`, and `did:example:123/path/to/resource`,
 respectively.
         </p>
 
@@ -1735,7 +1735,7 @@ of the [[[CID]]] specification and Section [[[#verification-methods]]].
             <td>yes</td>
             <td>
 A <a data-cite="INFRA#string">string</a> that conforms to the rules in
-[[[#did-url-syntax]]].
+Section [[[#did-url-syntax]]] or Section [[[#relative-did-urls]]].
             </td>
             <td>
 <a data-cite="CID#subjects">Section 2.1.1: Subjects</a>
@@ -1811,7 +1811,8 @@ of the [[[CID]]] specification.
             <td>yes</td>
             <td>
 A <a data-cite="INFRA#string">string</a> that conforms to the rules of
-either the [[[URL]]] standard, or Section [[[#did-syntax]]].
+the [[[URL]]] standard, Section [[[#did-url-syntax]]], or Section
+[[[#relative-did-urls]]].
             </td>
             <td>
 <a data-cite="CID#subjects">Section 2.1.1: Subjects</a>
@@ -1969,8 +1970,8 @@ Relationships</a> of the [[[CID]]] specification for a description of
 A [=DID document=] can express [=services=], as defined in
 <a data-cite="CID#services">Section 2.1.4: Services</a> of the [[[CID]]]
 specification. Identifiers used in [=services=]
-can be expressed according to Section [[[#did-syntax]]] or
-Section [[[#did-url-syntax]]]. See
+can be expressed according to Section [[[#did-syntax]]],
+Section [[[#did-url-syntax]]], or Section [[[#relative-did-urls]]]. See
 <a data-cite="CID#services">Section 2.1.4: Services</a> of the [[[CID]]]
 specification for a description of [=services=].
       </p>
@@ -3671,6 +3672,14 @@ purposes.
           "assertionMethod": [
             <span class="comment">// Using relative DID URL #key-1 is equivalent to using the absolute DID URL value did:example:123#key-1</span>
             "did:example:123#key-1"
+          ],
+          "service": [
+            {
+              <span class="comment">// A relative DID URL, that will be transformed to the absolute DID URL value did:example:123#linked-domain</span>
+              "id": "#linked-domain",
+              "type": "LinkedDomains",
+              "serviceEndpoint": "https://bar.example.com"
+            }
           ]
       }
       </pre>
