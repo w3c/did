@@ -1316,9 +1316,9 @@ using the `versionId` or `versionTime` parameters defined in
 [[[DID-RESOLUTION]]] specification. To avoid this ambiguity, the [=DID
 fragment=] of a [=verification method=] identifier SHOULD be derived from the
 key material it identifies, such as a multibase-encoded public key or a hash of
-the public key, so that it remains bound to the same key across all versions of
-the [=DID document=]. See [[[#reuse-of-did-fragments]]] for related security
-considerations.
+the public key, so that it communicates intent to refer to the same key across
+all versions of the [=DID document=]. See [[[#reuse-of-did-fragments]]] for
+related security considerations.
         </p>
 
         <p>
@@ -3124,9 +3124,9 @@ that contain [=DID fragments=]:
       <ul>
         <li>
 The [=resource=] identified by a [=DID fragment=] is not guaranteed to remain
-the same over time unless the [=DID fragment=] is derived from the key material
-it identifies, or the [=DID URL=] identifies a specific version of the [=DID
-document=].
+the same over time. A [=DID fragment=] that is derived from the key material
+it identifies enables change detection, and a [=DID URL=] that identifies a specific
+version of the [=DID document=] guarantees reference to the same [=resource=].
         </li>
         <li>
 When the `versionId` or `versionTime` parameters are used to select a version
@@ -3138,8 +3138,8 @@ still identifies the compromised key.
         </li>
         <li>
 [=DID fragments=] that are derived from key material, such as a
-multibase-encoded public key, remain bound to the same key across all versions
-of a [=DID document=], which avoids these ambiguities.
+multibase-encoded public key, indicate intent to refer to the same key across
+all versions of a [=DID document=], which avoids these ambiguities.
         </li>
       </ul>
     </section>
